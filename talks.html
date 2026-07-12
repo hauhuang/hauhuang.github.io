@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>演講與工作坊|黃鼎豪 Huang, Ding-Hau</title>
+<meta name="description" content="黃鼎豪(Huang, Ding-Hau)演講與工作坊——設計思考與跨領域創新,足跡涵蓋中小企業、學校與醫院,近五年累計超過 300 場。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;500&family=Spectral:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --ink:#0E3A3E;          /* 深墨綠 */
+  --teal:#14747B;         /* 主青碧 */
+  --teal-soft:#DCEBEA;    /* 淡青 */
+  --gold:#B8912F;         /* 沉金 */
+  --gold-soft:#E8D9AE;    /* 淡金 */
+  --paper:#F8F6F0;        /* 米白紙 */
+  --mist:#6E8A88;         /* 灰青,說明文字 */
+  --line:#D8E2E0;
+  --white:#FFFFFF;
+  --serif:"Noto Serif TC","Spectral",serif;
+  --sans:"Noto Sans TC",sans-serif;
+  --mono:"IBM Plex Mono",monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;scroll-padding-top:76px;}
+body{font-family:var(--sans);color:var(--ink);background:var(--paper);line-height:1.75;font-size:16px;}
+::selection{background:var(--gold-soft);}
+a{color:var(--teal);text-decoration:none;}
+a:hover{color:var(--gold);}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:2px;}
+
+/* ---------- 導覽列 ---------- */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(248,246,240,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
+.nav-inner{max-width:1080px;margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.nav-name{font-family:var(--serif);font-weight:700;font-size:1.05rem;letter-spacing:.06em;color:var(--ink);}
+.nav-name span{font-family:var(--mono);font-size:.7rem;color:var(--mist);letter-spacing:.14em;margin-left:8px;}
+.nav-links{display:flex;gap:22px;flex-wrap:wrap;}
+.nav-links a{font-size:.85rem;letter-spacing:.08em;color:var(--ink);}
+.nav-links a:hover{color:var(--teal);}
+@media(max-width:760px){.nav-links{display:none;}}
+
+/* ---------- Hero ---------- */
+header.hero{padding:150px 24px 64px;max-width:1080px;margin:0 auto;}
+.eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;margin-bottom:18px;}
+h1.name-zh{font-family:var(--serif);font-weight:900;font-size:clamp(2.6rem,7vw,4.4rem);letter-spacing:.14em;line-height:1.15;}
+.name-en{font-family:"Spectral",var(--serif);font-style:italic;font-size:clamp(1rem,2.4vw,1.35rem);color:var(--teal);letter-spacing:.12em;margin-top:6px;}
+.hero-role{margin-top:22px;font-size:1rem;color:var(--ink);}
+.hero-role b{font-weight:700;}
+.hero-bio{margin-top:18px;max-width:640px;color:#3D5654;font-weight:300;}
+.hero-tags{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px;}
+.tag{font-size:.78rem;letter-spacing:.06em;padding:5px 14px;border:1px solid var(--teal);color:var(--teal);border-radius:999px;background:transparent;}
+.hero-links{margin-top:26px;display:flex;gap:18px;flex-wrap:wrap;font-family:var(--mono);font-size:.78rem;letter-spacing:.1em;}
+.hero-links a{border-bottom:1px solid var(--gold);padding-bottom:2px;color:var(--ink);}
+.hero-links a:hover{color:var(--gold);}
+
+/* ---------- Hero 個人照 ---------- */
+.hero-grid{display:grid;grid-template-columns:1.55fr 1fr;gap:32px;align-items:end;}
+.hero-photo{position:relative;justify-self:center;align-self:end;width:min(88%,300px);margin:0;}
+.hero-photo .arch{display:block;border-radius:170px 170px 10px 10px;overflow:hidden;background:linear-gradient(180deg,var(--teal-soft) 0%,#EDF3F2 100%);border:1px solid var(--line);}
+.hero-photo img{display:block;width:100%;height:auto;}
+.hero-photo::after{content:"";position:absolute;inset:12px -12px -12px 12px;border:1.5px solid var(--gold);border-radius:170px 170px 10px 10px;z-index:-1;}
+@media(max-width:760px){
+  .hero-grid{grid-template-columns:1fr;gap:36px;}
+  .hero-photo{width:min(64%,230px);}
+}
+
+/* ---------- 研究歷程(簽名元素:旅程線) ---------- */
+.journey{max-width:1080px;margin:20px auto 0;padding:0 24px 8px;}
+.journey-title{font-family:var(--mono);font-size:.7rem;letter-spacing:.2em;color:var(--mist);margin-bottom:14px;}
+.journey-track{position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:0;}
+.journey-track::before{content:"";position:absolute;left:2%;right:2%;top:9px;height:2px;background:linear-gradient(90deg,var(--teal) 0%,var(--gold) 100%);}
+.jnode{position:relative;padding-top:26px;padding-right:12px;}
+.jnode::before{content:"";position:absolute;top:3px;left:0;width:14px;height:14px;border-radius:50%;background:var(--paper);border:3px solid var(--teal);}
+.jnode:nth-child(4)::before,.jnode:nth-child(5)::before{border-color:var(--gold);}
+.jnode .jy{font-family:var(--mono);font-size:.68rem;color:var(--mist);letter-spacing:.08em;}
+.jnode .jt{font-family:var(--serif);font-weight:700;font-size:.92rem;margin-top:2px;}
+.jnode .jd{font-size:.76rem;color:var(--mist);line-height:1.5;margin-top:4px;font-weight:300;}
+@media(max-width:760px){.journey-track{grid-template-columns:1fr;}
+.journey-track::before{left:9px;right:auto;top:2%;bottom:2%;width:2px;height:auto;background:linear-gradient(180deg,var(--teal),var(--gold));}
+.jnode{padding:0 0 26px 32px;}
+.jnode::before{top:4px;}}
+
+/* ---------- 區塊通用 ---------- */
+section{max-width:1080px;margin:0 auto;padding:72px 24px 8px;}
+.sec-head{display:flex;align-items:baseline;gap:16px;border-bottom:2px solid var(--ink);padding-bottom:12px;margin-bottom:30px;}
+.sec-head h2{font-family:var(--serif);font-weight:700;font-size:1.7rem;letter-spacing:.1em;}
+.sec-head .sec-en{font-family:"Spectral",serif;font-style:italic;color:var(--gold);font-size:.95rem;letter-spacing:.08em;}
+.sec-head .count{margin-left:auto;font-family:var(--mono);font-size:.75rem;color:var(--mist);}
+
+/* ---------- 研究領域卡片 ---------- */
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px;}
+.field{background:var(--white);border:1px solid var(--line);border-top:3px solid var(--teal);padding:24px 22px;border-radius:4px;}
+.field:nth-child(even){border-top-color:var(--gold);}
+.field h3{font-family:var(--serif);font-size:1.08rem;font-weight:700;letter-spacing:.05em;}
+.field .fen{font-family:var(--mono);font-size:.66rem;color:var(--mist);letter-spacing:.1em;display:block;margin:4px 0 10px;}
+.field p{font-size:.85rem;color:#3D5654;font-weight:300;line-height:1.7;}
+
+/* ---------- 數據帶 ---------- */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:34px;border-radius:4px;overflow:hidden;}
+.stat{background:var(--white);padding:18px 14px;text-align:center;}
+.stat .n{font-family:var(--serif);font-size:1.8rem;font-weight:900;color:var(--teal);}
+.stat .n em{font-style:normal;color:var(--gold);font-size:1rem;}
+.stat .l{font-size:.74rem;color:var(--mist);letter-spacing:.08em;margin-top:2px;}
+
+/* ---------- Tabs ---------- */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px;}
+.tab-btn{font-family:var(--sans);font-size:.86rem;letter-spacing:.08em;padding:8px 20px;border:1px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;border-radius:2px;}
+.tab-btn[aria-selected="true"]{background:var(--ink);color:var(--gold-soft);}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+/* ---------- 出版清單 ---------- */
+ol.pubs{list-style:none;counter-reset:pub;}
+ol.pubs li{counter-increment:pub;position:relative;padding:14px 0 14px 58px;border-bottom:1px solid var(--line);font-size:.9rem;color:#2E4A48;font-weight:300;}
+ol.pubs li::before{content:counter(pub,decimal-leading-zero);position:absolute;left:0;top:16px;font-family:var(--mono);font-size:.72rem;color:var(--gold);letter-spacing:.05em;}
+ol.pubs b{font-weight:700;color:var(--ink);}
+ol.pubs i{font-style:italic;}
+.badge{display:inline-block;font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;color:var(--teal);border:1px solid var(--teal-soft);background:var(--teal-soft);padding:1px 8px;border-radius:999px;margin-left:8px;vertical-align:1px;white-space:nowrap;}
+.badge.gold{color:#8A6C1D;background:var(--gold-soft);border-color:var(--gold-soft);}
+
+details.more{margin-top:4px;}
+details.more>summary{list-style:none;cursor:pointer;font-family:var(--mono);font-size:.76rem;letter-spacing:.14em;color:var(--teal);padding:16px 0;text-align:center;}
+details.more>summary::-webkit-details-marker{display:none;}
+details.more>summary::after{content:" ▾ 顯示全部";}
+details.more[open]>summary::after{content:" ▴ 收合";}
+details.more>summary:hover{color:var(--gold);}
+
+/* ---------- 計畫 / 專利 ---------- */
+.grant-group{margin-bottom:34px;}
+.grant-group h3{font-family:var(--serif);font-size:1.12rem;font-weight:700;letter-spacing:.06em;margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.grant-group h3::before{content:"";width:22px;height:2px;background:var(--gold);}
+ul.grants{list-style:none;}
+ul.grants li{padding:10px 0 10px 0;border-bottom:1px dashed var(--line);font-size:.88rem;font-weight:300;color:#2E4A48;display:flex;gap:16px;}
+ul.grants .gy{font-family:var(--mono);font-size:.72rem;color:var(--mist);flex:0 0 128px;padding-top:3px;}
+@media(max-width:600px){ul.grants li{flex-direction:column;gap:2px;}ul.grants .gy{flex:none;}}
+
+/* ---------- 指導 / 榮譽 ---------- */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:40px;}
+@media(max-width:820px){.two-col{grid-template-columns:1fr;}}
+ul.plain{list-style:none;}
+ul.plain li{padding:8px 0;border-bottom:1px dashed var(--line);font-size:.87rem;font-weight:300;color:#2E4A48;}
+ul.plain li b{font-weight:500;color:var(--ink);}
+.year-chip{font-family:var(--mono);font-size:.68rem;color:var(--gold);margin-right:10px;}
+
+/* ---------- 演講與工作坊 ---------- */
+.talks-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:36px;align-items:start;}
+@media(max-width:820px){.talks-grid{grid-template-columns:1fr;}}
+.talks-photo{margin:0;}
+.talks-photo img{display:block;width:100%;height:auto;border-radius:6px;border:1px solid var(--line);}
+.talks-photo figcaption{font-family:var(--mono);font-size:.68rem;color:var(--mist);letter-spacing:.1em;margin-top:10px;text-align:right;}
+.talks-lede{font-size:.92rem;color:#3D5654;font-weight:300;margin-bottom:20px;max-width:640px;}
+
+/* ---------- Footer ---------- */
+footer{margin-top:90px;background:var(--ink);color:#CFE0DE;}
+.foot-inner{max-width:1080px;margin:0 auto;padding:56px 24px 40px;display:grid;grid-template-columns:1.4fr 1fr;gap:40px;}
+@media(max-width:700px){.foot-inner{grid-template-columns:1fr;}}
+.foot-inner h2{font-family:var(--serif);color:var(--gold-soft);font-size:1.4rem;letter-spacing:.12em;margin-bottom:14px;}
+.foot-inner p{font-size:.86rem;font-weight:300;line-height:1.9;}
+.foot-inner a{color:var(--gold-soft);border-bottom:1px solid rgba(232,217,174,.4);}
+.foot-inner a:hover{color:#fff;}
+.foot-meta{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;color:#7FA09D;border-top:1px solid rgba(255,255,255,.12);max-width:1080px;margin:0 auto;padding:18px 24px 26px;}
+@media(prefers-reduced-motion:no-preference){
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease;}
+  .reveal.in{opacity:1;transform:none;}
+}
+
+/* ---------- 多頁導覽 ---------- */
+.nav-toggle{display:none;background:none;border:1px solid var(--ink);border-radius:3px;width:40px;height:34px;cursor:pointer;position:relative;}
+.nav-toggle span,.nav-toggle span::before,.nav-toggle span::after{content:"";position:absolute;left:9px;right:9px;height:2px;background:var(--ink);transition:transform .25s ease,opacity .25s ease;}
+.nav-toggle span{top:15px;}
+.nav-toggle span::before{top:-6px;left:0;right:0;}
+.nav-toggle span::after{top:6px;left:0;right:0;}
+.nav-toggle[aria-expanded="true"] span{background:transparent;}
+.nav-toggle[aria-expanded="true"] span::before{transform:translateY(6px) rotate(45deg);}
+.nav-toggle[aria-expanded="true"] span::after{transform:translateY(-6px) rotate(-45deg);}
+.nav-links a.active{color:var(--gold);border-bottom:2px solid var(--gold);padding-bottom:3px;}
+@media(max-width:760px){
+  .nav-toggle{display:block;}
+  .nav-links{display:none;position:absolute;top:64px;left:0;right:0;background:var(--paper);border-bottom:1px solid var(--line);flex-direction:column;gap:0;padding:6px 0;box-shadow:0 10px 24px rgba(14,58,62,.08);}
+  .nav-links.open{display:flex;}
+  .nav-links a{padding:13px 26px;font-size:.95rem;border-bottom:1px dashed var(--line);}
+  .nav-links a:last-child{border-bottom:none;}
+  .nav-links a.active{border-bottom:1px dashed var(--line);background:var(--teal-soft);}
+}
+/* ---------- 子頁頁首 ---------- */
+.page-head{max-width:1080px;margin:0 auto;padding:128px 24px 0;}
+.page-head .eyebrow{margin-bottom:10px;}
+.page-head h1{font-family:var(--serif);font-weight:900;font-size:clamp(1.9rem,5vw,2.8rem);letter-spacing:.12em;}
+.page-head .lede{margin-top:10px;max-width:620px;color:#3D5654;font-weight:300;font-size:.95rem;}
+.page-head + section{padding-top:40px;}
+/* ---------- 可點擊統計 ---------- */
+a.stat{display:block;color:inherit;transition:background .2s ease;}
+a.stat:hover{background:var(--teal-soft);}
+a.stat:hover .l{color:var(--teal);}
+
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-name" style="color:inherit">黃鼎豪<span>HUANG, DING-HAU</span></a>
+    <button class="nav-toggle" aria-expanded="false" aria-label="開啟選單" onclick="toggleNav(this)"><span></span></button>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">首頁</a>
+      <a href="publications.html">學術著作</a>
+      <a href="grants.html">研究計畫</a>
+      <a href="honors.html">榮譽與專利</a>
+      <a href="advising.html">碩士論文指導</a>
+      <a href="talks.html" class="active">演講與工作坊</a>
+      <a href="#contact">聯絡</a>
+    </div>
+  </div>
+</nav>
+<div class="page-head">
+  <div class="eyebrow">TALKS &amp; WORKSHOPS</div>
+  <h1>演講與工作坊</h1>
+  <p class="lede">足跡涵蓋中小企業、學校與醫院,對象包括企業主、醫護人員、教師與大學生;主題聚焦設計思考與跨領域創新,近五年累計超過 300 場。以下為常設工作坊主題與近期場次紀錄。</p>
+</div>
+<section>
+  <div class="sec-head"><h2>工作坊主題</h2><span class="sec-en">Workshop Series</span><span class="count">10 類</span></div>
+  <p class="talks-lede">工作坊主題涵蓋教師設計思考培力、PBL 課程設計、學習評量尺規、利害關係人分析、循環經濟教學創新、AI 導入與流程優化、價值驅動行銷、醫療照護服務創新,以及社區場域連結與地方實踐。整體特色在於結合設計思考、問題定義、使用者洞察、跨域共創與可執行的行動方案,協助教師、醫護人員、企業團隊與社會實踐夥伴,將複雜議題轉化為可理解、可設計、可驗證的創新方案。</p>
+  <ol class="pubs">
+    <li><b>跨領域設計思考教師培力工作坊</b></li>
+    <li><b>PBL 課程設計與學習評量尺規工作坊</b></li>
+    <li><b>場域連結、社區共創與地方實踐工作坊</b></li>
+    <li><b>利害關係人分析與共創溝通工作坊</b></li>
+    <li><b>永續轉型、循環經濟與淨零教學創新工作坊</b></li>
+    <li><b>AI 賦能跨域創新與教學設計工作坊</b></li>
+    <li><b>AI 專案導入、流程探勘與資料確認工作坊</b></li>
+    <li><b>醫療照護、高齡健康與照護品質設計思考工作坊</b></li>
+    <li><b>價值定位、品牌轉譯與行銷設計思考工作坊</b></li>
+    <li><b>服務創新、流程優化與企業問題重構工作坊</b></li>
+  </ol>
+  <p class="talks-lede" style="margin-top:22px;">各主題均可依場域需求組合模組、客製內容與時數。</p>
+</section>
+<section>
+  <div class="sec-head"><h2>場次紀錄</h2><span class="sec-en">Talks in 2026</span><span class="count">21 場</span></div>
+  <div class="talks-grid">
+    <div>
+      <ul class="plain">
+        <li><span class="year-chip">07/09</span><b>洞察問題 × 精準行動</b> — 中小企業經營領袖研習班</li>
+        <li><span class="year-chip">07/06</span><b>循環經濟教學創新師培工作坊</b> — 臺北科技大學</li>
+        <li><span class="year-chip">07/04–05</span><b>堉璘師訓初進階工作坊</b> — 大同大學</li>
+        <li><span class="year-chip">07/02</span><b>智慧城市中的無人載具安全與數據隱私設計思考工作坊</b> — 明志科技大學</li>
+        <li><span class="year-chip">06/27–28</span><b>河好如初設計思考工作坊</b> — 清華大學</li>
+        <li><span class="year-chip">06/24</span><b>設計思考化淨零碳排學習評量尺規設計</b> — 中央大學</li>
+        <li><span class="year-chip">06/17</span><b>AI 賦能 × 設計思考</b> — 健行科技大學</li>
+        <li><span class="year-chip">06/06</span><b>AI 應用與教學創新工作坊</b> — 亞東科技大學</li>
+      </ul>
+      <ul class="plain">
+          <li><span class="year-chip">05/28</span><b>設計思考於跨域教學及醫護相關議題合作之經驗分享</b> — 中山醫學大學</li>
+          <li><span class="year-chip">05/22</span><b>照護品質的設計思考(二)</b> — 中山醫學大學</li>
+          <li><span class="year-chip">05/09</span><b>照護品質的設計思考(一)</b> — 中山醫學大學</li>
+          <li><span class="year-chip">04/17・05/08</span><b>高齡飲食設計思考工作坊</b> — 馬偕護專</li>
+        <li><span class="year-chip">04/18</span><b>從設計思考出發:AI 時代設計專業的跨域競爭力</b> — 長庚大學</li>
+            <li><span class="year-chip">02/23–24</span><b>智慧醫療營運與實作工作坊</b> — 聯新國際醫院</li>
+          <li><span class="year-chip">01/30</span><b>中華中小企業領袖協會設計思考工作坊</b></li>
+          <li><span class="year-chip">01/28</span><b>堉璘基金會高中師培工作坊</b> — 師大附中</li>
+          <li><span class="year-chip">01/19–20</span><b>新工程:AI 驅動的智慧能源管理工作坊</b> — 明志科技大學</li>
+          <li><span class="year-chip">01/15</span><b>伊甸象圈工作坊</b> — 伊甸基金會</li>
+          <li><span class="year-chip">01/12</span><b>工作坊觀課</b> — 聯新醫院</li>
+          <li><span class="year-chip">01/10–11</span><b>河好如初工作坊</b></li>
+      </ul>
+    </div>
+    <figure class="talks-photo">
+      <img src="assets/talk.webp" alt="黃鼎豪於工作坊授課現場" width="880" height="912" loading="lazy">
+      <figcaption>中小企業領袖研習班・授課現場</figcaption>
+    </figure>
+  </div>
+</section>
+<footer id="contact">
+  <div class="foot-inner">
+    <div>
+      <h2>聯絡方式 Contact</h2>
+      <p>國立臺北商業大學 創意設計與經營研究所<br>
+      Institute of Creative Design and Management,<br>
+      National Taipei University of Business<br><br>
+      Email:<a href="mailto:hauhuang@ntub.edu.tw"> hauhuang@ntub.edu.tw</a><br>
+      歡迎研究合作、演講與工作坊邀約、碩士班報考諮詢。</p>
+    </div>
+    <div>
+      <h2>連結 Links</h2>
+      <p><a href="https://scholar.google.com/citations?user=NPbVMncAAAAJ&amp;hl=zh-TW" target="_blank" rel="noopener">Google Scholar</a><br>
+      <a href="https://github.com/hauhuang">GitHub — hauhuang</a><br>
+      <a href="https://icdm.ntub.edu.tw/" target="_blank" rel="noopener">研究所網站</a></p>
+    </div>
+  </div>
+  <div class="foot-meta">© 2026 HUANG, DING-HAU · iDT LAB · BUILT WITH TEAL &amp; GOLD</div>
+</footer>
+<script>
+function toggleNav(btn){const m=document.getElementById('navLinks');const open=m.classList.toggle('open');btn.setAttribute('aria-expanded',open);}
+document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>{document.getElementById('navLinks').classList.remove('open');const b=document.querySelector('.nav-toggle');if(b)b.setAttribute('aria-expanded','false');}));
+const btns=document.querySelectorAll('.tab-btn');
+btns.forEach(b=>b.addEventListener('click',()=>{
+  btns.forEach(x=>x.setAttribute('aria-selected','false'));
+  b.setAttribute('aria-selected','true');
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+b.dataset.tab).classList.add('active');
+}));
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

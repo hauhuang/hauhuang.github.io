@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>學術著作|黃鼎豪 Huang, Ding-Hau</title>
+<meta name="description" content="黃鼎豪學術著作:SSCI/SCI 期刊論文、Springer LNCS 與 AHFE 專書論文、國內外研討會論文完整列表。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;500&family=Spectral:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --ink:#0E3A3E;          /* 深墨綠 */
+  --teal:#14747B;         /* 主青碧 */
+  --teal-soft:#DCEBEA;    /* 淡青 */
+  --gold:#B8912F;         /* 沉金 */
+  --gold-soft:#E8D9AE;    /* 淡金 */
+  --paper:#F8F6F0;        /* 米白紙 */
+  --mist:#6E8A88;         /* 灰青,說明文字 */
+  --line:#D8E2E0;
+  --white:#FFFFFF;
+  --serif:"Noto Serif TC","Spectral",serif;
+  --sans:"Noto Sans TC",sans-serif;
+  --mono:"IBM Plex Mono",monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;scroll-padding-top:76px;}
+body{font-family:var(--sans);color:var(--ink);background:var(--paper);line-height:1.75;font-size:16px;}
+::selection{background:var(--gold-soft);}
+a{color:var(--teal);text-decoration:none;}
+a:hover{color:var(--gold);}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:2px;}
+
+/* ---------- 導覽列 ---------- */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(248,246,240,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
+.nav-inner{max-width:1080px;margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.nav-name{font-family:var(--serif);font-weight:700;font-size:1.05rem;letter-spacing:.06em;color:var(--ink);}
+.nav-name span{font-family:var(--mono);font-size:.7rem;color:var(--mist);letter-spacing:.14em;margin-left:8px;}
+.nav-links{display:flex;gap:22px;flex-wrap:wrap;}
+.nav-links a{font-size:.85rem;letter-spacing:.08em;color:var(--ink);}
+.nav-links a:hover{color:var(--teal);}
+@media(max-width:760px){.nav-links{display:none;}}
+
+/* ---------- Hero ---------- */
+header.hero{padding:150px 24px 64px;max-width:1080px;margin:0 auto;}
+.eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;margin-bottom:18px;}
+h1.name-zh{font-family:var(--serif);font-weight:900;font-size:clamp(2.6rem,7vw,4.4rem);letter-spacing:.14em;line-height:1.15;}
+.name-en{font-family:"Spectral",var(--serif);font-style:italic;font-size:clamp(1rem,2.4vw,1.35rem);color:var(--teal);letter-spacing:.12em;margin-top:6px;}
+.hero-role{margin-top:22px;font-size:1rem;color:var(--ink);}
+.hero-role b{font-weight:700;}
+.hero-bio{margin-top:18px;max-width:640px;color:#3D5654;font-weight:300;}
+.hero-tags{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px;}
+.tag{font-size:.78rem;letter-spacing:.06em;padding:5px 14px;border:1px solid var(--teal);color:var(--teal);border-radius:999px;background:transparent;}
+.hero-links{margin-top:26px;display:flex;gap:18px;flex-wrap:wrap;font-family:var(--mono);font-size:.78rem;letter-spacing:.1em;}
+.hero-links a{border-bottom:1px solid var(--gold);padding-bottom:2px;color:var(--ink);}
+.hero-links a:hover{color:var(--gold);}
+
+/* ---------- 研究歷程(簽名元素:旅程線) ---------- */
+.journey{max-width:1080px;margin:20px auto 0;padding:0 24px 8px;}
+.journey-title{font-family:var(--mono);font-size:.7rem;letter-spacing:.2em;color:var(--mist);margin-bottom:14px;}
+.journey-track{position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:0;}
+.journey-track::before{content:"";position:absolute;left:2%;right:2%;top:9px;height:2px;background:linear-gradient(90deg,var(--teal) 0%,var(--gold) 100%);}
+.jnode{position:relative;padding-top:26px;padding-right:12px;}
+.jnode::before{content:"";position:absolute;top:3px;left:0;width:14px;height:14px;border-radius:50%;background:var(--paper);border:3px solid var(--teal);}
+.jnode:nth-child(4)::before,.jnode:nth-child(5)::before{border-color:var(--gold);}
+.jnode .jy{font-family:var(--mono);font-size:.68rem;color:var(--mist);letter-spacing:.08em;}
+.jnode .jt{font-family:var(--serif);font-weight:700;font-size:.92rem;margin-top:2px;}
+.jnode .jd{font-size:.76rem;color:var(--mist);line-height:1.5;margin-top:4px;font-weight:300;}
+@media(max-width:760px){.journey-track{grid-template-columns:1fr;}
+.journey-track::before{left:9px;right:auto;top:2%;bottom:2%;width:2px;height:auto;background:linear-gradient(180deg,var(--teal),var(--gold));}
+.jnode{padding:0 0 26px 32px;}
+.jnode::before{top:4px;}}
+
+/* ---------- 區塊通用 ---------- */
+section{max-width:1080px;margin:0 auto;padding:72px 24px 8px;}
+.sec-head{display:flex;align-items:baseline;gap:16px;border-bottom:2px solid var(--ink);padding-bottom:12px;margin-bottom:30px;}
+.sec-head h2{font-family:var(--serif);font-weight:700;font-size:1.7rem;letter-spacing:.1em;}
+.sec-head .sec-en{font-family:"Spectral",serif;font-style:italic;color:var(--gold);font-size:.95rem;letter-spacing:.08em;}
+.sec-head .count{margin-left:auto;font-family:var(--mono);font-size:.75rem;color:var(--mist);}
+
+/* ---------- 研究領域卡片 ---------- */
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px;}
+.field{background:var(--white);border:1px solid var(--line);border-top:3px solid var(--teal);padding:24px 22px;border-radius:4px;}
+.field:nth-child(even){border-top-color:var(--gold);}
+.field h3{font-family:var(--serif);font-size:1.08rem;font-weight:700;letter-spacing:.05em;}
+.field .fen{font-family:var(--mono);font-size:.66rem;color:var(--mist);letter-spacing:.1em;display:block;margin:4px 0 10px;}
+.field p{font-size:.85rem;color:#3D5654;font-weight:300;line-height:1.7;}
+
+/* ---------- 數據帶 ---------- */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:34px;border-radius:4px;overflow:hidden;}
+.stat{background:var(--white);padding:18px 14px;text-align:center;}
+.stat .n{font-family:var(--serif);font-size:1.8rem;font-weight:900;color:var(--teal);}
+.stat .n em{font-style:normal;color:var(--gold);font-size:1rem;}
+.stat .l{font-size:.74rem;color:var(--mist);letter-spacing:.08em;margin-top:2px;}
+
+/* ---------- Tabs ---------- */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px;}
+.tab-btn{font-family:var(--sans);font-size:.86rem;letter-spacing:.08em;padding:8px 20px;border:1px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;border-radius:2px;}
+.tab-btn[aria-selected="true"]{background:var(--ink);color:var(--gold-soft);}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+/* ---------- 出版清單 ---------- */
+ol.pubs{list-style:none;counter-reset:pub;}
+ol.pubs li{counter-increment:pub;position:relative;padding:14px 0 14px 58px;border-bottom:1px solid var(--line);font-size:.9rem;color:#2E4A48;font-weight:300;}
+ol.pubs li::before{content:counter(pub,decimal-leading-zero);position:absolute;left:0;top:16px;font-family:var(--mono);font-size:.72rem;color:var(--gold);letter-spacing:.05em;}
+ol.pubs b{font-weight:700;color:var(--ink);}
+ol.pubs i{font-style:italic;}
+.badge{display:inline-block;font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;color:var(--teal);border:1px solid var(--teal-soft);background:var(--teal-soft);padding:1px 8px;border-radius:999px;margin-left:8px;vertical-align:1px;white-space:nowrap;}
+.badge.gold{color:#8A6C1D;background:var(--gold-soft);border-color:var(--gold-soft);}
+
+details.more{margin-top:4px;}
+details.more>summary{list-style:none;cursor:pointer;font-family:var(--mono);font-size:.76rem;letter-spacing:.14em;color:var(--teal);padding:16px 0;text-align:center;}
+details.more>summary::-webkit-details-marker{display:none;}
+details.more>summary::after{content:" ▾ 顯示全部";}
+details.more[open]>summary::after{content:" ▴ 收合";}
+details.more>summary:hover{color:var(--gold);}
+
+/* ---------- 計畫 / 專利 ---------- */
+.grant-group{margin-bottom:34px;}
+.grant-group h3{font-family:var(--serif);font-size:1.12rem;font-weight:700;letter-spacing:.06em;margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.grant-group h3::before{content:"";width:22px;height:2px;background:var(--gold);}
+ul.grants{list-style:none;}
+ul.grants li{padding:10px 0 10px 0;border-bottom:1px dashed var(--line);font-size:.88rem;font-weight:300;color:#2E4A48;display:flex;gap:16px;}
+ul.grants .gy{font-family:var(--mono);font-size:.72rem;color:var(--mist);flex:0 0 128px;padding-top:3px;}
+@media(max-width:600px){ul.grants li{flex-direction:column;gap:2px;}ul.grants .gy{flex:none;}}
+
+/* ---------- 指導 / 榮譽 ---------- */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:40px;}
+@media(max-width:820px){.two-col{grid-template-columns:1fr;}}
+ul.plain{list-style:none;}
+ul.plain li{padding:8px 0;border-bottom:1px dashed var(--line);font-size:.87rem;font-weight:300;color:#2E4A48;}
+ul.plain li b{font-weight:500;color:var(--ink);}
+.year-chip{font-family:var(--mono);font-size:.68rem;color:var(--gold);margin-right:10px;}
+
+/* ---------- Footer ---------- */
+footer{margin-top:90px;background:var(--ink);color:#CFE0DE;}
+.foot-inner{max-width:1080px;margin:0 auto;padding:56px 24px 40px;display:grid;grid-template-columns:1.4fr 1fr;gap:40px;}
+@media(max-width:700px){.foot-inner{grid-template-columns:1fr;}}
+.foot-inner h2{font-family:var(--serif);color:var(--gold-soft);font-size:1.4rem;letter-spacing:.12em;margin-bottom:14px;}
+.foot-inner p{font-size:.86rem;font-weight:300;line-height:1.9;}
+.foot-inner a{color:var(--gold-soft);border-bottom:1px solid rgba(232,217,174,.4);}
+.foot-inner a:hover{color:#fff;}
+.foot-meta{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;color:#7FA09D;border-top:1px solid rgba(255,255,255,.12);max-width:1080px;margin:0 auto;padding:18px 24px 26px;}
+@media(prefers-reduced-motion:no-preference){
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease;}
+  .reveal.in{opacity:1;transform:none;}
+}
+
+/* ---------- 多頁導覽 ---------- */
+.nav-toggle{display:none;background:none;border:1px solid var(--ink);border-radius:3px;width:40px;height:34px;cursor:pointer;position:relative;}
+.nav-toggle span,.nav-toggle span::before,.nav-toggle span::after{content:"";position:absolute;left:9px;right:9px;height:2px;background:var(--ink);transition:transform .25s ease,opacity .25s ease;}
+.nav-toggle span{top:15px;}
+.nav-toggle span::before{top:-6px;left:0;right:0;}
+.nav-toggle span::after{top:6px;left:0;right:0;}
+.nav-toggle[aria-expanded="true"] span{background:transparent;}
+.nav-toggle[aria-expanded="true"] span::before{transform:translateY(6px) rotate(45deg);}
+.nav-toggle[aria-expanded="true"] span::after{transform:translateY(-6px) rotate(-45deg);}
+.nav-links a.active{color:var(--gold);border-bottom:2px solid var(--gold);padding-bottom:3px;}
+@media(max-width:760px){
+  .nav-toggle{display:block;}
+  .nav-links{display:none;position:absolute;top:64px;left:0;right:0;background:var(--paper);border-bottom:1px solid var(--line);flex-direction:column;gap:0;padding:6px 0;box-shadow:0 10px 24px rgba(14,58,62,.08);}
+  .nav-links.open{display:flex;}
+  .nav-links a{padding:13px 26px;font-size:.95rem;border-bottom:1px dashed var(--line);}
+  .nav-links a:last-child{border-bottom:none;}
+  .nav-links a.active{border-bottom:1px dashed var(--line);background:var(--teal-soft);}
+}
+/* ---------- 子頁頁首 ---------- */
+.page-head{max-width:1080px;margin:0 auto;padding:128px 24px 0;}
+.page-head .eyebrow{margin-bottom:10px;}
+.page-head h1{font-family:var(--serif);font-weight:900;font-size:clamp(1.9rem,5vw,2.8rem);letter-spacing:.12em;}
+.page-head .lede{margin-top:10px;max-width:620px;color:#3D5654;font-weight:300;font-size:.95rem;}
+.page-head + section{padding-top:40px;}
+/* ---------- 可點擊統計 ---------- */
+a.stat{display:block;color:inherit;transition:background .2s ease;}
+a.stat:hover{background:var(--teal-soft);}
+a.stat:hover .l{color:var(--teal);}
+
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-name" style="color:inherit">黃鼎豪<span>HUANG, DING-HAU</span></a>
+    <button class="nav-toggle" aria-expanded="false" aria-label="開啟選單" onclick="toggleNav(this)"><span></span></button>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">首頁</a>
+      <a href="publications.html" class="active">學術著作</a>
+      <a href="grants.html">研究計畫</a>
+      <a href="honors.html">榮譽與專利</a>
+      <a href="advising.html">碩士論文指導</a>
+      <a href="talks.html">演講與工作坊</a>
+      <a href="#contact">聯絡</a>
+    </div>
+  </div>
+</nav>
+<div class="page-head">
+  <div class="eyebrow">PUBLICATIONS</div>
+  <h1>學術著作</h1>
+  <p class="lede">期刊論文 25 篇、專書論文 17 篇、研討會論文 60 餘篇;點選分頁切換類別,長清單可展開全部。</p>
+</div>
+<section class="reveal" id="pubs">
+  <div class="tabs" role="tablist">
+    <button class="tab-btn" role="tab" aria-selected="true" data-tab="journal">期刊論文</button>
+    <button class="tab-btn" role="tab" aria-selected="false" data-tab="book">專書論文</button>
+    <button class="tab-btn" role="tab" aria-selected="false" data-tab="conf">研討會論文</button>
+  </div>
+
+  <div class="tab-panel active" id="panel-journal">
+    <ol class="pubs">
+      <li>Wu, C. C., <b>Huang, D. H.</b>, Huang, K. C., &amp; Liu, Y. C. (2025). Modelling social media engagement and life satisfaction among older Taiwanese adults: The roles of technology anxiety, attitudes, and psychological well-being using PLS-SEM. <i>Educational Gerontology</i>, 1–23.<span class="badge">SSCI</span></li>
+      <li>鍾久芳、<b>黃鼎豪</b>(2025)。消費者對藝術衍生品購買意圖影響因素研究。<i>休閒研究</i>,15(1),1–13。</li>
+      <li>Wang, M. C., Chuang, C. C., <b>Huang, D. H.</b> (2025). 3D VR videos enhance empathy, involvement, and alcoholic beverage purchase intentions: The differences across generations. <i>資訊管理學報</i>, 32(3), 197–232.<span class="badge">TSSCI</span></li>
+      <li>Liu, H. Y., Han, H. M., Chen, H. F., Han, C. Y., <b>Huang, D. H.</b>, Hsu, D. Y., &amp; Chiang, C. H. (2024). Team interaction behaviors correlates with team creativity among nursing students: Canonical correlation and moderation analyses. <i>BMC Nursing</i>, 23(1), 484.<span class="badge">SSCI/SCIE</span></li>
+      <li>Xiao, Y. M., <b>Huang, D. H.</b>, &amp; Lin, R. T. (2023). Integrating Elder and Youth into Co-Design Approach—A Case Study of Medication Aids Design. <i>Creative Education</i>, 14(10), 1914–1944.</li>
+      <li>Liu, C., Chen, H., Liang, Y. C., Hsu, S. E., <b>Huang, D. H.</b>, Liu, C. Y., &amp; Chiou, W. K. (2022). The effect of loving-kindness meditation on employees' mindfulness, affect, altruism and knowledge hiding. <i>BMC Psychology</i>, 10(1), 1–15.<span class="badge">SSCI</span></li>
+      <li>Liu, C., Chen, H., Zhou, F., Chiang, C. H., Chen, Y. L., Wu, K., <b>Huang, D. H.</b>, Liu, C. Y., &amp; Chiou, W. K. (2022). Effects of animated pedagogical agent-guided loving-kindness meditation on flight attendants' spirituality, mindfulness, subjective wellbeing, and social presence. <i>Frontiers in Psychology</i>, 13, 894220.<span class="badge">SSCI</span></li>
+      <li>Chen, H., Liu, C., Zhou, F., Chiang, C. H., Chen, Y. L., Wu, K., <b>Huang, D. H.</b>, Liu, C. Y., &amp; Chiou, W. K. (2022). The effect of animation-guided mindfulness meditation on the promotion of creativity, flow and affect. <i>Frontiers in Psychology</i>, 13, 894337.<span class="badge">SSCI</span></li>
+      <li>Chen, H., Liu, C., Zhou, F., Cao, X. Y., Wu, K., Chen, Y. L., Liu, C. Y., <b>Huang, D. H.</b>, &amp; Chiou, W. K. (2022). Focused-Attention Meditation Improves Flow, Communication Skills, and Safety Attitudes of Surgeons. <i>International Journal of Environmental Research and Public Health</i>, 19(9), 5292.<span class="badge">SSCI</span></li>
+      <li>Liu, H. Y., Hsu, D. Y., Han, H. M., Wang, I., Chen, N. H., Han, C. Y., … &amp; <b>Huang, D. H.</b> (2022). Effectiveness of Interdisciplinary Teaching on Creativity: A Quasi-Experimental Study. <i>International Journal of Environmental Research and Public Health</i>, 19(10), 5875.<span class="badge">SSCI</span></li>
+      <details class="more"><summary></summary>
+      <li>Liu, C., Chen, H., Cao, X., Sun, Y., Liu, C. Y., Wu, K., Liang, Y. C., Hsu, S. E., <b>Huang, D. H.</b>, &amp; Chiou, W. K. (2022). Effects of mindfulness meditation on doctors' mindfulness, patient safety culture, patient safety competency and adverse event. <i>International Journal of Environmental Research and Public Health</i>, 19(6), 3282.<span class="badge">SSCI</span></li>
+      <li>Chen, H., Liu, C., Hsu, S. E., <b>Huang, D. H.</b>, Liu, C. Y., &amp; Chiou, W. K. (2021). The Effects of Animation on the Guessability of Universal Healthcare Symbols for Middle-Aged and Older Adults. <i>Human Factors</i>.<span class="badge">SSCI</span></li>
+      <li>Liu, H. Y., Chen, N. H., Wang, I. T., Wu, S. M., Han, C. Y., Hsu, D. Y., … &amp; <b>Huang, D. H.</b> (2021). Predictors of individually perceived levels of team creativity for teams of nursing students in Taiwan: A cross-sectional study. <i>Journal of Professional Nursing</i>, 37(2), 272–280.<span class="badge">SSCI</span></li>
+      <li>Chen, H., Liu, C., Cao, X., Hong, B., <b>Huang, D. H.</b>, Liu, C. Y., &amp; Chiou, W. K. (2021). Effects of Loving-Kindness Meditation on Doctors' Mindfulness, Empathy, and Communication Skills. <i>International Journal of Environmental Research and Public Health</i>, 18(8), 4033.<span class="badge">SSCI</span></li>
+      <li>Liu, H. Y., Wang, I. T., Hsu, D. Y., <b>Huang, D. H.</b>, Chen, N. H., Han, C. Y., &amp; Han, H. M. (2020). Conflict and interactions on interdisciplinary nursing student teams: The moderating effects of spontaneous communication. <i>Nurse Education Today</i>, 94, 104562.<span class="badge">SSCI</span></li>
+      <li>Liu, H. Y., Wang, I. T., Han, H. M., <b>Huang, D. H.</b>, &amp; Hsu, D. Y. (2019). Perceived Self-Efficacy of Teaching for Creativity Among Nurse Faculty in Taiwan: A Preliminary Study. <i>Nursing Education Perspectives</i>, 40(6), E19–E21.<span class="badge">ESCI</span></li>
+      <li>Liu, H. Y., Wang, I. T., <b>Huang, D. H.</b>, Hsu, D. Y., &amp; Han, H. M. (2019). Nurturing and enhancing creativity of nursing students in Taiwan: A quasi-experimental study. <i>Journal of Creative Behavior</i>. doi:10.1002/jocb.407<span class="badge">SSCI</span></li>
+      <li>連瑀琁、楊俊明、<b>黃鼎豪</b>(2019)。以同理貫穿於設計思考流程之探討-以明志科技大學大一設計思考課程為例。<i>工業設計</i>,(139),60–65。<span class="badge">TCI-HSS</span></li>
+      <li><b>Huang, D. H.</b>*, &amp; Chiou, W. K. (2017). The effect of pictorial face images for observational rating of perceived exertion. <i>The Japanese Journal of Ergonomics</i>, 53(Suppl. 2), S688–S691.</li>
+      <li>Chen, Y. L., Wu, B. Z., &amp; <b>Huang, D. H.</b> (2017). Effect of participant physiques on increases in shank circumference for the two prolonged standing conditions. <i>Human Factors and Ergonomics in Manufacturing &amp; Service Industries</i>, 27(4), 171–176.<span class="badge">SSCI</span></li>
+      <li><b>Huang, D. H.</b>*, &amp; Chiou, W. K. (2017). An approach of merging of outer ear and ear canal 3 dimension data for bluetooth earphone design. <i>工業設計</i>, 44(2), 17–20.<span class="badge">TCI-HSS</span></li>
+      <li><b>Huang, D. H.</b>, Chou, S. W., Chen, Y. L., &amp; Chiou, W. K. (2014). Frowning and jaw clenching muscle activity reflects the perception of effort during incremental workload cycling. <i>Journal of Sports Science and Medicine</i>, 13(4), 921–928.<span class="badge">SCI</span></li>
+      <li><b>Huang, D. H.</b>, &amp; Chiou, W. K. (2013). Validation of a facial pictorial rating of perceived exertion scale for evaluating physical tasks. <i>Journal of Industrial and Production Engineering</i>, 30(2), 125–131.<span class="badge">TSSCI</span></li>
+      <li>Chiou, W. K., <b>Huang, D. H.</b>, Wang, M. H., Lee, Y. J., &amp; Lin, J. D. (2012). Significance and association of serum uric acid (UA) levels with components of metabolic syndrome (MS) in the elderly. <i>Archives of Gerontology and Geriatrics</i>, 55(3), 724–728.<span class="badge">SCI</span></li>
+      <li>Chiou, W. K., Wang, M. H., <b>Huang, D. H.</b>, Chiu, H. T., Lee, Y. J., &amp; Lin, J. D. (2010). The relationship between Serum Uric Acid Level and Metabolic Syndrome: Differences by Sex and Age in Taiwanese. <i>Journal of Epidemiology</i>, 20(3), 219–224.<span class="badge">SCI</span></li>
+      </details>
+    </ol>
+  </div>
+
+  <div class="tab-panel" id="panel-book">
+    <ol class="pubs">
+      <li><b>Huang, D. H.</b> (2025). Comparing 360-Degree Video and Immersive VR in Empathy Induction: Impact on Young Designers' Engagement and Problem Identification. In M. Zallio (Ed.), <i>Accessibility, Assistive Technology and Digital Environments</i>. AHFE International, Vol. 162.<span class="badge gold">AHFE</span></li>
+      <li>Hsu, S., Chiou, W. K., &amp; <b>Huang, D. H.</b> (2025). Co-creation and Spontaneous Interaction in Higher Education: An AI-Digital Platform for Showcasing Student-Driven Design Outcomes. In P. L. P. Rau (Ed.), <i>Cross-Cultural Design. HCII 2025</i>, LNCS 15785. Springer, Cham.<span class="badge gold">HCII</span></li>
+      <li>Lin, M. L., Chiou, W. K., &amp; <b>Huang, D. H.</b> (2025). Quantum Resonance in Educational Design: Aesthetic Principles Inspired by Dionysian Spirit and Poetic Wisdom. In P. L. P. Rau (Ed.), <i>Cross-Cultural Design. HCII 2025</i>, LNCS 15785. Springer, Cham.<span class="badge gold">HCII</span></li>
+      <li>Yang Yang, C., <b>Huang, D. H.</b>, Chou, C. S., &amp; Fu, Y. C. (2023). CTM Design Thinking Tool Stimulates Creative α and β Brain Activities. In <i>Design, User Experience, and Usability. HCII 2023</i>, LNCS 14031. Springer, Cham.<span class="badge gold">HCII</span></li>
+      <li><b>Huang, D. H.</b>, &amp; Pan, Y. L. (2023). The effects of Virtual Reality from different visual perspectives on empathy. In M. Zallio (Ed.), <i>Human-Centered Metaverse and Digital Environments</i>. AHFE International, Vol. 99.<span class="badge gold">AHFE</span></li>
+      <li>Chiu, K. M., &amp; <b>Huang, D. H.</b> (2023). Bridging the generation gap: Improving empathic accuracy by Personas. In J. Kalra (Ed.), <i>Human Factors in Aging and Special Needs</i>. AHFE International, Vol. 88.<span class="badge gold">AHFE</span></li>
+      <li><b>Huang, D. H.</b>, Xiao, Y. M., &amp; Zheng, Y. Y. (2021). Employing a User-Centered Elder and Youth Co-creation Approach for a Design of a Medication Bag: A Preliminary Study. In <i>Cross-Cultural Design. HCII 2021</i>, LNCS 12771. Springer, Cham.<span class="badge gold">HCII</span></li>
+      <li>Hsu, S. E., Chen, H., Liu, C., <b>Huang, D. H.</b>, … &amp; Chiou, W. K. (2021). The Effect of We'll App on Social-Support, Self-efficacy, and EPDS for PPD. In <i>Cross-Cultural Design. HCII 2021</i>, LNCS 12772. Springer, Cham.<span class="badge gold">HCII</span></li>
+      <details class="more"><summary></summary>
+      <li>Liang, Y. C., Liu, C., Chen, H., <b>Huang, D. H.</b>, &amp; Chiou, W. K. (2021). The Core Values and Methodology of Cross-Cultural I-Sustainability Design Thinking. In <i>Cross-Cultural Design. HCII 2021</i>, LNCS 12771. Springer, Cham.<span class="badge gold">HCII</span></li>
+      <li><b>Huang, D. H.</b>, Lai, S. C., Lo, L. M., Hong, T. H., &amp; Chiou, W. K. (2020). Subjective Usability and Will of Use on mHealth Application for Postpartum Emotional Disorder — A Case of We'll. In <i>HCI International 2020 — Late Breaking Papers</i>, LNCS 12423. Springer, Cham.<span class="badge gold">HCII</span></li>
+      <li>Huang, Y. L., &amp; <b>Huang, D. H.</b> (2020). Application of Design Thinking to Optimize Change Management Procedures with a Case Study on Reference Book Stores. In <i>Cross-Cultural Design. HCII 2020</i>, LNCS 12192. Springer, Cham.<span class="badge gold">HCII</span></li>
+      <li>Liang, Y. C., Lin, M. L., <b>Huang, D. H.</b>, &amp; Chiou, W. K. (2020). Flow and Interflow: The Design Principles of Cooperative Mandala Coloring (CMC). In <i>Cross-Cultural Design. HCII 2020</i>, LNCS 12192. Springer, Cham.<span class="badge gold">HCII</span></li>
+      <li>Chiou, W. K., Lai, S. C., &amp; <b>Huang, D. H.</b>* (2019). Usability Testing of a Mobile Application for Alleviating Postpartum Emotional Disorders: A Case of We'll. In <i>Digital Human Modeling and Applications. HCII 2019</i>, LNCS 11582, 23–40. Springer, Cham.<span class="badge gold">HCII</span></li>
+      <li><b>Huang, D. H.</b>*, Yang, C. M., &amp; On, G. H. (2018). Experiences-Based Design for Overcoming Language Barriers in Healthcare Service: A Case Study. In <i>Cross-Cultural Design. CCD 2018</i>, LNCS 10912, 298–307. Springer, Cham.<span class="badge gold">CCD</span></li>
+      <li>Chiou, W. K., Kao, C. Y., Lo, L. M., <b>Huang, D. H.</b>, Wang, M. H., &amp; Chen, B. H. (2017). Feasibility of Utilizing E-Mental Health with Mobile APP Interface for Social Support Enhancement: A Conceptional Solution for Postpartum Depression in Taiwan. In <i>DUXU 2017</i>, LNCS 10289, 198–207. Springer, Cham.<span class="badge gold">DUXU</span></li>
+      <li><b>Huang, D. H.</b>*, Chiou, W. K., Chen, B. H., &amp; Chen, Y. L. (2017). The Design Features of Pictorial Face Design for Facilitating Exertion Perception. In <i>Advances in Neuroergonomics and Cognitive Engineering</i>, AISC 488, 405–412. Springer, Cham.<span class="badge gold">AHFE</span></li>
+      <li>Chiou, W. K., <b>Huang, D. H.</b>, &amp; Chen, B. H. (2016). Anthropometric Measurements of the External Auditory Canal for Hearing Protection Earplug. In <i>Advances in Safety Management and Human Factors</i>, AISC 491, 163–171. Springer, Cham.<span class="badge gold">AHFE</span></li>
+      </details>
+    </ol>
+  </div>
+
+  <div class="tab-panel" id="panel-conf">
+    <ol class="pubs">
+      <li>Liao, C. K., &amp; <b>Huang, D. H.</b> (2025, Dec). Bridging Innovation and Delivery: A Double-Helix Integration of Design Thinking and Lean Thinking in Taiwan's Regional Revitalization. <i>IASDR 2025</i>, Taipei, Taiwan.</li>
+      <li>Huang, Y. Z., &amp; <b>Huang, D. H.</b> (2025, Dec). Designing Psychological Transformation: Qualitative Insights from Immersive Coffee Tasting. <i>IASDR 2025</i>, Taipei, Taiwan.</li>
+      <li>蔡宛容、<b>黃鼎豪</b>(2025年10月)。中高齡者對行動支付金額與模式的心理感知之研究。2025創意設計與經營國際學術研討會,桃園市。</li>
+      <li>梁宏祥、<b>黃鼎豪</b>(2025年10月)。中高齡銷售與清潔人員肌肉骨骼傷害與作業姿勢之比較分析與人因改善建議:以高速公路服務區為例。2025創意設計與經營國際學術研討會,桃園市。</li>
+      <li><b>Huang, D. H.</b> (2025, Jul). Comparing the Impact of Virtual Reality and Avatar-Guided Video on Empathy and Media Experience. <i>International Conference of Organizational Innovation</i>, Bali, Indonesia.</li>
+      <li>Hsu, C. T., &amp; <b>Huang, D. H.</b> (2025, Jul). The Impact of Promoting Plant-Based Diets on Brand Image Enhancement and Consumer Purchase Intention. <i>ICOI 2025</i>, Bali, Indonesia.</li>
+      <li>Chang, E. C., &amp; <b>Huang, D. H.</b> (2025, Jul). Effects of Lighting Configurations on Visual Fatigue Among Eyelash Technicians. <i>ICOI 2025</i>, Bali, Indonesia.</li>
+      <li>蔡鳳栩、<b>黃鼎豪</b>(2025年5月)。青銀互動導向地方文化桌遊設計初探-以桃園客家文化為例。中華民國設計學會第30屆學術研究成果研討會,台中市。</li>
+      <li>黃彥慈、<b>黃鼎豪</b>(2025年5月)。從感官品牌體驗到行為意圖:感官投入在咖啡品飲情境中的中介效果。中華民國設計學會第30屆學術研究成果研討會,台中市。</li>
+      <li><b>黃鼎豪</b>(2025年3月)。不同虛擬實境形式對同理心、使用體驗與設計需求辨識的影響。第32屆中華民國人因工程學會年會暨國際學術研討會,台中市。<span class="badge gold">最佳口頭發表論文獎</span></li>
+      <details class="more"><summary></summary>
+      <li>鍾久芳、<b>黃鼎豪</b>(2024年10月)。消費者對藝術衍生品購買意圖影響因素研究。2024創意設計與經營國際學術研討會,桃園市。</li>
+      <li>陳卲奇、<b>黃鼎豪</b>(2024年10月)。二維室內平面配置對空間感知影響之研究。2024創意設計與經營國際學術研討會,桃園市。</li>
+      <li>廖冠霖、<b>黃鼎豪</b>(2024年10月)。短影音影響消費者購屋意願之研究-以二手屋為例。2024創意設計與經營國際學術研討會,桃園市。</li>
+      <li>吳佳蓉、<b>黃鼎豪</b>(2024年5月)。心理需求導向設計之體驗活動對創造性體驗與行為意圖影響之研究。中華民國設計學會第29屆學術研究成果研討會,新北市。</li>
+      <li>詹念縈、<b>黃鼎豪</b>(2024年5月)。角色之面部特徵對於個性影響之研究。中華民國設計學會第29屆學術研究成果研討會,新北市。</li>
+      <li>周育瑾、<b>黃鼎豪</b>(2024年5月)。生成式人工智慧對創意自我效能影響之初探-以造型藝術學生為例。中華民國設計學會第29屆學術研究成果研討會,新北市。</li>
+      <li>吳佳蓉、<b>黃鼎豪</b>(2023年10月)。創造性體驗對行為意圖影響之研究:以觀點取替為中介變項。第22屆國立臺北商業大學學術論壇暨2023創意設計與經營國際學術研討會,桃園市。</li>
+      <li>郭芷菲、<b>黃鼎豪</b>(2023年10月)。技術證照課程之學習體驗、自我效能對學習成效影響之研究-以女裝丙級課程為例。第22屆學術論壇,桃園市。</li>
+      <li>詹念縈、<b>黃鼎豪</b>(2023年10月)。圖像角色的臉孔特徵組合對個性識別影響之研究。第22屆學術論壇,桃園市。</li>
+      <li>黃翊橞、<b>黃鼎豪</b>(2023年10月)。志工活動之心流體驗對組織認同及再參與意願影響之研究-以安得烈食物銀行為例。第22屆學術論壇,桃園市。</li>
+      <li>賴彥儒、<b>黃鼎豪</b>(2023年10月)。不同客家文化宣傳商品在文化層次、消費價值、購買意願差異之研究-以桐花祭為例。第22屆學術論壇,桃園市。</li>
+      <li><b>黃鼎豪</b>(2022年9月)。在地歷史與文化特色場館實境解謎遊戲設計與評估-以平鎮褒忠祠為例。文創20:回顧與前瞻學術論壇暨研討會,台北市。</li>
+      <li>邱冠銘、潘昱霖、<b>黃鼎豪</b>(2022年9月)。高齡者人物誌對年輕設計師同理心準確性之影響。文創20:回顧與前瞻學術論壇暨研討會,台北市。</li>
+      <li>王亮月、<b>黃鼎豪</b>(2022年5月)。和諧粉彩創作與彩繪曼陀羅對中高齡族群焦慮感改善之比較。2022「數位設計與行銷」學術研討會,桃園市。</li>
+      <li>潘昱霖、<b>黃鼎豪</b>(2022年3月)。虛擬實境的視角差異對同理心影響之研究。第29屆中華民國人因工程年會暨學術研討會,台南市。</li>
+      <li>邱冠銘、<b>黃鼎豪</b>(2022年3月)。探討不同同理心媒材形式對觀看者情緒接收之影響。第29屆中華民國人因工程年會暨學術研討會,台南市。</li>
+      <li>莊凱翔、<b>黃鼎豪</b>(2021年10月)。應用設計思考於地方創生團隊互動模式之初探。2021「數位設計與行銷」學術研討會,桃園市。</li>
+      <li>楊永住、<b>黃鼎豪</b>、陳春富(2021年10月)。美髮從業人員職業性肌肉骨骼傷害之危害因子分析-以洗髮作業為例。2021「數位設計與行銷」學術研討會,桃園市。</li>
+      <li>廖芊樺、<b>黃鼎豪</b>(2021年10月)。關係人口確認與地方資源盤點之應用-以大溪烏塗窟永福地區為例。2021「數位設計與行銷」學術研討會,桃園市。</li>
+      <li>岳粹堂、<b>黃鼎豪</b>(2021年5月)。傳統廣告與網路社群媒體廣告預約看屋之消費者屬性比較-以不動產代銷為例。中華民國設計學會第26屆學術研究成果研討會,桃園市。</li>
+      <li>莊凱翔、廖芊樺、<b>黃鼎豪</b>(2021年5月)。應用資源配適流程發展遊程規劃之研究-以大溪永福地區為例。中華民國設計學會第26屆學術研究成果研討會,桃園市。</li>
+      <li>林姿吟、<b>黃鼎豪</b>(2020年10月)。設計思考融入商業設計管理課程之成效-以地方小農品牌再設計為例。中華民國設計學會第25屆學術研究成果研討會,高雄市。</li>
+      <li>蕭雨濛、<b>黃鼎豪</b>(2020年10月)。文化差異對於用藥圖像符號理解力與認知度之影響。中華民國設計學會第25屆學術研究成果研討會,高雄市。</li>
+      <li><b>黃鼎豪</b>、黃國珍、蕭幸金、鄭雅憶(2020年5月)。設計思考對於金融科技跨域人才培育影響之初探-以保險科技服務設計工作坊為例。苗圃計畫成果發表暨跨域教學國際論壇,台北市。</li>
+      <li><b>黃鼎豪</b>、林姿吟、吳依真(2020年5月)。青銀共創設計工作坊對大學生同理心之影響。第27屆中華民國人因工程學會年會暨學術研討會,新北市。</li>
+      <li>吳依真、<b>黃鼎豪</b>(2020年5月)。無形文化轉換文創產品之探討-以義民文化為例。第19屆北商大學術論壇暨2020創新思維與智慧生活國際研討會,桃園市。</li>
+      <li>On, G. H., &amp; <b>Huang, D. H.</b> (2019, Mar). The empathy problems in design thinking process: case study. <i>The 26th Annual Meeting of the Ergonomics Society of Taiwan</i>.</li>
+      <li>吳瑋翔、<b>黃鼎豪</b>(2019年6月)。探討不同鏤空大小分佈之 3D 列印護具對於日常活動穿戴舒適性。2019數位設計與行銷國際學術研討會,桃園市。</li>
+      <li>林菁菁、<b>黃鼎豪</b>(2019年6月)。不同年齡對穿脫襪輔助器主觀使用性評估之差異。2019數位設計與行銷國際學術研討會,桃園市。</li>
+      <li>賴是辰、邱文科、<b>黃鼎豪</b>(2019年6月)。產後情緒障礙輔助 APP 主觀滿意度研究-以 We'll 為例。2019數位設計與行銷國際學術研討會,桃園市。</li>
+      <li>黃于倫、<b>黃鼎豪</b>(2019年6月)。參考書專賣店現況調查與轉型意願探討個案研究。2019數位設計與行銷國際學術研討會,桃園市。</li>
+      <li>On, G. H., &amp; <b>Huang, D. H.</b> (2019, Jun). The positive effects of empathy strategy and empathy tools towards the first-time users. 2019數位設計與行銷國際學術研討會,桃園市。</li>
+      <li>連瑀琁、楊俊明、<b>黃鼎豪</b>(2019年5月)。透過設計思考之教學創新模式培育未來人才同理能力。中華民國設計學會第24屆學術研究成果研討會,台中市。</li>
+      <li>吳瑋翔、<b>黃鼎豪</b>(2019年3月)。掃描姿勢與日常活動對於3D列印護具穿戴舒適性之影響。第26屆中華民國人因工程學會年會暨學術研討會,南投縣。</li>
+      <li>林菁菁、<b>黃鼎豪</b>(2019年3月)。穿脫襪輔助器使用之肌電訊號評估與選擇建議。第26屆中華民國人因工程學會年會暨學術研討會,南投縣。</li>
+      <li>賴是辰、邱文科、<b>黃鼎豪</b>(2019年3月)。產後情緒障礙輔助APP之優使性測試研究-以We'll為例。第26屆中華民國人因工程學會年會暨學術研討會,南投縣。</li>
+      <li>黃于倫、<b>黃鼎豪</b>(2019年3月)。高齡福祉創新服務設計個案研究。第26屆中華民國人因工程學會年會暨學術研討會,南投縣。</li>
+      <li><b>Huang, D. H.</b>, Yang, C. M., Liu, T. H., &amp; On, G. H. (2018, Jul). The positive effects of using observation-based technique in co-creation to gain empathy in the healthcare service in Taiwan: a case study. <i>ICSI 2018</i>, Hsinchu, Taiwan.</li>
+      <li><b>Huang, D. H.</b>, Yang, C. M., &amp; On, G. H. (2018, Jul). Experiences-based design for overcoming language barriers in healthcare service: a case study. <i>CCD 2018</i>, Las Vegas, USA.(第一作者、通訊作者)</li>
+      <li>Yang, C. M., <b>Huang, D. H.</b>, Liu, T. H., &amp; Zheng, Y. Y. (2018, Jul). Constructing A Design Thinking Curriculum for First-Year College Students. <i>ICSI 2018</i>, Hsinchu, Taiwan.</li>
+      <li>連瑀琁、楊俊明、<b>黃鼎豪</b>(2018年11月)。以同理貫穿於設計思考流程之探討-以明志科技大學大一設計思考課程為例。2018明志科技大學技術與教學國際研討會,新北市。</li>
+      <li>吳瑋翔、<b>黃鼎豪</b>、李建佑(2018年5月)。3D列印前臂骨折固定護具之穿戴舒適性研究。中華民國設計學會第23屆學術研究成果研討會,新北市。</li>
+      <li>林菁菁、陳一郎、<b>黃鼎豪</b>(2018年5月)。穿脫襪輔具之使用性評估。中華民國設計學會第23屆學術研究成果研討會,新北市。</li>
+      <li>賴是辰、<b>黃鼎豪</b>、邱文科(2018年5月)。產後情緒障礙輔助APP之使用性測試研究。中華民國設計學會第23屆學術研究成果研討會,新北市。</li>
+      <li>楊俊明、<b>黃鼎豪</b>、鄭雅憶(2018年3月)。建構大一設計思考課程。明志科技大學第一屆教學創新實踐研討會,台北市。</li>
+      <li>Chiou, W. K., Kao, C. Y., Lo, L. M., <b>Huang, D. H.</b>, Wang, M. H., &amp; Chen, B. H. (2017, Jul). Feasibility of Utilizing E-Mental Health with Mobile APP Interface for Social Support Enhancement. <i>DUXU 2017</i>, Vancouver, Canada.</li>
+      <li><b>Huang, D. H.</b>, &amp; Chiou, W. K. (2017, Jun). The effect of pictorial face images for observational rating of perceived exertion. <i>ACED 2017</i>, Tokyo, Japan.</li>
+      <li>吳瑋翔、<b>黃鼎豪</b>(2017年11月)。不同掃描姿勢對於3D列印護具穿戴合身性之初探。2017世界華人工業設計論壇暨明志科技大學術與教學研討會,新北市。</li>
+      <li>林菁菁、<b>黃鼎豪</b>(2017年11月)。不同單手提物方式的主觀用力感受。2017世界華人工業設計論壇暨明志科技大學術與教學研討會,新北市。</li>
+      <li><b>Huang, D. H.</b>, &amp; Chiou, W. K. (2016, Nov). An approach of merging of outer ear and ear canal 3 dimension data for bluetooth earphone design. 2016明志科技大學技術與教學國際研討會,新北市。</li>
+      <li>Chiou, W. K., <b>Huang, D. H.</b>, &amp; Chen, B. H. (2016, Jul). Anthropometric measurements of the external auditory canal for hearing protection earplug. <i>AHFE 2016</i>, Florida, USA.</li>
+      <li><b>Huang, D. H.</b>, Chiou, W. K., Chen, B. H., &amp; Chen, Y. L. (2016, Jul). The design features of pictorial face design for facilitating exertion perception. <i>AHFE 2016</i>, Florida, USA.</li>
+      <li>呂凱、<b>黃鼎豪</b>(2016年11月)。大陸消費者對兩岸書店認知差異的個案研究-以誠品書店為例。2016明志科技大學技術與教學國際研討會,新北市。</li>
+      <li>姚宇隆、<b>黃鼎豪</b>(2016年11月)。自造者與設計師團隊合作模式之個案研究。2016明志科技大學技術與教學國際研討會,新北市。</li>
+      <li>廖振銘、賴宛吟、<b>黃鼎豪</b>(2016年11月)。設計師自創品牌產品開發歷程之探討。2016明志科技大學技術與教學國際研討會,新北市。</li>
+      <li>楊春雨、<b>黃鼎豪</b>(2016年11月)。國立故宮博物院文創商品的研究與借鑒。2016明志科技大學技術與教學國際研討會,新北市。</li>
+      <li>Chiou, W. K., <b>Huang, D. H.</b>, &amp; Chen, B. H. (2015, Aug). Comparison of the relation with muscle activity (facial and leg) between Borg- and facial pictorial-RPE scale for perceived exertion. <i>19th Triennial Congress of the IEA</i>, Melbourne.</li>
+      <li><b>Huang, D. H.</b>, Chiou, W. K., &amp; Chen, B. H. (2015, Aug). Judgment of perceived exertion by static and dynamic facial expression. <i>19th Triennial Congress of the IEA</i>, Melbourne.</li>
+      <li><b>Huang, D. H.</b>, &amp; Chiou, W. K. (2014). Judgment of perceived exertion by facial expression: do gender difference. <i>ACED 2014</i>, Jeju, South Korea.</li>
+      <li><b>Huang, D. H.</b>, &amp; Chiou, W. K. (2010). Cognitive aging and determine of an instructional media type on procedural task learning for elderly people. <i>9th PPCOE</i>, Kaohsiung, Taiwan.</li>
+      <li><b>Huang, D. H.</b>, &amp; Chiou, W. K. (2010). The effect of using visual information aids on learning performance during larger scale procedural task. <i>HSI 2010</i>, Rzeszow, Poland.</li>
+      </details>
+    </ol>
+  </div>
+</section>
+
+
+<footer id="contact">
+  <div class="foot-inner">
+    <div>
+      <h2>聯絡方式 Contact</h2>
+      <p>國立臺北商業大學 創意設計與經營研究所<br>
+      Institute of Creative Design and Management,<br>
+      National Taipei University of Business<br><br>
+      Email:<a href="mailto:hauhuang@ntub.edu.tw"> hauhuang@ntub.edu.tw</a><br>
+      歡迎研究合作、演講與工作坊邀約、碩士班報考諮詢。</p>
+    </div>
+    <div>
+      <h2>連結 Links</h2>
+      <p><a href="https://scholar.google.com/citations?user=NPbVMncAAAAJ&amp;hl=zh-TW" target="_blank" rel="noopener">Google Scholar</a><br>
+      <a href="https://github.com/hauhuang">GitHub — hauhuang</a><br>
+      <a href="https://icdm.ntub.edu.tw/" target="_blank" rel="noopener">研究所網站</a></p>
+    </div>
+  </div>
+  <div class="foot-meta">© 2026 HUANG, DING-HAU · iDT LAB · BUILT WITH TEAL &amp; GOLD</div>
+</footer>
+<script>
+function toggleNav(btn){const m=document.getElementById('navLinks');const open=m.classList.toggle('open');btn.setAttribute('aria-expanded',open);}
+document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>{document.getElementById('navLinks').classList.remove('open');const b=document.querySelector('.nav-toggle');if(b)b.setAttribute('aria-expanded','false');}));
+const btns=document.querySelectorAll('.tab-btn');
+btns.forEach(b=>b.addEventListener('click',()=>{
+  btns.forEach(x=>x.setAttribute('aria-selected','false'));
+  b.setAttribute('aria-selected','true');
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+b.dataset.tab).classList.add('active');
+}));
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

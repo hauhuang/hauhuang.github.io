@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>碩士論文指導|黃鼎豪 Huang, Ding-Hau</title>
+<meta name="description" content="黃鼎豪歷年指導碩士論文列表(2019–2026)。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;500&family=Spectral:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+
+:root{
+  --ink:#0E3A3E;          /* 深墨綠 */
+  --teal:#14747B;         /* 主青碧 */
+  --teal-soft:#DCEBEA;    /* 淡青 */
+  --gold:#B8912F;         /* 沉金 */
+  --gold-soft:#E8D9AE;    /* 淡金 */
+  --paper:#F8F6F0;        /* 米白紙 */
+  --mist:#6E8A88;         /* 灰青,說明文字 */
+  --line:#D8E2E0;
+  --white:#FFFFFF;
+  --serif:"Noto Serif TC","Spectral",serif;
+  --sans:"Noto Sans TC",sans-serif;
+  --mono:"IBM Plex Mono",monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;scroll-padding-top:76px;}
+body{font-family:var(--sans);color:var(--ink);background:var(--paper);line-height:1.75;font-size:16px;}
+::selection{background:var(--gold-soft);}
+a{color:var(--teal);text-decoration:none;}
+a:hover{color:var(--gold);}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:2px;}
+
+/* ---------- 導覽列 ---------- */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(248,246,240,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
+.nav-inner{max-width:1080px;margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.nav-name{font-family:var(--serif);font-weight:700;font-size:1.05rem;letter-spacing:.06em;color:var(--ink);}
+.nav-name span{font-family:var(--mono);font-size:.7rem;color:var(--mist);letter-spacing:.14em;margin-left:8px;}
+.nav-links{display:flex;gap:22px;flex-wrap:wrap;}
+.nav-links a{font-size:.85rem;letter-spacing:.08em;color:var(--ink);}
+.nav-links a:hover{color:var(--teal);}
+@media(max-width:760px){.nav-links{display:none;}}
+
+/* ---------- Hero ---------- */
+header.hero{padding:150px 24px 64px;max-width:1080px;margin:0 auto;}
+.eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;margin-bottom:18px;}
+h1.name-zh{font-family:var(--serif);font-weight:900;font-size:clamp(2.6rem,7vw,4.4rem);letter-spacing:.14em;line-height:1.15;}
+.name-en{font-family:"Spectral",var(--serif);font-style:italic;font-size:clamp(1rem,2.4vw,1.35rem);color:var(--teal);letter-spacing:.12em;margin-top:6px;}
+.hero-role{margin-top:22px;font-size:1rem;color:var(--ink);}
+.hero-role b{font-weight:700;}
+.hero-bio{margin-top:18px;max-width:640px;color:#3D5654;font-weight:300;}
+.hero-tags{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px;}
+.tag{font-size:.78rem;letter-spacing:.06em;padding:5px 14px;border:1px solid var(--teal);color:var(--teal);border-radius:999px;background:transparent;}
+.hero-links{margin-top:26px;display:flex;gap:18px;flex-wrap:wrap;font-family:var(--mono);font-size:.78rem;letter-spacing:.1em;}
+.hero-links a{border-bottom:1px solid var(--gold);padding-bottom:2px;color:var(--ink);}
+.hero-links a:hover{color:var(--gold);}
+
+/* ---------- 研究歷程(簽名元素:旅程線) ---------- */
+.journey{max-width:1080px;margin:20px auto 0;padding:0 24px 8px;}
+.journey-title{font-family:var(--mono);font-size:.7rem;letter-spacing:.2em;color:var(--mist);margin-bottom:14px;}
+.journey-track{position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:0;}
+.journey-track::before{content:"";position:absolute;left:2%;right:2%;top:9px;height:2px;background:linear-gradient(90deg,var(--teal) 0%,var(--gold) 100%);}
+.jnode{position:relative;padding-top:26px;padding-right:12px;}
+.jnode::before{content:"";position:absolute;top:3px;left:0;width:14px;height:14px;border-radius:50%;background:var(--paper);border:3px solid var(--teal);}
+.jnode:nth-child(4)::before,.jnode:nth-child(5)::before{border-color:var(--gold);}
+.jnode .jy{font-family:var(--mono);font-size:.68rem;color:var(--mist);letter-spacing:.08em;}
+.jnode .jt{font-family:var(--serif);font-weight:700;font-size:.92rem;margin-top:2px;}
+.jnode .jd{font-size:.76rem;color:var(--mist);line-height:1.5;margin-top:4px;font-weight:300;}
+@media(max-width:760px){.journey-track{grid-template-columns:1fr;}
+.journey-track::before{left:9px;right:auto;top:2%;bottom:2%;width:2px;height:auto;background:linear-gradient(180deg,var(--teal),var(--gold));}
+.jnode{padding:0 0 26px 32px;}
+.jnode::before{top:4px;}}
+
+/* ---------- 區塊通用 ---------- */
+section{max-width:1080px;margin:0 auto;padding:72px 24px 8px;}
+.sec-head{display:flex;align-items:baseline;gap:16px;border-bottom:2px solid var(--ink);padding-bottom:12px;margin-bottom:30px;}
+.sec-head h2{font-family:var(--serif);font-weight:700;font-size:1.7rem;letter-spacing:.1em;}
+.sec-head .sec-en{font-family:"Spectral",serif;font-style:italic;color:var(--gold);font-size:.95rem;letter-spacing:.08em;}
+.sec-head .count{margin-left:auto;font-family:var(--mono);font-size:.75rem;color:var(--mist);}
+
+/* ---------- 研究領域卡片 ---------- */
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px;}
+.field{background:var(--white);border:1px solid var(--line);border-top:3px solid var(--teal);padding:24px 22px;border-radius:4px;}
+.field:nth-child(even){border-top-color:var(--gold);}
+.field h3{font-family:var(--serif);font-size:1.08rem;font-weight:700;letter-spacing:.05em;}
+.field .fen{font-family:var(--mono);font-size:.66rem;color:var(--mist);letter-spacing:.1em;display:block;margin:4px 0 10px;}
+.field p{font-size:.85rem;color:#3D5654;font-weight:300;line-height:1.7;}
+
+/* ---------- 數據帶 ---------- */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:34px;border-radius:4px;overflow:hidden;}
+.stat{background:var(--white);padding:18px 14px;text-align:center;}
+.stat .n{font-family:var(--serif);font-size:1.8rem;font-weight:900;color:var(--teal);}
+.stat .n em{font-style:normal;color:var(--gold);font-size:1rem;}
+.stat .l{font-size:.74rem;color:var(--mist);letter-spacing:.08em;margin-top:2px;}
+
+/* ---------- Tabs ---------- */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px;}
+.tab-btn{font-family:var(--sans);font-size:.86rem;letter-spacing:.08em;padding:8px 20px;border:1px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;border-radius:2px;}
+.tab-btn[aria-selected="true"]{background:var(--ink);color:var(--gold-soft);}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+/* ---------- 出版清單 ---------- */
+ol.pubs{list-style:none;counter-reset:pub;}
+ol.pubs li{counter-increment:pub;position:relative;padding:14px 0 14px 58px;border-bottom:1px solid var(--line);font-size:.9rem;color:#2E4A48;font-weight:300;}
+ol.pubs li::before{content:counter(pub,decimal-leading-zero);position:absolute;left:0;top:16px;font-family:var(--mono);font-size:.72rem;color:var(--gold);letter-spacing:.05em;}
+ol.pubs b{font-weight:700;color:var(--ink);}
+ol.pubs i{font-style:italic;}
+.badge{display:inline-block;font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;color:var(--teal);border:1px solid var(--teal-soft);background:var(--teal-soft);padding:1px 8px;border-radius:999px;margin-left:8px;vertical-align:1px;white-space:nowrap;}
+.badge.gold{color:#8A6C1D;background:var(--gold-soft);border-color:var(--gold-soft);}
+
+details.more{margin-top:4px;}
+details.more>summary{list-style:none;cursor:pointer;font-family:var(--mono);font-size:.76rem;letter-spacing:.14em;color:var(--teal);padding:16px 0;text-align:center;}
+details.more>summary::-webkit-details-marker{display:none;}
+details.more>summary::after{content:" ▾ 顯示全部";}
+details.more[open]>summary::after{content:" ▴ 收合";}
+details.more>summary:hover{color:var(--gold);}
+
+/* ---------- 計畫 / 專利 ---------- */
+.grant-group{margin-bottom:34px;}
+.grant-group h3{font-family:var(--serif);font-size:1.12rem;font-weight:700;letter-spacing:.06em;margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.grant-group h3::before{content:"";width:22px;height:2px;background:var(--gold);}
+ul.grants{list-style:none;}
+ul.grants li{padding:10px 0 10px 0;border-bottom:1px dashed var(--line);font-size:.88rem;font-weight:300;color:#2E4A48;display:flex;gap:16px;}
+ul.grants .gy{font-family:var(--mono);font-size:.72rem;color:var(--mist);flex:0 0 128px;padding-top:3px;}
+@media(max-width:600px){ul.grants li{flex-direction:column;gap:2px;}ul.grants .gy{flex:none;}}
+
+/* ---------- 指導 / 榮譽 ---------- */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:40px;}
+@media(max-width:820px){.two-col{grid-template-columns:1fr;}}
+ul.plain{list-style:none;}
+ul.plain li{padding:8px 0;border-bottom:1px dashed var(--line);font-size:.87rem;font-weight:300;color:#2E4A48;}
+ul.plain li b{font-weight:500;color:var(--ink);}
+.year-chip{font-family:var(--mono);font-size:.68rem;color:var(--gold);margin-right:10px;}
+
+/* ---------- Footer ---------- */
+footer{margin-top:90px;background:var(--ink);color:#CFE0DE;}
+.foot-inner{max-width:1080px;margin:0 auto;padding:56px 24px 40px;display:grid;grid-template-columns:1.4fr 1fr;gap:40px;}
+@media(max-width:700px){.foot-inner{grid-template-columns:1fr;}}
+.foot-inner h2{font-family:var(--serif);color:var(--gold-soft);font-size:1.4rem;letter-spacing:.12em;margin-bottom:14px;}
+.foot-inner p{font-size:.86rem;font-weight:300;line-height:1.9;}
+.foot-inner a{color:var(--gold-soft);border-bottom:1px solid rgba(232,217,174,.4);}
+.foot-inner a:hover{color:#fff;}
+.foot-meta{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;color:#7FA09D;border-top:1px solid rgba(255,255,255,.12);max-width:1080px;margin:0 auto;padding:18px 24px 26px;}
+@media(prefers-reduced-motion:no-preference){
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease;}
+  .reveal.in{opacity:1;transform:none;}
+}
+
+/* ---------- 多頁導覽 ---------- */
+.nav-toggle{display:none;background:none;border:1px solid var(--ink);border-radius:3px;width:40px;height:34px;cursor:pointer;position:relative;}
+.nav-toggle span,.nav-toggle span::before,.nav-toggle span::after{content:"";position:absolute;left:9px;right:9px;height:2px;background:var(--ink);transition:transform .25s ease,opacity .25s ease;}
+.nav-toggle span{top:15px;}
+.nav-toggle span::before{top:-6px;left:0;right:0;}
+.nav-toggle span::after{top:6px;left:0;right:0;}
+.nav-toggle[aria-expanded="true"] span{background:transparent;}
+.nav-toggle[aria-expanded="true"] span::before{transform:translateY(6px) rotate(45deg);}
+.nav-toggle[aria-expanded="true"] span::after{transform:translateY(-6px) rotate(-45deg);}
+.nav-links a.active{color:var(--gold);border-bottom:2px solid var(--gold);padding-bottom:3px;}
+@media(max-width:760px){
+  .nav-toggle{display:block;}
+  .nav-links{display:none;position:absolute;top:64px;left:0;right:0;background:var(--paper);border-bottom:1px solid var(--line);flex-direction:column;gap:0;padding:6px 0;box-shadow:0 10px 24px rgba(14,58,62,.08);}
+  .nav-links.open{display:flex;}
+  .nav-links a{padding:13px 26px;font-size:.95rem;border-bottom:1px dashed var(--line);}
+  .nav-links a:last-child{border-bottom:none;}
+  .nav-links a.active{border-bottom:1px dashed var(--line);background:var(--teal-soft);}
+}
+/* ---------- 子頁頁首 ---------- */
+.page-head{max-width:1080px;margin:0 auto;padding:128px 24px 0;}
+.page-head .eyebrow{margin-bottom:10px;}
+.page-head h1{font-family:var(--serif);font-weight:900;font-size:clamp(1.9rem,5vw,2.8rem);letter-spacing:.12em;}
+.page-head .lede{margin-top:10px;max-width:620px;color:#3D5654;font-weight:300;font-size:.95rem;}
+.page-head + section{padding-top:40px;}
+/* ---------- 可點擊統計 ---------- */
+a.stat{display:block;color:inherit;transition:background .2s ease;}
+a.stat:hover{background:var(--teal-soft);}
+a.stat:hover .l{color:var(--teal);}
+
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-name" style="color:inherit">黃鼎豪<span>HUANG, DING-HAU</span></a>
+    <button class="nav-toggle" aria-expanded="false" aria-label="開啟選單" onclick="toggleNav(this)"><span></span></button>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">首頁</a>
+      <a href="publications.html">學術著作</a>
+      <a href="grants.html">研究計畫</a>
+      <a href="honors.html">榮譽與專利</a>
+      <a href="advising.html" class="active">碩士論文指導</a>
+      <a href="talks.html">演講與工作坊</a>
+      <a href="#contact">聯絡</a>
+    </div>
+  </div>
+</nav>
+<div class="page-head">
+  <div class="eyebrow">THESIS ADVISING</div>
+  <h1>碩士論文指導</h1>
+  <p class="lede">歷年指導之碩士論文,主題橫跨服務設計、同理心研究、人因工程、文化創意與消費者行為。</p>
+</div>
+<section class="reveal">
+  <div class="sec-head"><h2>指導碩士論文</h2><span class="sec-en">Master Theses</span><span class="count">27 theses・2019–2026</span></div>
+<div class="grant-group">
+        <ul class="plain">
+          <li><span class="year-chip">2026</span>黃彥慈-內在沉浸導向的體驗設計方法對品牌感官體驗與行為意圖影響之研究</li>
+          <li><span class="year-chip">2026</span>徐晉棠-健康意識、社會影響與環境永續意識對植物飲食品牌形象與購買意願影響之研究</li>
+          <li><span class="year-chip">2026</span>張恩齊-不同光源配置對美睫從業人員視覺疲勞影響之研究</li>
+          <li><span class="year-chip">2026</span>梁宏祥-中高齡銷售與清潔人員肌肉骨骼傷害與作業姿勢之比較分析與人因改善建議</li>
+          <li><span class="year-chip">2025</span>廖冠霖-短影音影響消費者購買不動產意願之研究-以二手屋為例</li>
+          <li><span class="year-chip">2025</span>陳卲奇-從二維到三維:探討視覺工具在室內設計中的空間感知影響</li>
+          <details class="more" open><summary></summary>
+          <li><span class="year-chip">2025</span>鍾久芳-應用價值接受模型探討藝術衍生品消費者購買意圖研究</li>
+          <li><span class="year-chip">2025</span>周育瑾-生成式人工智慧輔助教學之接受度與創意自我效能影響之研究-以造型藝術學生為例</li>
+          <li><span class="year-chip">2024</span>吳佳蓉-心理需求導向文化體驗活動對創造性體驗與行為意圖影響之研究</li>
+          <li><span class="year-chip">2024</span>詹念縈-角色設計之個性與表情對情緒感知影響之研究</li>
+          <li><span class="year-chip">2024</span>賴彥儒-客家節慶文化宣傳產品的產品文化認知、行銷效益與購買意願之研究</li>
+          <li><span class="year-chip">2024</span>黃翊橞-創意性志工活動之心流體驗對組織認同及再參與意願影響之研究</li>
+          <li><span class="year-chip">2024</span>郭芷菲-創新裁縫體驗課程優化之研究</li>
+          <li><span class="year-chip">2023</span>潘昱霖-虛擬實境的場景互動與視覺觀點對同理心影響之研究</li>
+          <li><span class="year-chip">2023</span>邱冠銘-人物誌對高齡者同理心準確性與需求辨識影響之研究</li>
+          <li><span class="year-chip">2023</span>王亮月-和諧粉彩創作對中高齡族群生心理影響之研究</li>
+          <li><span class="year-chip">2022</span>莊凱翔-應用設計思考於桃園地方創生團隊之溝通互動協作程序之研究</li>
+          <li><span class="year-chip">2022</span>廖芊樺-地方資源與遊客需求配適流程發展與應用-以大溪烏塗窟永福地區為例</li>
+          <li><span class="year-chip">2022</span>楊永住-美髮從業人員職業性肌肉骨骼傷害之研究-以洗髮作業為例</li>
+          <li><span class="year-chip">2022</span>岳粹堂-媒體類型與廣告訴求對廣告效果影響之研究-以不動產代銷業為例</li>
+          <li><span class="year-chip">2021</span>蕭雨濛-應用青銀共創設計模式於高齡者用藥輔助設計之研究</li>
+          <li><span class="year-chip">2021</span>林姿吟-應用設計思考發展素養導向課程之行動研究-以綜合活動領域為例</li>
+          <li><span class="year-chip">2021</span>吳依真-應用設計思考於文學意涵轉譯之研究-以《魯冰花》文學商品設計為例</li>
+          <li><span class="year-chip">2020</span>黃于倫-設計思考方法對組織變革準備之影響-以傳統書店為例</li>
+          <li><span class="year-chip">2019</span>温嘉惠-The Effects of Empathy Tool and Strategy on Novice Participants for Gaining The Empathy in Design Thinking Process</li>
+          <li><span class="year-chip">2019</span>林菁菁-高齡者穿(脫)襪輔助器之使用性評估與設計建議</li>
+          <li><span class="year-chip">2019</span>吳瑋翔-鏤空分佈、材質與穿戴時間對3D列印護具穿戴舒適性之影響</li>
+          </details>
+        </ul>
+      </div>
+</section>
+<footer id="contact">
+  <div class="foot-inner">
+    <div>
+      <h2>聯絡方式 Contact</h2>
+      <p>國立臺北商業大學 創意設計與經營研究所<br>
+      Institute of Creative Design and Management,<br>
+      National Taipei University of Business<br><br>
+      Email:<a href="mailto:hauhuang@ntub.edu.tw"> hauhuang@ntub.edu.tw</a><br>
+      歡迎研究合作、演講與工作坊邀約、碩士班報考諮詢。</p>
+    </div>
+    <div>
+      <h2>連結 Links</h2>
+      <p><a href="https://scholar.google.com/citations?user=NPbVMncAAAAJ&amp;hl=zh-TW" target="_blank" rel="noopener">Google Scholar</a><br>
+      <a href="https://github.com/hauhuang">GitHub — hauhuang</a><br>
+      <a href="https://icdm.ntub.edu.tw/" target="_blank" rel="noopener">研究所網站</a></p>
+    </div>
+  </div>
+  <div class="foot-meta">© 2026 HUANG, DING-HAU · iDT LAB · BUILT WITH TEAL &amp; GOLD</div>
+</footer>
+<script>
+function toggleNav(btn){const m=document.getElementById('navLinks');const open=m.classList.toggle('open');btn.setAttribute('aria-expanded',open);}
+document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>{document.getElementById('navLinks').classList.remove('open');const b=document.querySelector('.nav-toggle');if(b)b.setAttribute('aria-expanded','false');}));
+const btns=document.querySelectorAll('.tab-btn');
+btns.forEach(b=>b.addEventListener('click',()=>{
+  btns.forEach(x=>x.setAttribute('aria-selected','false'));
+  b.setAttribute('aria-selected','true');
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+b.dataset.tab).classList.add('active');
+}));
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
