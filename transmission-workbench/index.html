@@ -1,0 +1,648 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>傳習系列設計工作台</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@600;700&display=swap">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script>
+// ===== 設定：部署時只改這三行 =====
+window.WB_CONFIG = {
+  SUPABASE_URL: "https://vtcdzxslklqarztakzpg.supabase.co",   // Supabase 專案 URL
+  SUPABASE_ANON_KEY: "sb_publishable_1rvFDhgr21gyu4MXAL_QoQ_aIWMimAe",   // Settings → API Keys → Publishable key
+  ROOM: "icci-115a"                                    // 班級代碼；網址加 ?room=xxx 可切換（例如下學期）
+};
+</script>
+<style>
+/* Layout: a working table (4 stages × 4 columns) with a right-hand drawer for frameworks, case cards and tips; course palette (deep green on warm paper). */
+:root{
+  --paper:#F7F5EF; --card:#FFFFFF; --ink:#20342F; --mute:#65756F; --line:#DDE4DA; --alt:#F2F3ED;
+  --green:#153E34; --green2:#245C4A; --teal:#45877D; --teal-bg:#E4F1EF; --terra:#B76E4D; --terra-bg:#F6E8E0;
+  --purple:#6B547D; --purple-bg:#F0EAF3; --gold:#C99A3B; --gold-bg:#F7EFDD; --ok:#3F7D5A; --warn:#C99A3B; --bad:#B0463A;
+  --display:"Noto Serif TC","Noto Sans TC",system-ui,serif; --body:"Noto Sans TC",system-ui,-apple-system,"PingFang TC","Microsoft JhengHei",sans-serif;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --paper:#15201C; --card:#1D2A25; --ink:#E6ECE8; --mute:#9DB0A7; --line:#2E3F38; --alt:#1A2521;
+  --green:#DDE4DA; --green2:#8FC2AF; --teal:#7FC1B4; --teal-bg:#1E3732; --terra:#E0A07E; --terra-bg:#3A2A22;
+  --purple:#B9A3CC; --purple-bg:#2D2537; --gold:#E0BB6A; --gold-bg:#36301F; --ok:#7FC79A; --warn:#E0BB6A; --bad:#E08A7E; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --paper:#15201C; --card:#1D2A25; --ink:#E6ECE8; --mute:#9DB0A7; --line:#2E3F38; --alt:#1A2521;
+  --green:#DDE4DA; --green2:#8FC2AF; --teal:#7FC1B4; --teal-bg:#1E3732; --terra:#E0A07E; --terra-bg:#3A2A22;
+  --purple:#B9A3CC; --purple-bg:#2D2537; --gold:#E0BB6A; --gold-bg:#36301F; --ok:#7FC79A; --warn:#E0BB6A; --bad:#E08A7E; color-scheme:dark }
+*{box-sizing:border-box}
+html{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.55;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+h1,h2,h3{margin:0;text-wrap:balance}
+button{font:inherit;cursor:pointer}
+textarea,input,select{font:inherit;color:inherit}
+.wrap{max-width:1180px;margin:0 auto}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--paper);border-bottom:1px solid var(--line);padding-block:12px 10px}
+.brand{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:baseline;justify-content:space-between}
+.brand h1{font-family:var(--display);font-size:1.45rem;color:var(--green);letter-spacing:.01em}
+.brand .sub{color:var(--mute);font-size:.86rem}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
+.tabs{display:flex;gap:4px;background:var(--alt);border:1px solid var(--line);border-radius:999px;padding:3px}
+.tabs button{border:0;background:transparent;color:var(--mute);padding:6px 14px;border-radius:999px;font-weight:500}
+.tabs button[aria-selected="true"]{background:var(--green);color:var(--paper)}
+:root[data-theme="dark"] .tabs button[aria-selected="true"],:root:not([data-theme="light"]) .tabs button[aria-selected="true"]{color:var(--paper)}
+.spacer{flex:1}
+.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:5px 11px;font-size:.82rem;color:var(--mute)}
+.chip .dot{width:8px;height:8px;border-radius:50%;background:var(--warn)}
+.chip.ok .dot{background:var(--ok)}
+select.sheet{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:6px 10px}
+.btn{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:6px 12px;font-size:.88rem}
+.btn.primary{background:var(--green);color:var(--paper);border-color:var(--green)}
+.btn:focus-visible,textarea:focus-visible,button:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+main{padding-block:16px;display:grid;gap:18px}
+.view[hidden]{display:none}
+/* table */
+.intro{display:grid;gap:6px;max-width:68ch}
+.intro p{margin:0;color:var(--mute);font-size:.92rem}
+.gridwrap{overflow-x:auto}
+table.sheet{border-collapse:separate;border-spacing:0;width:100%;min-width:860px}
+table.sheet th{background:var(--green);color:var(--paper);font-weight:600;text-align:left;padding:10px 12px;font-size:.9rem;vertical-align:top}
+table.sheet th small{display:block;font-weight:400;opacity:.8;font-size:.76rem;margin-top:2px}
+table.sheet th.rowh{background:var(--alt);color:var(--ink);border-bottom:1px solid var(--line);width:150px;font-size:.88rem}
+table.sheet th.rowh small{color:var(--mute);opacity:1}
+table.sheet td{border-bottom:1px solid var(--line);border-right:1px solid var(--line);padding:8px;vertical-align:top;background:var(--card);min-width:190px}
+table.sheet td:last-child{border-right:0}
+table.sheet tr:nth-child(even) td{background:var(--alt)}
+.cell{display:grid;gap:6px}
+.cell textarea{width:100%;min-height:92px;resize:vertical;border:1px solid var(--line);border-radius:6px;padding:6px 8px;background:var(--card);font-size:.86rem;line-height:1.45}
+.cellbar{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.mini{border:1px solid var(--line);background:transparent;color:var(--mute);border-radius:6px;padding:2px 7px;font-size:.74rem;line-height:1.4}
+.mini:hover{color:var(--ink);border-color:var(--mute)}
+.mark{margin-left:auto;display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.mark button{border:0;background:transparent;color:var(--mute);padding:2px 7px;font-size:.78rem}
+.mark button[aria-pressed="true"].ok{background:var(--teal-bg);color:var(--teal)}
+.mark button[aria-pressed="true"].q{background:var(--gold-bg);color:var(--gold)}
+.cell.active textarea{border-color:var(--teal);box-shadow:0 0 0 2px var(--teal-bg)}
+/* panels */
+.panels{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:grid;gap:10px;align-content:start}
+.panel h3{font-size:1rem;color:var(--green)}
+.panel p{margin:0;font-size:.88rem;color:var(--mute)}
+.q{display:grid;gap:6px;font-size:.9rem}
+.q .opts{display:flex;gap:6px;flex-wrap:wrap}
+.q .opts label{border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:.84rem;cursor:pointer}
+.q .opts input{margin-right:4px}
+.lamp{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;background:var(--alt);font-weight:600}
+.lamp .l{width:14px;height:14px;border-radius:50%;background:var(--mute)}
+.lamp.g .l{background:var(--ok)}.lamp.y .l{background:var(--warn)}.lamp.r .l{background:var(--bad)}
+.lamp small{font-weight:400;color:var(--mute);margin-left:auto}
+.stat{display:flex;gap:14px;flex-wrap:wrap}
+.stat b{font-size:1.4rem;font-variant-numeric:tabular-nums}
+.stat span{display:grid;font-size:.8rem;color:var(--mute)}
+.peer label{display:flex;gap:8px;align-items:flex-start;font-size:.9rem}
+/* drawer */
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(440px,100%);background:var(--card);border-left:1px solid var(--line);box-shadow:-8px 0 30px rgba(0,0,0,.12);transform:translateX(102%);transition:transform .22s;z-index:20;display:grid;grid-template-rows:auto 1fr;padding-top:env(safe-area-inset-top,0px);padding-right:env(safe-area-inset-right,0px)}
+.drawer.open{transform:none}
+@media (prefers-reduced-motion:reduce){.drawer{transition:none}}
+.drawer .dh{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--line)}
+.drawer .dh h2{font-size:1rem;color:var(--green);flex:1}
+.drawer .dh .x{border:0;background:transparent;font-size:1.3rem;color:var(--mute)}
+.drawer .db{overflow:auto;padding:14px 16px 40px;display:grid;gap:14px;align-content:start}
+.dtabs{display:flex;gap:4px;flex-wrap:wrap}
+.dtabs button{border:1px solid var(--line);background:transparent;color:var(--mute);border-radius:999px;padding:4px 11px;font-size:.82rem}
+.dtabs button[aria-selected="true"]{background:var(--teal-bg);color:var(--teal);border-color:var(--teal)}
+.sec{display:grid;gap:8px}
+.sec h4{margin:0;font-size:.86rem;color:var(--ink)}
+.sec h4 small{color:var(--mute);font-weight:400;margin-left:6px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips button{border:1px solid var(--line);background:var(--alt);color:var(--ink);border-radius:999px;padding:4px 11px;font-size:.84rem}
+.chips button:hover{border-color:var(--teal);background:var(--teal-bg)}
+.chips button.on{background:var(--teal);color:#fff;border-color:var(--teal)}
+.tip{background:var(--gold-bg);border-left:3px solid var(--gold);padding:8px 10px;border-radius:0 8px 8px 0;font-size:.88rem}
+.casecard{border:1px solid var(--line);border-radius:8px;padding:10px 12px;display:grid;gap:6px;font-size:.86rem}
+.casecard .cn{font-weight:600;display:flex;align-items:center;gap:8px}
+.casecard .cn i{width:10px;height:10px;border-radius:50%;display:inline-block}
+.casecard .use{justify-self:start;border:1px solid var(--line);background:transparent;border-radius:6px;padding:2px 9px;font-size:.78rem;color:var(--mute)}
+.casecard .use:hover{color:var(--teal);border-color:var(--teal)}
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.25);z-index:19}
+.scrim[hidden]{display:none}
+/* wizard */
+.wiz{display:grid;gap:14px;max-width:760px}
+.wiz .prog{display:flex;gap:4px}
+.wiz .prog i{flex:1;height:5px;border-radius:3px;background:var(--line)}
+.wiz .prog i.done{background:var(--teal)}.wiz .prog i.cur{background:var(--green)}
+.wiz .qcard{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px;display:grid;gap:12px}
+.wiz .eyebrow{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+.wiz h2{font-family:var(--display);font-size:1.25rem;color:var(--green)}
+.wiz textarea{width:100%;min-height:110px;border:1px solid var(--line);border-radius:8px;padding:10px;background:var(--paper)}
+.wiz .nav{display:flex;gap:8px;justify-content:space-between;flex-wrap:wrap}
+/* dictionary */
+.dict{display:grid;gap:12px}
+.dict input{width:100%;max-width:480px;border:1px solid var(--line);border-radius:8px;padding:8px 12px;background:var(--card)}
+.terms{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
+.term{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:grid;gap:4px}
+.term b{font-size:.98rem;color:var(--green)}
+.term .wk{font-size:.76rem;color:var(--mute);letter-spacing:.02em}
+.term p{margin:0;font-size:.88rem}
+.tagrow{display:flex;gap:6px;flex-wrap:wrap}
+.tagrow button{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:3px 10px;font-size:.8rem;color:var(--mute)}
+.tagrow button.on{background:var(--green);color:var(--paper);border-color:var(--green)}
+/* cases view */
+.cases{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.cbox{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:grid;gap:8px;font-size:.88rem}
+.cbox h3{font-size:1rem;display:flex;align-items:center;gap:8px}
+.cbox h3 i{width:12px;height:12px;border-radius:50%;display:inline-block}
+.cbox dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 10px}
+.cbox dt{color:var(--mute);font-size:.8rem;padding-top:2px}
+.cbox dd{margin:0}
+.toast{position:fixed;left:50%;bottom:max(20px,env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--green);color:var(--paper);padding:8px 16px;border-radius:999px;font-size:.88rem;z-index:30;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.show{opacity:1}
+.export{display:grid;gap:8px}
+.export textarea{width:100%;min-height:180px;border:1px solid var(--line);border-radius:8px;padding:10px;background:var(--card);font-family:ui-monospace,Menlo,monospace;font-size:.8rem}
+@media (max-width:640px){ table.sheet{min-width:760px} .brand h1{font-size:1.2rem} }
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <div class="brand">
+    <h1>傳習系列設計工作台</h1>
+    <span class="sub">原住民族文化創意產業專題研討｜傳習機制週課堂實作｜把一場兩小時手作活動，改寫成一個傳習系列</span>
+  </div>
+  <div class="toolbar">
+    <div class="tabs" role="tablist">
+      <button role="tab" aria-selected="true" data-view="table">設計表</button>
+      <button role="tab" aria-selected="false" data-view="wizard">引導模式</button>
+      <button role="tab" aria-selected="false" data-view="cases">四案參考</button>
+      <button role="tab" aria-selected="false" data-view="dict">字典</button>
+      <button role="tab" aria-selected="false" data-view="overview">總覽</button>
+    </div>
+    <select class="sheet" id="sheetSel" aria-label="選擇哪一份表">
+      <option value="a">工藝師 A 的表</option>
+      <option value="b">工藝師 B 的表</option>
+      <option value="c">原資中心的表</option>
+      <option value="shared">三人共同一份</option>
+    </select>
+    <span class="chip" id="status"><span class="dot"></span><span id="statusText">連線中…</span></span>
+    <span class="chip" id="online" hidden><span class="dot" style="background:var(--teal)"></span><span id="onlineText">1 人在線</span></span>
+    <span class="spacer"></span>
+    <button class="btn" id="exportBtn">複製成文字</button>
+    <button class="btn" id="clearBtn">清空這份表</button>
+  </div>
+</div></header>
+
+<main class="wrap">
+  <!-- 設計表 -->
+  <section class="view" id="view-table">
+    <div class="intro">
+      <p>每一格寫一句話，標一個記號（✓ 有來源可核對、？ 推論待驗證）。格子旁的「套框架」把前幾週的工具變成可勾選的句子；「看案例」顯示四個案例在這一格的做法；「提示」是這格最常被漏掉的事。</p>
+    </div>
+    <div class="gridwrap">
+      <table class="sheet" id="sheetTable"></table>
+    </div>
+    <div class="panels">
+      <div class="panel" id="judge">
+        <h3>活動／方案／機制判斷器</h3>
+        <p>三個問題，答完亮燈。判準只有一個：停掉經費之後還剩什麼。</p>
+        <div class="q"><span>換一批學員，它還在嗎？</span><div class="opts"><label><input type="radio" name="j1" value="1">在</label><label><input type="radio" name="j1" value="0">不在</label></div></div>
+        <div class="q"><span>換一個老師（工藝師），它還在嗎？</span><div class="opts"><label><input type="radio" name="j2" value="1">在</label><label><input type="radio" name="j2" value="0">不在</label></div></div>
+        <div class="q"><span>停一筆經費（計畫結束），它還在嗎？</span><div class="opts"><label><input type="radio" name="j3" value="1">在</label><label><input type="radio" name="j3" value="0">不在</label></div></div>
+        <div class="lamp" id="lamp"><span class="l"></span><span id="lampText">尚未判斷</span><small id="lampHint"></small></div>
+      </div>
+      <div class="panel">
+        <h3>證據記號檢核</h3>
+        <p>每一格都應該有一個記號。「？」不是扣分，是誠實。</p>
+        <div class="stat"><span><b id="nFilled">0</b>已填格數／16</span><span><b id="nOk">0</b>✓ 有來源</span><span><b id="nQ">0</b>？ 待驗證</span><span><b id="nNone">16</b>未標記</span></div>
+        <div class="tip" id="markTip">先把第一列（兩小時體驗）四格填滿，再往下。</div>
+      </div>
+      <div class="panel peer">
+        <h3>互評五問</h3>
+        <p>另外兩位同學看完這份表，各自勾選；勾不到的就是要補的地方。</p>
+        <label><input type="checkbox" class="pq"> ① 材料與故事的來源有署名嗎？</label>
+        <label><input type="checkbox" class="pq"> ② 每一階段都說得出教到哪一層嗎？</label>
+        <label><input type="checkbox" class="pq"> ③ 每一階的出口接得上下一階嗎？</label>
+        <label><input type="checkbox" class="pq"> ④ 工藝師的給付合理、而且寫出數字嗎？</label>
+        <label><input type="checkbox" class="pq"> ⑤ 計畫結束後，還剩下什麼？</label>
+        <div class="tip" id="peerTip">尚未互評。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 引導模式 -->
+  <section class="view" id="view-wizard" hidden>
+    <div class="wiz">
+      <div class="prog" id="prog"></div>
+      <div class="qcard">
+        <div class="eyebrow" id="wEyebrow"></div>
+        <h2 id="wTitle"></h2>
+        <div class="tip" id="wTip"></div>
+        <textarea id="wText" placeholder="一句話就好；填不出來可以先按「看案例」借一句來改。"></textarea>
+        <div class="sec"><h4>套框架<small>點一下，句子會加進上面</small></h4><div class="chips" id="wChips"></div></div>
+        <div class="sec"><h4>四案在這一格怎麼做</h4><div id="wCases" style="display:grid;gap:8px"></div></div>
+        <div class="cellbar">
+          <span style="font-size:.84rem;color:var(--mute)">這一格的記號：</span>
+          <span class="mark" id="wMark"><button class="ok" data-m="ok">✓</button><button class="q" data-m="q">？</button><button data-m="">—</button></span>
+        </div>
+        <div class="nav"><button class="btn" id="wPrev">上一格</button><span style="font-size:.84rem;color:var(--mute);align-self:center" id="wPos"></span><button class="btn primary" id="wNext">下一格</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 四案參考 -->
+  <section class="view" id="view-cases" hidden>
+    <div class="intro"><p>本週四個案例的四個決策，各一句。設計表裡按「看案例」會看到對應格子的版本；這裡是全貌。</p></div>
+    <div class="cases" id="casesGrid"></div>
+  </section>
+
+  <!-- 字典 -->
+  <section class="view" id="view-dict" hidden>
+    <div class="dict">
+      <input id="dictQ" placeholder="搜尋名詞，例如 POG、三層、交叉補貼、藝生…" aria-label="搜尋名詞">
+      <div class="tagrow" id="dictTags"></div>
+      <div class="terms" id="terms"></div>
+    </div>
+  </section>
+
+
+  <!-- 總覽 -->
+  <section class="view" id="view-overview" hidden>
+    <div class="intro"><p>四份表的即時進度（老師用）。點一份就切換過去看內容。</p></div>
+    <div class="cases" id="overviewGrid"></div>
+  </section>
+
+  <section class="export" id="exportBox" hidden>
+    <h3 style="font-size:1rem;color:var(--green)">文字版（已複製；若沒有，請全選後複製）</h3>
+    <textarea id="exportText" readonly></textarea>
+  </section>
+</main>
+
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" aria-label="工具抽屜">
+  <div class="dh"><h2 id="dTitle">套框架</h2><button class="x" id="dClose" aria-label="關閉">×</button></div>
+  <div class="db">
+    <div class="dtabs"><button data-dt="frame" aria-selected="true">套框架</button><button data-dt="cases" aria-selected="false">看案例</button><button data-dt="tip" aria-selected="false">提示</button></div>
+    <div id="dBody"></div>
+  </div>
+</aside>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+'use strict';
+// ---------- 表的結構 ----------
+const STAGES=[
+  {id:'s1',name:'第一次：兩小時體驗',sub:'現在的活動'},
+  {id:'s2',name:'第二階：系列課 4–6 次',sub:'有興趣的人往下走'},
+  {id:'s3',name:'第三階：跟隨一學期',sub:'進入工藝師的場域'},
+  {id:'s4',name:'證據',sub:'每一欄留下什麼數字'},
+];
+const COLS=[
+  {id:'c1',name:'材料與故事',sub:'決策一：知識來源與權威'},
+  {id:'c2',name:'工藝操作',sub:'決策二：形式與層次'},
+  {id:'c3',name:'延伸學習',sub:'決策四：出口'},
+  {id:'c4',name:'工藝師回饋',sub:'決策三：資源結構'},
+];
+// 每格的引導問題與提示
+const GUIDE={
+ 's1-c1':{q:'這場兩小時活動的材料與故事，來自誰？',tip:'寫出族群／部落／家族，和提供者的名字或身分。只寫「原住民文化」不算；沒有署名就標「？」。'},
+ 's1-c2':{q:'兩小時裡，學員親手做出什麼？教到哪一層？',tip:'兩小時幾乎只教得到物質層（材料、形狀）。誠實寫「物質層」，不要寫「體驗文化精神」。'},
+ 's1-c3':{q:'活動結束後，有興趣的學員怎麼走到下一階？',tip:'沒有「下一步」的活動就是活動。寫出報名方式、名額、什麼時候開。'},
+ 's1-c4':{q:'工藝師這兩小時拿到什麼？合理嗎？',tip:'寫數字：鐘點費、材料費誰出、備課算不算。對照：文資藝生制藝師鐘點 1,500 元／時。'},
+ 's2-c1':{q:'系列課加入哪些採集、處理材料的知識？由誰教？',tip:'這一階可以請耆老或工藝師本人教材料來源；知識由誰記錄、記錄歸誰？'},
+ 's2-c2':{q:'4–6 次課學會哪一套完整工序？教到行為層了嗎？',tip:'行為層＝學會一套可重複的操作。寫出工序名稱與次數，不要寫「深入體驗」。'},
+ 's2-c3':{q:'系列課的出口是什麼：結業作品展？助教資格？',tip:'出口要接得上第三階：誰可以申請跟隨？標準是什麼？'},
+ 's2-c4':{q:'系列課的給付能覆蓋工藝師的備課與材料嗎？',tip:'算一次：次數 × 鐘點 ＋ 材料 ＋ 備課。學員付費、計畫付、還是中心付？'},
+ 's3-c1':{q:'跟隨一學期時，學員進入誰的工作場域？知識怎麼被記錄？',tip:'這一階最接近學徒制。工藝師願不願意讓人進來？哪些不能教、不能拍？'},
+ 's3-c2':{q:'一學期的跟隨，教到精神層了嗎——為什麼這樣做？',tip:'精神層只有長時間在場才教得到。寫出學員要參與哪些非技術的事（採集、祭儀、生活）。'},
+ 's3-c3':{q:'跟隨結束後，學員回來當第一階的助教？還是去申請文資藝生？',tip:'出口設計是本週四案共同的空白。至少寫一個：助教、藝生、工坊、再跟一學期。'},
+ 's3-c4':{q:'原資中心能給助教津貼嗎？工藝師得到持續合作嗎？',tip:'想想交叉補貼：體驗活動的收入能不能養跟隨階段？'},
+ 's4-c1':{q:'材料與故事的來源有沒有寫下來、歸檔？',tip:'證據＝文件：一頁來源表、授權同意、署名規範。'},
+ 's4-c2':{q:'每一階段有幾人完成？',tip:'寫可以數的：報名數、完成數、完成率。'},
+ 's4-c3':{q:'有幾人進入下一階？幾人回來教？',tip:'這是傳習證據，不是活動證據。目標值也可以寫，但標「？」。'},
+ 's4-c4':{q:'工藝師一年從此得到多少？願不願意繼續？',tip:'年度加總＋一句工藝師自己的話。'},
+};
+// 框架（依欄）
+const FRAMES={
+ c1:[
+  {h:'文化三層：這一格取自哪一層',items:['取自精神層：故事、價值、信仰','取自行為層：技藝、採集規則、儀式','取自物質層：材料、器物、紋樣']},
+  {h:'知識來源與權威（決策一）',items:['耆老口傳與生活實作','國家認定的保存者／工藝士','博物館藏品與文獻回溯','機構課綱與師資']},
+  {h:'治理四問',items:['持有者：這是○○族△△部落／家族的','同意：已取得部落／家族同意','禁忌：哪些不能用、不能賣','回饋：署名＋分潤回到社群']},
+ ],
+ c2:[
+  {h:'教到哪一層',items:['教到物質層（做出一件東西）','教到行為層（學會一套工序）','教到精神層（知道為什麼這樣做）']},
+  {h:'轉譯手法（最多勾 3 種）',items:['材料替換／再賦值','操作轉譯','機能轉換','記憶敘事化','尺度與情境轉換','結構與組裝轉譯','實體與數位整合','規格化量產']},
+  {h:'傳習形式與時長（決策二）',items:['工作坊：數小時，10–30 人','系列課：數週，10 人','學徒制：數年，1–3 人','社群活動型：每年循環，全部落青年']},
+ ],
+ c3:[
+  {h:'出口四種（決策四）',items:['認證：結業證書／藝生／工藝士','就業：受雇於工坊、博物館、學校','自立：開工作室、接案、品牌','回流：回部落、成為下一代老師']},
+  {h:'三證據',items:['知識證據：技藝被記錄、有教材','能力證據：○人能獨立操作','關係證據：學員回來教、回來參與']},
+ ],
+ c4:[
+  {h:'誰付費（決策三）',items:['學員付費：學費＋材料費','顧客與觀光：體驗收入養傳習','政府計畫：年度經費，有期限','機構與捐款：基金會、企業、募資']},
+  {h:'交叉補貼三問',items:['補貼比例多高？','補貼來源抗不抗震？','被補貼的那端有沒有自己的出口？']},
+  {h:'給付參考',items:['藝師鐘點 1,500 元／時（文資傳習計畫）','藝生津貼上限 18,000 元／月','材料費另計；備課時數要算']},
+ ],
+};
+// 四案（依欄）
+const CASES=[
+ {id:'yeh',name:'野桐工坊',color:'#6B547D',
+  c1:'知識從博物館藏品回溯＋耆老口傳重建；2016 年成為國家保存者，權威來自證據＋部落承認＋國家認定。',
+  c2:'三條軌道並行：織女工作坊（物質＋行為）、全族語學園（精神）、國家藝生制（三層都教，4 年、2–6 人）。',
+  c3:'織女回部落自立工坊、學員升學、女兒成為藝生；結業藝生優先當教學助理。結業人數未公開。',
+  c4:'博物館委託與公共藝術養織女（年 300–500 萬）、文資計畫養藝生、支持者募資養學園。',
+  d1:'博物館藏品回溯＋耆老＋國家保存者認定',d2:'織女工作坊／學園／藝生制（4 年、2–6 人）',d3:'專案收入＋文資計畫＋募資',d4:'自立工坊、結業證書、家族接班'},
+ {id:'hunter',name:'拉勞蘭獵人學校',color:'#B76E4D',
+  c1:'父親與耆老口傳、年齡階級；「獵人」被重新定義為「能與土地溝通的人」；權威在創辦人與家族。',
+  c2:'社群活動型：青年會年度循環＋獵人課程五階段（各 3–5 天，邀請制）；收費課切到公司。教到精神層。',
+  c3:'學員成為執行長、創業者、教師（師培）；青年會 50 人制度化交接；完成率約一成。',
+  c4:'創辦人獎金與名聲、捐款、三鐵回捐、公益平台連年贊助；幾乎沒有營收。',
+  d1:'父親與耆老口傳＋年齡階級',d2:'社群活動型：五階段各 3–5 天、邀請制',d3:'捐款、回捐、單一贊助者',d4:'執行長、創業、師培'},
+ {id:'tepuia',name:'Te Puia NZMACI',color:'#45877D',
+  c1:'師承鏈（老師皆畢業生）＋八種部族風格＋iwi 推薦；法定機構。',
+  c2:'三年全時學校制，每週 40 小時、師生比 1:3；木雕每年最多 5 人；自頒文憑。',
+  c3:'161 名畢業生、83 個 iwi、40 餘座會堂；畢業生成老師；無就業追蹤。',
+  c4:'觀光收入養每年 600 萬紐元；疫情後加政府紓困、基金會、學費 6 萬＋獎學金 2.4 萬、iwi 贊助。',
+  d1:'師承鏈＋部族風格＋iwi 推薦',d2:'三年全時、1:3、≤5 人／年',d3:'觀光養學校；疫情後多元化',d4:'畢業生成老師、回 iwi 建會堂'},
+ {id:'nibutani',name:'二風谷愛努工藝',color:'#245C4A',
+  c1:'四代家族＋博物館藏品＋經產省「傳統工藝品」指定與傳統工藝士認證。',
+  c2:'家族學徒制＋財團三年支薪課程（4 人／期、約 4,800 小時）＋町工藝館體驗。',
+  c3:'26 位現役工藝家、6 位工藝士；課程明定不斡旋就職；修了生去向未公開。',
+  c4:'國庫交付金八成養場館與材料；財團預算養人（4,067 萬円／年）；作品高單價。',
+  d1:'家族＋藏品＋國家認證',d2:'家族學徒＋三年支薪課程',d3:'交付金養場館、財團養人',d4:'工藝士認證、不斡旋就職'},
+];
+// 字典
+const DICT=[
+ {t:'POG（Product Opportunity Gap）',w:'Kamaro\'an 週',g:'方法',d:'尚未被滿足的產品／服務機會缺口。寫法：「缺少讓〔對象〕在〔情境〕下〔做到什麼〕的機制」。不是解方（Cagan & Vogel）。'},
+ {t:'SET',w:'Kamaro\'an 週',g:'方法',d:'社會（Social）、經濟（Economic）、科技（Technological）三種外部趨勢，用來理解需求為什麼改變；SET 是背景，POG 才是缺口。'},
+ {t:'VOA（Value Opportunity Analysis）',w:'Kamaro\'an 週',g:'方法',d:'機會價值分析：評估一個 POG 在情感、美學、認同、人因、影響、核心技術、品質等價值機會上的強弱。'},
+ {t:'文化三層',w:'黑色雋永週',g:'框架',d:'Lin（2007）：精神／觀念（內層）、社會／行為（中層）、實體／物質（外層）。只取外層是符號，取到行為層才有技藝，取到精神層才有意義。'},
+ {t:'轉譯手法八類',w:'黑色雋永週',g:'框架',d:'材料替換／再賦值、操作轉譯、機能轉換、記憶敘事化、尺度與情境轉換、結構與組裝轉譯、實體與數位整合、規格化量產。報告只標主要 2–3 種。'},
+ {t:'文化治理四問',w:'黑色雋永週',g:'框架',d:'持有者是誰、有沒有同意（授權／登記／部落同意）、哪些是禁忌、有沒有回饋（署名、分潤）。轉譯之前先問這四題。'},
+ {t:'四大永續價值',w:'不老部落週',g:'框架',d:'文化、經濟、社會、環境四種價值互相支撐或衝突；分析時每項寫「可見的實踐」與「待驗證」各一句。'},
+ {t:'價值張力',w:'不老部落週',g:'框架',d:'兩種合理但衝突的需求，例如文化 × 經濟、文化 × 社會。POG 通常從張力推出來。'},
+ {t:'商業模式五觀察點',w:'不老部落週',g:'框架',d:'價值主張、價值創造、價值交付、價值獲取、價值分配。報告壓成三問：誰付費、誰做、收益回到誰。'},
+ {t:'品牌溢價邏輯 vs 供應鏈共益邏輯',w:'MaXhosa 週',g:'框架',d:'兩種經營邏輯：靠設計與美學收溢價（MaXhosa、SABRA ANDRE）；或把生產者、採購、通路、照顧放進同一套關係（Tocabe、德瑪汶）。'},
+ {t:'文化永續三證據',w:'黑色雋永週',g:'框架',d:'知識（說得出來源與意義、有記錄）、能力（有人能持續操作與教學）、關係（族人、學員、機構持續參與）。銷售不能代替延續。'},
+ {t:'傳習四決策',w:'傳習機制週',g:'框架',d:'知識來源與權威、傳習形式與時長、資源結構、出口與證據。四者互相牽制，可借鏡的是組合不是單一做法。'},
+ {t:'活動 ≠ 方案 ≠ 機制',w:'傳習機制週',g:'框架',d:'活動：結束後沒有人被要求學會。方案：有課程與結業，但經費一停就停。機制：換學員、換老師、停經費，它還在。'},
+ {t:'交叉補貼',w:'傳習機制週',g:'概念',d:'一種活動的收入（觀光、商品、接案）補貼另一種活動（傳習）。要問比例多高、來源抗不抗震、被補貼的那端有沒有出口。'},
+ {t:'證據等級 A／B／C → ✓／？',w:'黑色雋永週',g:'方法',d:'A 可核對的事實、B 組織自述、C 課堂推論。報告簡化為 ✓ 有來源可核對（自述句尾註明）與 ？ 推論待驗證。'},
+ {t:'三種聲音',w:'各週',g:'方法',d:'持有者說的（引述族人）、品牌／組織說的（官網、年報，標「自述」）、你推論的（標「？」）。三者要分開寫。'},
+ {t:'研究邊界',w:'Kamaro\'an 週',g:'方法',d:'報告最後一頁：哪些是已證實的事實、哪些是組織說法、哪些是你的推論、哪些沒查到。案例太新時這一頁會很長，這是正常的。'},
+ {t:'重要傳統工藝保存者（人間國寶）',w:'傳習機制週',g:'制度・台灣',d:'文資法下由文化部登錄的「人」。保存者可申請傳習計畫帶藝生；2016 年尤瑪·達陸為原住民類首案。'},
+ {t:'藝生制（傳習計畫）',w:'傳習機制週',g:'制度・台灣',d:'文資局「重要傳統工藝保存者傳習計畫」：每階段 4 年、每位保存者 2–6 名藝生、每月 ≥50 小時、津貼上限 1.8 萬／月、藝師鐘點 6 萬／月、結業證書。'},
+ {t:'原住民族傳統智慧創作專用權（傳智權）',w:'MaXhosa 週',g:'制度・台灣',d:'經登記的傳統智慧創作有專用權，授權使用受專法規範。至 2024 年公告約 95 件；泰雅織紋尚無登記，賽德克、太魯閣有。'},
+ {t:'伝統的工芸品（傳統工藝品）',w:'傳習機制週',g:'制度・日本',d:'經產省依產業法指定的「產地與品項」，五條件：日用品、手工、100 年以上技法、傳統原料、產地形成。2013 年二風谷イタ與アットゥㇱ為北海道首例。'},
+ {t:'伝統工芸士（傳統工藝士）',w:'傳習機制週',g:'制度・日本',d:'對個人的技能認證，由振興協會核發；二風谷 2022 年 2 名（織）、2025 年 4 名（雕）。認證「人」，指定「產地」，兩者對傳習作用不同。'},
+ {t:'伝承者育成事業',w:'傳習機制週',g:'制度・日本',d:'愛努民族文化財團的三年支薪課程：每期 4 名、18–35 歲、約 230 天／年、獎勵費 4,770 円／日，明定不斡旋就職；2026 年起設在平取町。'},
+ {t:'アイヌ施策推進法・交付金',w:'傳習機制週',g:'制度・日本',d:'2019 年法；國家對有認定計畫的市町村發交付金（國庫約 80%）。平取町 2021 年度 5.5 億円，養場館、材料與品牌化。'},
+ {t:'NZMACI 法（1963）／Vesting Act（2020）',w:'傳習機制週',g:'制度・紐西蘭',d:'1963 年立法設立毛利工藝學院，任務含「訓練毛利人實踐毛利工藝」與發展觀光；2020 年資產移轉給三個 iwi 信託，法律要求持續學院功能。'},
+ {t:'iwi tono',w:'傳習機制週',g:'詞彙・毛利',d:'部族支持／推薦。Te Puia 的申請「最強的來自有 iwi tono 的人」；畢業生被期待回去服務 iwi。'},
+ {t:'tohunga／pouako',w:'傳習機制週',g:'詞彙・毛利',d:'tohunga：專家、大師（雕刻、織藝的師承權威）；pouako：教師。Te Puia 的 pouako 幾乎都是自己的畢業生。'},
+ {t:'marae／wharenui',w:'傳習機制週',g:'詞彙・毛利',d:'部族集會場域與其雕刻會堂。NZMACI 畢業生「回去建會堂」是最強的關係證據之一（逾 40 座）。'},
+ {t:'cinunan（奇努南）',w:'傳習機制週',g:'詞彙・排灣',d:'獵人；撒可努定義為「能與土地、自然溝通的人」，核心是分享、給予、謙卑。'},
+ {t:'cakar（青年會所）',w:'傳習機制週',g:'詞彙・排灣',d:'拉勞蘭部落青年會的會所與年齡階級制度，是獵人學校課程的基礎；部落稱「養成」而非「教育」。'},
+ {t:'イタ／アットゥㇱ',w:'傳習機制週',g:'詞彙・愛努',d:'イタ：木雕淺盤，以モレウ（漩渦）等紋樣與ラㇺラㇺノカ（鱗紋）填滿；アットゥㇱ：裂葉榆內皮纖維織成的布，一球線約一個月。'},
+ {t:'Toi Iho／kōhanga reo',w:'黑色雋永週',g:'制度・紐西蘭',d:'Toi Iho：毛利藝術真實性標章；kōhanga reo：毛利語幼兒園（1982 起），Paku 的起點就在這類場域。'},
+ {t:'一手資料',w:'各週',g:'方法',d:'官網、商品頁、法規、年報、設計師或族人訪談、設計獎自述、論文。報告至少三個不同來源，並分出誰說的。'},
+];
+
+// ---------- 狀態 ----------
+const KEYS=[];STAGES.forEach(s=>COLS.forEach(c=>KEYS.push(s.id+'-'+c.id)));
+let sheetId='a';
+let data=blank();
+let db=null,userCap=null,canWrite=null,unsub=null,saveTimer=null;
+function blank(){const d={cells:{},marks:{},judge:{},peer:[]};KEYS.forEach(k=>{d.cells[k]='';d.marks[k]='';});return d;}
+const LS='workbench:';
+function lsLoad(id){try{const r=localStorage.getItem(LS+id);if(r){const o=JSON.parse(r);return Object.assign(blank(),o);}}catch(e){}return blank();}
+function lsSave(){try{localStorage.setItem(LS+sheetId,JSON.stringify(data));}catch(e){}}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(toast._t);toast._t=setTimeout(()=>t.classList.remove('show'),1800);}
+
+// ---------- 表格渲染 ----------
+const tbl=document.getElementById('sheetTable');
+function renderTable(){
+  let h='<thead><tr><th class="rowh">階段 ＼ 欄位</th>';
+  COLS.forEach(c=>{h+=`<th>${c.name}<small>${c.sub}</small></th>`;});
+  h+='</tr></thead><tbody>';
+  STAGES.forEach(s=>{
+    h+=`<tr><th class="rowh">${s.name}<small>${s.sub}</small></th>`;
+    COLS.forEach(c=>{const k=s.id+'-'+c.id;
+      h+=`<td><div class="cell" data-k="${k}"><textarea id="ta-${k}" aria-label="${s.name} ${c.name}" placeholder="${GUIDE[k].q}"></textarea>
+      <div class="cellbar"><button class="mini" data-act="frame" data-k="${k}">套框架</button><button class="mini" data-act="cases" data-k="${k}">看案例</button><button class="mini" data-act="tip" data-k="${k}">提示</button>
+      <span class="mark" data-k="${k}"><button class="ok" data-m="ok" title="有來源可核對">✓</button><button class="q" data-m="q" title="推論待驗證">？</button><button data-m="" title="未標記">—</button></span></div></div></td>`;
+    });
+    h+='</tr>';
+  });
+  h+='</tbody>';tbl.innerHTML=h;
+}
+function fillTable(){
+  KEYS.forEach(k=>{const ta=document.getElementById('ta-'+k);if(ta&&ta.value!==data.cells[k])ta.value=data.cells[k]||'';
+    document.querySelectorAll(`.mark[data-k="${k}"] button`).forEach(b=>b.setAttribute('aria-pressed',String((data.marks[k]||'')===b.dataset.m)));});
+  ['j1','j2','j3'].forEach(j=>{document.querySelectorAll(`input[name="${j}"]`).forEach(r=>{r.checked=(data.judge[j]===r.value);});});
+  document.querySelectorAll('.pq').forEach((c,i)=>{c.checked=!!(data.peer||[])[i];});
+  updateStats();updateLamp();updatePeer();
+}
+function updateStats(){
+  let filled=0,ok=0,q=0;KEYS.forEach(k=>{if((data.cells[k]||'').trim())filled++;if(data.marks[k]==='ok')ok++;if(data.marks[k]==='q')q++;});
+  document.getElementById('nFilled').textContent=filled;document.getElementById('nOk').textContent=ok;document.getElementById('nQ').textContent=q;document.getElementById('nNone').textContent=16-ok-q;
+  const unm=KEYS.filter(k=>(data.cells[k]||'').trim()&&!data.marks[k]);
+  const tip=document.getElementById('markTip');
+  if(filled===0)tip.textContent='先把第一列（兩小時體驗）四格填滿，再往下。';
+  else if(unm.length)tip.textContent=`有 ${unm.length} 格填了字但沒標記號：${unm.map(label).join('、')}。`;
+  else if(filled<16)tip.textContent=`還有 ${16-filled} 格空白；空白也可以寫「未查到」再標「？」。`;
+  else tip.textContent=ok>=8?'全部填完、全部有記號。可以請另外兩位同學互評。':'全部填完。✓ 少於一半：這份方案大多還是推論，報告時要說清楚哪些要去驗證。';
+}
+function label(k){const [s,c]=k.split('-');return STAGES.find(x=>x.id===s).name.split('：')[0]+'／'+COLS.find(x=>x.id===c).name;}
+function updateLamp(){
+  const j=data.judge,lamp=document.getElementById('lamp'),t=document.getElementById('lampText'),hn=document.getElementById('lampHint');
+  lamp.className='lamp';
+  if(!(j.j1&&j.j2&&j.j3)){t.textContent='尚未判斷';hn.textContent='';return;}
+  const n=['j1','j2','j3'].filter(x=>j[x]==='1').length;
+  if(n===3){lamp.classList.add('g');t.textContent='機制';hn.textContent='三問都「在」。請確認第四列的證據能證明。';}
+  else if(n>=1){lamp.classList.add('y');t.textContent='方案';const miss=[['j1','換學員'],['j2','換老師'],['j3','停經費']].filter(x=>j[x[0]]!=='1').map(x=>x[1]).join('、');hn.textContent=`卡在：${miss}。對應的決策要補。`;}
+  else{lamp.classList.add('r');t.textContent='活動';hn.textContent='三問都「不在」：目前是一次性活動。從第二階開始設計。';}
+}
+function updatePeer(){const n=(data.peer||[]).filter(Boolean).length;const t=document.getElementById('peerTip');t.textContent=n===0?'尚未互評。':n===5?'五問全過。下一步：把這張表帶回自己的現場，下學期試一階。':`通過 ${n}／5。沒勾到的那幾題，就是報告要補的格子。`;}
+
+tbl.addEventListener('input',e=>{if(e.target.tagName==='TEXTAREA'){const k=e.target.closest('.cell').dataset.k;data.cells[k]=e.target.value;markDirty(k);updateStats();schedule();}});
+tbl.addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return;
+  if(b.dataset.act){openDrawer(b.dataset.k,b.dataset.act);return;}
+  if(b.dataset.m!==undefined){const k=b.closest('.mark').dataset.k;data.marks[k]=b.dataset.m;markDirty(k);fillTable();schedule();}
+});
+tbl.addEventListener('focusin',e=>{if(e.target.tagName==='TEXTAREA'){document.querySelectorAll('.cell.active').forEach(c=>c.classList.remove('active'));e.target.closest('.cell').classList.add('active');}});
+document.getElementById('judge').addEventListener('change',e=>{if(e.target.name){data.judge[e.target.name]=e.target.value;metaDirty=true;updateLamp();schedule();}});
+document.querySelectorAll('.pq').forEach((c,i)=>c.addEventListener('change',()=>{data.peer=data.peer||[];data.peer[i]=c.checked;metaDirty=true;updatePeer();schedule();}));
+
+// ---------- 抽屜 ----------
+const drawer=document.getElementById('drawer'),scrim=document.getElementById('scrim'),dBody=document.getElementById('dBody');
+let dKey=null,dTab='frame';
+function openDrawer(k,tab){dKey=k;dTab=tab||'frame';renderDrawer();drawer.classList.add('open');scrim.hidden=false;}
+function closeDrawer(){drawer.classList.remove('open');scrim.hidden=true;}
+document.getElementById('dClose').onclick=closeDrawer;scrim.onclick=closeDrawer;
+document.querySelectorAll('.dtabs button').forEach(b=>b.onclick=()=>{dTab=b.dataset.dt;renderDrawer();});
+function renderDrawer(){
+  document.querySelectorAll('.dtabs button').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.dt===dTab)));
+  document.getElementById('dTitle').textContent=label(dKey)+'　'+({frame:'套框架',cases:'看案例',tip:'提示'})[dTab];
+  dBody.innerHTML='';
+  if(dTab==='frame')dBody.appendChild(frameNode(dKey,insertInto));
+  else if(dTab==='cases')dBody.appendChild(casesNode(dKey,insertInto));
+  else{const t=document.createElement('div');t.className='tip';t.textContent=GUIDE[dKey].tip;dBody.appendChild(t);
+    const q=document.createElement('p');q.style.cssText='font-size:.9rem;color:var(--mute)';q.textContent='引導問題：'+GUIDE[dKey].q;dBody.appendChild(q);}
+}
+function frameNode(k,onPick){
+  const col=k.split('-')[1];const wrap=document.createElement('div');wrap.style.cssText='display:grid;gap:14px';
+  FRAMES[col].forEach(f=>{const sec=document.createElement('div');sec.className='sec';const h=document.createElement('h4');h.innerHTML=f.h+(f.h.includes('最多')?'<small>點一下加入，再點取消</small>':'<small>點一下加入句子</small>');sec.appendChild(h);
+    const ch=document.createElement('div');ch.className='chips';
+    f.items.forEach(it=>{const b=document.createElement('button');b.textContent=it;b.onclick=()=>{onPick(k,it,b);};if((data.cells[k]||'').includes(it))b.classList.add('on');ch.appendChild(b);});
+    sec.appendChild(ch);wrap.appendChild(sec);});
+  return wrap;
+}
+function casesNode(k,onPick){
+  const col=k.split('-')[1];const wrap=document.createElement('div');wrap.style.cssText='display:grid;gap:10px';
+  CASES.forEach(c=>{const d=document.createElement('div');d.className='casecard';d.innerHTML=`<div class="cn"><i style="background:${c.color}"></i>${c.name}</div><div>${c[col]}</div>`;
+    const u=document.createElement('button');u.className='use';u.textContent='借這一句來改';u.onclick=()=>onPick(k,'（參考 '+c.name+'）'+c[col]);d.appendChild(u);wrap.appendChild(d);});
+  return wrap;
+}
+function insertInto(k,text,btn){
+  let v=data.cells[k]||'';
+  if(btn&&v.includes(text)){v=v.split('\n').filter(l=>l.trim()!==text).join('\n');btn.classList.remove('on');}
+  else{v=(v.trim()?v.replace(/\s+$/,'')+'\n':'')+text;if(btn)btn.classList.add('on');}
+  data.cells[k]=v;markDirty(k);const ta=document.getElementById('ta-'+k);if(ta)ta.value=v;const w=document.getElementById('wText');if(wKey===k&&w)w.value=v;
+  updateStats();schedule();
+}
+
+// ---------- 引導模式 ----------
+let wi=0,wKey=KEYS[0];
+function renderWizard(){
+  wKey=KEYS[wi];const [s,c]=wKey.split('-');const st=STAGES.find(x=>x.id===s),co=COLS.find(x=>x.id===c);
+  document.getElementById('prog').innerHTML=KEYS.map((k,i)=>`<i class="${i<wi?'done':i===wi?'cur':''}"></i>`).join('');
+  document.getElementById('wEyebrow').textContent=`${st.name}　·　${co.name}（${co.sub}）`;
+  document.getElementById('wTitle').textContent=GUIDE[wKey].q;
+  document.getElementById('wTip').textContent=GUIDE[wKey].tip;
+  document.getElementById('wText').value=data.cells[wKey]||'';
+  document.getElementById('wPos').textContent=`${wi+1} / ${KEYS.length}`;
+  const ch=document.getElementById('wChips');ch.innerHTML='';ch.appendChild(frameNode(wKey,insertInto));
+  const cs=document.getElementById('wCases');cs.innerHTML='';cs.appendChild(casesNode(wKey,insertInto));
+  document.querySelectorAll('#wMark button').forEach(b=>b.setAttribute('aria-pressed',String((data.marks[wKey]||'')===b.dataset.m)));
+  document.getElementById('wPrev').disabled=wi===0;document.getElementById('wNext').textContent=wi===KEYS.length-1?'完成，回設計表':'下一格';
+}
+document.getElementById('wText').addEventListener('input',e=>{data.cells[wKey]=e.target.value;markDirty(wKey);const ta=document.getElementById('ta-'+wKey);if(ta)ta.value=e.target.value;updateStats();schedule();});
+document.querySelectorAll('#wMark button').forEach(b=>b.onclick=()=>{data.marks[wKey]=b.dataset.m;markDirty(wKey);renderWizard();fillTable();schedule();});
+document.getElementById('wPrev').onclick=()=>{if(wi>0){wi--;renderWizard();}};
+document.getElementById('wNext').onclick=()=>{if(wi<KEYS.length-1){wi++;renderWizard();window.scrollTo({top:0});}else{showView('table');}};
+
+// ---------- 四案參考 ----------
+function renderCases(){
+  document.getElementById('casesGrid').innerHTML=CASES.map(c=>`<div class="cbox"><h3><i style="background:${c.color}"></i>${c.name}</h3><dl><dt>知識來源</dt><dd>${c.d1}</dd><dt>形式與時長</dt><dd>${c.d2}</dd><dt>資源結構</dt><dd>${c.d3}</dd><dt>出口</dt><dd>${c.d4}</dd></dl><div style="color:var(--mute);font-size:.82rem">材料與故事：${c.c1}</div></div>`).join('');
+}
+
+// ---------- 字典 ----------
+let dictTag='全部';
+function renderDict(){
+  const q=(document.getElementById('dictQ').value||'').trim().toLowerCase();
+  const tags=['全部',...new Set(DICT.map(d=>d.g))];
+  document.getElementById('dictTags').innerHTML=tags.map(t=>`<button class="${t===dictTag?'on':''}" data-t="${t}">${t}</button>`).join('');
+  const list=DICT.filter(d=>(dictTag==='全部'||d.g===dictTag)&&(!q||(d.t+d.d+d.w).toLowerCase().includes(q)));
+  document.getElementById('terms').innerHTML=list.length?list.map(d=>`<div class="term"><b>${d.t}</b><span class="wk">${d.g}｜出自：${d.w}</span><p>${d.d}</p></div>`).join(''):'<p style="color:var(--mute)">沒有符合的名詞。</p>';
+}
+document.getElementById('dictQ').addEventListener('input',renderDict);
+document.getElementById('dictTags').addEventListener('click',e=>{const b=e.target.closest('button');if(b){dictTag=b.dataset.t;renderDict();}});
+
+// ---------- 視圖 ----------
+function showView(v){
+  document.querySelectorAll('.tabs [role=tab]').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.view===v)));
+  ['table','wizard','cases','dict','overview'].forEach(x=>{document.getElementById('view-'+x).hidden=(x!==v);});
+  document.getElementById('exportBox').hidden=true;
+  if(v==='wizard')renderWizard();if(v==='dict')renderDict();if(v==='overview')renderOverview();
+  try{localStorage.setItem(LS+'view',v);}catch(e){}
+}
+document.querySelectorAll('.tabs [role=tab]').forEach(b=>b.onclick=()=>showView(b.dataset.view));
+
+// ---------- 匯出 / 清空 ----------
+function toText(){
+  const name=document.querySelector('#sheetSel option:checked').textContent;
+  let out=`# 傳習系列設計表｜${name}\n\n`;
+  STAGES.forEach(s=>{out+=`## ${s.name}\n`;COLS.forEach(c=>{const k=s.id+'-'+c.id;const m=data.marks[k]==='ok'?'✓':data.marks[k]==='q'?'？':'—';out+=`- ${c.name}［${m}］${(data.cells[k]||'').trim().replace(/\n/g,'；')||'（未填）'}\n`;});out+='\n';});
+  const j=data.judge;out+=`判斷器：換學員${j.j1==='1'?'在':j.j1==='0'?'不在':'未答'}／換老師${j.j2==='1'?'在':j.j2==='0'?'不在':'未答'}／停經費${j.j3==='1'?'在':j.j3==='0'?'不在':'未答'} → ${document.getElementById('lampText').textContent}\n`;
+  out+=`互評五問：通過 ${(data.peer||[]).filter(Boolean).length}／5\n`;
+  return out;
+}
+document.getElementById('exportBtn').onclick=async()=>{
+  const t=toText();const box=document.getElementById('exportBox'),ta=document.getElementById('exportText');ta.value=t;box.hidden=false;
+  try{await navigator.clipboard.writeText(t);toast('已複製，可以貼到 LINE 或文件');}catch(e){ta.focus();ta.select();toast('請手動複製（已全選）');}
+  box.scrollIntoView({behavior:'smooth'});
+};
+document.getElementById('clearBtn').onclick=()=>{
+  const b=document.getElementById('clearBtn');
+  if(b.dataset.arm==='1'){data=blank();KEYS.forEach(k=>dirty.set(k,true));metaDirty=true;fillTable();schedule(true);b.textContent='清空這份表';b.dataset.arm='';toast('已清空');return;}
+  b.dataset.arm='1';b.textContent='再按一次確認清空';setTimeout(()=>{b.textContent='清空這份表';b.dataset.arm='';},4000);
+};
+
+// ---------- 儲存（Supabase → 本機） ----------
+const CFG=window.WB_CONFIG||{};
+const ROOM=(new URLSearchParams(location.search).get('room')||CFG.ROOM||'default').replace(/[^\w\-]/g,'').slice(0,40)||'default';
+let sb=null,channel=null,remote={};// remote: sheetId -> row
+const SHEETS=['a','b','c','shared'];
+function setStatus(ok,text){const c=document.getElementById('status');c.classList.toggle('ok',ok);document.getElementById('statusText').textContent=text;}
+function configured(){return CFG.SUPABASE_URL&&!/YOUR-PROJECT/.test(CFG.SUPABASE_URL)&&CFG.SUPABASE_ANON_KEY&&!/YOUR-ANON/.test(CFG.SUPABASE_ANON_KEY)&&window.supabase;}
+// 逐格寫入（最後寫入者保留該格；不同人改不同格不會互相覆蓋）
+const dirty=new Map();let flushTimer=null,metaDirty=false;
+function schedule(now){lsSave();if(!sb)return;clearTimeout(flushTimer);flushTimer=setTimeout(flush,now?0:600);}
+function markDirty(k){dirty.set(k,true);}
+async function flush(){
+  if(!sb)return;
+  const keys=[...dirty.keys()];dirty.clear();
+  try{
+    for(const k of keys){const {error}=await sb.rpc('set_cell',{p_room:ROOM,p_sheet:sheetId,p_key:k,p_value:data.cells[k]||'',p_mark:data.marks[k]||''});if(error)throw error;}
+    if(metaDirty){metaDirty=false;const {error}=await sb.rpc('set_meta',{p_room:ROOM,p_sheet:sheetId,p_judge:data.judge||{},p_peer:data.peer||[]});if(error)throw error;}
+    setStatus(true,'已同步（班級 '+ROOM+'）');
+  }catch(e){console.warn(e);setStatus(false,'同步失敗，內容仍存在這台裝置');keys.forEach(k=>dirty.set(k,true));}
+}
+function applyRow(row){
+  remote[row.sheet_id]=row;
+  if(row.sheet_id!==sheetId)return;
+  const incoming=Object.assign(blank(),{cells:row.cells||{},marks:row.marks||{},judge:row.judge||{},peer:row.peer||[]});
+  // 保留本機尚未送出的格子
+  KEYS.forEach(k=>{if(dirty.has(k)){incoming.cells[k]=data.cells[k];incoming.marks[k]=data.marks[k];}});
+  if(metaDirty){incoming.judge=data.judge;incoming.peer=data.peer;}
+  const active=document.activeElement;const activeKey=active&&active.tagName==='TEXTAREA'?(active.closest('.cell')?active.closest('.cell').dataset.k:(active.id==='wText'?wKey:null)):null;
+  if(activeKey&&!dirty.has(activeKey)){incoming.cells[activeKey]=data.cells[activeKey];}
+  data=incoming;fillTable();if(!document.getElementById('view-wizard').hidden)renderWizard();lsSave();renderOverview();
+}
+async function pullAll(){
+  if(!sb)return;
+  const {data:rows,error}=await sb.from('sheets').select('*').eq('room',ROOM);
+  if(error){setStatus(false,'讀取失敗：'+(error.message||''));return;}
+  remote={};(rows||[]).forEach(r=>{remote[r.sheet_id]=r;});
+  const row=remote[sheetId];
+  if(row)applyRow(row);
+  else{const localEmpty=!KEYS.some(k=>(data.cells[k]||'').trim());if(!localEmpty){KEYS.forEach(k=>dirty.set(k,true));metaDirty=true;schedule(true);}}
+  setStatus(true,'已連線（班級 '+ROOM+'）');renderOverview();
+}
+function connect(){
+  if(!configured()){setStatus(false,'未設定資料庫：內容只存在這台裝置');return;}
+  try{sb=window.supabase.createClient(CFG.SUPABASE_URL,CFG.SUPABASE_ANON_KEY);}catch(e){setStatus(false,'資料庫設定有誤');return;}
+  pullAll();
+  channel=sb.channel('room-'+ROOM,{config:{presence:{key:Math.random().toString(36).slice(2)}}});
+  channel.on('postgres_changes',{event:'*',schema:'public',table:'sheets',filter:'room=eq.'+ROOM},payload=>{if(payload.new&&payload.new.sheet_id)applyRow(payload.new);});
+  channel.on('presence',{event:'sync'},()=>{const n=Object.keys(channel.presenceState()).length;const o=document.getElementById('online');o.hidden=n<2;document.getElementById('onlineText').textContent=n+' 人在線';});
+  channel.subscribe(status=>{if(status==='SUBSCRIBED'){channel.track({at:Date.now()});}else if(status==='CHANNEL_ERROR'||status==='TIMED_OUT'){setStatus(false,'即時連線中斷，每 20 秒改用輪詢');}});
+  setInterval(()=>{if(document.visibilityState==='visible')pullAll();},20000);
+}
+function renderOverview(){
+  const g=document.getElementById('overviewGrid');if(!g)return;
+  const names={a:'工藝師 A 的表',b:'工藝師 B 的表',c:'原資中心的表',shared:'三人共同一份'};
+  g.innerHTML=SHEETS.map(id=>{const r=remote[id];const cells=r?r.cells||{}:{};const marks=r?r.marks||{}:{};const filled=KEYS.filter(k=>(cells[k]||'').trim()).length;const ok=KEYS.filter(k=>marks[k]==='ok').length;const q=KEYS.filter(k=>marks[k]==='q').length;const j=r?r.judge||{}:{};const n=['j1','j2','j3'].filter(x=>j[x]==='1').length;const lamp=(j.j1&&j.j2&&j.j3)?(n===3?'機制':n>=1?'方案':'活動'):'未判斷';const peer=r?(r.peer||[]).filter(Boolean).length:0;const t=r&&r.updated_at?new Date(r.updated_at).toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit'}):'—';
+    return `<div class="cbox" style="cursor:pointer" data-id="${id}"><h3>${names[id]}</h3><div class="stat"><span><b>${filled}</b>已填／16</span><span><b>${ok}</b>✓</span><span><b>${q}</b>？</span><span><b>${peer}</b>互評／5</span></div><div style="color:var(--mute);font-size:.84rem">判斷器：${lamp}　·　最後更新 ${t}</div></div>`;}).join('');
+  g.querySelectorAll('.cbox').forEach(b=>b.onclick=()=>{document.getElementById('sheetSel').value=b.dataset.id;loadSheet(b.dataset.id);showView('table');});
+}
+function loadSheet(id){sheetId=id;data=lsLoad(id);if(remote[id])applyRow(remote[id]);else fillTable();try{localStorage.setItem(LS+'sheet',id);}catch(e){}}
+document.getElementById('sheetSel').onchange=e=>loadSheet(e.target.value);
+
+// ---------- 啟動 ----------
+renderTable();renderCases();
+let startSheet='a',startView='table';
+try{startSheet=localStorage.getItem(LS+'sheet')||'a';startView=localStorage.getItem(LS+'view')||'table';}catch(e){}
+document.getElementById('sheetSel').value=startSheet;
+loadSheet(startSheet);showView(startView);
+connect();
+})();
+</script>
+</body>
+</html>
