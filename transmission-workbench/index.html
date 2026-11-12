@@ -200,6 +200,39 @@ table.sheet tr:nth-child(even) td{background:var(--alt)}
 .trash div{display:flex;gap:6px;align-items:flex-start}
 .trash p{margin:0;flex:1;min-width:0;color:var(--mute);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .bmobile{display:none}
+.bctl{display:flex;gap:6px;align-items:center;align-self:flex-start}
+.bguide{border:1px solid var(--line);background:transparent;color:var(--mute);border-radius:6px;padding:3px 8px;font-size:.76rem;height:28px}
+.bguide:hover{border-color:var(--teal);color:var(--teal)}
+.eq{margin:0;width:100%;color:var(--mute);font-size:.8rem;line-height:1.45;opacity:.85}
+.note.ref{--nc:var(--card)!important;background:var(--card);color:var(--mute);border:1.5px dashed var(--line);box-shadow:none}
+.note.ref .tx{color:var(--ink);opacity:.8}
+.note.ref .nt em{background:var(--alt);color:var(--mute)}
+.note.ref .nt span{color:var(--mute)}
+.mguide{color:var(--mute);font-weight:500}
+.dnote{margin:0;font-size:.82rem;color:var(--mute);background:var(--alt);border-radius:8px;padding:8px 10px}
+.dq{margin:0;font-size:1rem;font-weight:600;color:var(--green)}
+.projbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:var(--green);color:#fff;padding:8px 12px;border-radius:10px;margin-bottom:10px}
+.projbar[hidden]{display:none}
+.projbar .pt{font-weight:700;margin-right:6px}
+.projbar button{border:1px solid rgba(255,255,255,.4);background:transparent;color:#fff;border-radius:999px;padding:5px 13px;font-size:.95rem}
+.projbar button[aria-pressed="true"]{background:#fff;color:#153E34;border-color:#fff;font-weight:600}
+.projbar .sp{flex:1}
+.projbar .pexit{background:rgba(255,255,255,.15)}
+body.proj header.top,body.proj .bbar,body.proj #exportBox,body.proj .bside>.panel:not(.lotpanel),body.proj .lotpanel>p,body.proj .lotpanel>.madd{display:none!important}
+body.proj .lotcell{flex-direction:row;flex-wrap:wrap;gap:10px;align-items:flex-start;min-height:0}
+body.proj .lotcell .note{width:210px}
+body.proj .note .mkb:not(.ok):not(.q){display:none}
+body.proj .bwrap{grid-template-columns:1fr}
+body.proj main{padding-top:12px;max-width:none}
+body.proj .bgrid{grid-template-columns:150px repeat(4,minmax(200px,1fr))}
+body.proj .bch{font-size:1.1rem}
+body.proj .brh{font-size:1.05rem}
+body.proj .note{width:210px;font-size:1.02rem;min-height:110px;cursor:default}
+body.proj .note.reply{width:194px}
+body.proj .note .nt{font-size:.8rem}
+body.proj .bctl,body.proj .note .more,body.proj .eq{display:none}
+body.proj .note .mkb{pointer-events:none}
+body.proj .bcell{min-height:140px}
 .tabs{max-width:100%;overflow-x:auto;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}.tabs button{white-space:nowrap;flex:none}
 .mstages{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px}
 .mstages button{flex:none;border:1px solid var(--line);background:var(--card);color:var(--mute);border-radius:999px;padding:5px 12px;font-size:.86rem}
@@ -251,7 +284,7 @@ table.sheet tr:nth-child(even) td{background:var(--alt)}
       <button role="tab" aria-selected="false" data-view="board">便利貼看板</button>
       <button role="tab" aria-selected="true" data-view="table">設計表</button>
       <button role="tab" aria-selected="false" data-view="wizard">引導模式</button>
-      <button role="tab" aria-selected="false" data-view="cases">四案參考</button>
+      <button role="tab" aria-selected="false" data-view="cases">案例參考</button>
       <button role="tab" aria-selected="false" data-view="dict">字典</button>
       <button role="tab" aria-selected="false" data-view="overview">總覽</button>
     </div>
@@ -272,9 +305,12 @@ table.sheet tr:nth-child(even) td{background:var(--alt)}
 <main class="wrap">
   <!-- 便利貼看板 -->
   <section class="view" id="view-board" hidden>
+    <div class="projbar" id="projBar" hidden></div>
     <div class="bbar">
       <button class="me" id="meChip" type="button"><i id="meDot"></i><span id="meName">設定我的名字</span></button>
-      <span class="hint" id="boardHint">每格可以貼很多張；點「＋」貼一張，拖曳或用「⋯」移動。每格選一張「定稿」，會自動寫回設計表。</span>
+      <button class="btn" id="boardExportBtn" type="button">匯出看板</button>
+      <button class="btn" id="projBtn" type="button">投影模式</button>
+      <span class="hint" id="boardHint">點「＋」貼一張；不知道從哪寫起就按「引導」看框架、案例與提示。拖曳或用「⋯」移動；每格選一張「定稿」，會自動寫回設計表。</span>
     </div>
     <div class="bwrap">
       <div>
@@ -347,7 +383,7 @@ table.sheet tr:nth-child(even) td{background:var(--alt)}
 
   <!-- 四案參考 -->
   <section class="view" id="view-cases" hidden>
-    <div class="intro"><p>本週四個案例的四個決策，各一句。設計表裡按「看案例」會看到對應格子的版本；這裡是全貌。</p></div>
+    <div class="intro"><p>傳習機制週四案與本週三案，各自的四個決策一句話。看板或設計表裡按「引導 → 看案例」會看到對應格子的版本；這裡是全貌。</p></div>
     <div class="cases" id="casesGrid"></div>
   </section>
 
@@ -369,6 +405,7 @@ table.sheet tr:nth-child(even) td{background:var(--alt)}
 
   <section class="export" id="exportBox" hidden>
     <h3 style="font-size:1rem;color:var(--green)">文字版（已複製；若沒有，請全選後複製）</h3>
+    <button class="btn" id="exportDl" type="button" hidden style="justify-self:start">下載成 .md 檔</button>
     <textarea id="exportText" readonly></textarea>
   </section>
 </main>
@@ -440,20 +477,26 @@ const FRAMES={
   {h:'文化三層：這一格取自哪一層',items:['取自精神層：故事、價值、信仰','取自行為層：技藝、採集規則、儀式','取自物質層：材料、器物、紋樣']},
   {h:'知識來源與權威（決策一）',items:['耆老口傳與生活實作','國家認定的保存者／工藝士','博物館藏品與文獻回溯','機構課綱與師資']},
   {h:'治理四問',items:['持有者：這是○○族△△部落／家族的','同意：已取得部落／家族同意','禁忌：哪些不能用、不能賣','回饋：署名＋分潤回到社群']},
+  {h:'收費課要先講清楚',items:['簡章分別署名族群、部落與講師','寫一句「本課程不教的內容」','學員作品能不能販售、用誰的名義']},
  ],
  c2:[
   {h:'教到哪一層',items:['教到物質層（做出一件東西）','教到行為層（學會一套工序）','教到精神層（知道為什麼這樣做）']},
   {h:'轉譯手法（最多勾 3 種）',items:['材料替換／再賦值','操作轉譯','機能轉換','記憶敘事化','尺度與情境轉換','結構與組裝轉譯','實體與數位整合','規格化量產']},
   {h:'傳習形式與時長（決策二）',items:['工作坊：數小時，10–30 人','系列課：數週，10 人','學徒制：數年，1–3 人','社群活動型：每年循環，全部落青年']},
+  {h:'推廣中心教室的現實',items:['兩小時只做得到物質層','材料預先處理好，一人一份','晚上或週末上課，無法到採集地','需要戶外或回部落的工序另開一階']},
  ],
  c3:[
   {h:'出口四種（決策四）',items:['認證：結業證書／藝生／工藝士','就業：受雇於工坊、博物館、學校','自立：開工作室、接案、品牌','回流：回部落、成為下一代老師']},
   {h:'三證據',items:['知識證據：技藝被記錄、有教材','能力證據：○人能獨立操作','關係證據：學員回來教、回來參與']},
+  {h:'三種出口（本週三案）',items:['在地工作：受雇於工坊（蜻蜓雅築）','回來帶領：結業學員當助教（Storyboot School）','作品進入市場：組織收購銷售（Tjanpi）']},
+  {h:'收費課的銜接',items:['下課現場登記下一階','報名滿○人才開第二階','結業學員優先擔任第一階助教']},
  ],
  c4:[
   {h:'誰付費（決策三）',items:['學員付費：學費＋材料費','顧客與觀光：體驗收入養傳習','政府計畫：年度經費，有期限','機構與捐款：基金會、企業、募資']},
   {h:'交叉補貼三問',items:['補貼比例多高？','補貼來源抗不抗震？','被補貼的那端有沒有自己的出口？']},
   {h:'給付參考',items:['藝師鐘點 1,500 元／時（文資傳習計畫）','藝生津貼上限 18,000 元／月','材料費另計；備課時數要算']},
+  {h:'回饋的五種來源',items:['授課費（鐘點、場次）','受薪工作（受雇於工坊或組織）','作品收購（組織買下再賣）','商品分潤（自己定價、保留利潤）','品牌或機構合作（委託、聯名）']},
+  {h:'推廣中心要問的',items:['最低開班人數：待問推廣中心','講師鐘點標準：待問推廣中心','中心保留比例與場地費：待問','材料費另收還是含在學費']},
  ],
 };
 // 四案（依欄）
@@ -482,6 +525,24 @@ const CASES=[
   c3:'26 位現役工藝家、6 位工藝士；課程明定不斡旋就職；修了生去向未公開。',
   c4:'國庫交付金八成養場館與材料；財團預算養人（4,067 萬円／年）；作品高單價。',
   d1:'家族＋藏品＋國家認證',d2:'家族學徒＋三年支薪課程',d3:'交付金養場館、財團養人',d4:'工藝士認證、不斡旋就職'},
+ {id:'dragonfly',name:'蜻蜓雅築',color:'#C99A3B',
+  c1:'屏東三地門排灣族琉璃珠與紋樣故事；創辦人施秀菊帶領部落婦女投入製作；紋樣意義在導覽與體驗中說明。',
+  c2:'工坊整合製作、商品設計、企業禮贈品訂單與導覽體驗；遊客體驗接觸製作過程與紋樣意義。',
+  c3:'部落婦女與返鄉青年在工坊長期工作（在地工作）；遊客體驗有沒有進階學習管道，公開資料不足以證明。',
+  c4:'支持來自整個組織的商品、訂單與體驗收入，不只是一堂課的鐘點；授課鐘點與體驗費分潤未公開。',
+  d1:'排灣琉璃珠與紋樣故事',d2:'工坊製作＋遊客導覽體驗',d3:'商品、企業訂單、導覽體驗',d4:'在地工作（部落婦女、返鄉青年）'},
+ {id:'storyboot',name:'Storyboot School',color:'#5E7FA3',
+  c1:'加拿大原住民鞋履品牌 Manitobah 支持的傳統製鞋與串珠技藝，由原住民藝術家帶領。',
+  c2:'每週課程，學員在教學空間跟著藝術家做；對原住民青年免費。',
+  c3:'2025 年 177 名學生畢業，並有過往學員回校擔任帶領者（回來帶領）；品牌另有藝術家市場與合作通路（自述）。',
+  c4:'合作計畫資料指出為負責的藝術家創造收入；講師費率與營收提撥比例未公開。',
+  d1:'原住民藝術家傳授製鞋與串珠',d2:'每週課程、原住民青年免費',d3:'品牌與合作計畫支持',d4:'回校帶領、藝術家市場'},
+ {id:'tjanpi',name:'Tjanpi Desert Weavers',color:'#9A5C3E',
+  c1:'澳洲中部沙漠原住民婦女以在地草料編織；資深藝術家帶領、共同創作大型作品。',
+  c2:'社區技能工作坊；組織提供材料、協助採集編織用草。',
+  c3:'學完不一定當老師：作品由組織收購、銷售，婦女在自己的土地上持續創作（作品進入市場）。',
+  c4:'收入來自作品收購；組織營運另靠政府、慈善與捐款，銷售不足以支付全部營運（官網）。',
+  d1:'社區婦女與資深藝術家',d2:'社區技能工作坊',d3:'作品收購銷售＋政府與慈善',d4:'持續創作、作品進入市場'},
 ];
 // 字典
 const DICT=[
@@ -589,8 +650,8 @@ document.querySelectorAll('.pq').forEach((c,i)=>c.addEventListener('change',()=>
 
 // ---------- 抽屜 ----------
 const drawer=document.getElementById('drawer'),scrim=document.getElementById('scrim'),dBody=document.getElementById('dBody');
-let dKey=null,dTab='frame';
-function openDrawer(k,tab){dKey=k;dTab=tab||'frame';renderDrawer();drawer.classList.add('open');scrim.hidden=false;}
+let dKey=null,dTab='frame',dMode='table';
+function openDrawer(k,tab,mode){dKey=k;dTab=tab||'frame';dMode=mode||'table';renderDrawer();drawer.classList.add('open');scrim.hidden=false;}
 function closeDrawer(){drawer.classList.remove('open');scrim.hidden=true;}
 document.getElementById('dClose').onclick=closeDrawer;scrim.onclick=closeDrawer;
 document.querySelectorAll('.dtabs button').forEach(b=>b.onclick=()=>{dTab=b.dataset.dt;renderDrawer();});
@@ -598,23 +659,26 @@ function renderDrawer(){
   document.querySelectorAll('.dtabs button').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.dt===dTab)));
   document.getElementById('dTitle').textContent=label(dKey)+'　'+({frame:'套框架',cases:'看案例',tip:'提示'})[dTab];
   dBody.innerHTML='';
-  if(dTab==='frame')dBody.appendChild(frameNode(dKey,insertInto));
-  else if(dTab==='cases')dBody.appendChild(casesNode(dKey,insertInto));
-  else{const t=document.createElement('div');t.className='tip';t.textContent=GUIDE[dKey].tip;dBody.appendChild(t);
-    const q=document.createElement('p');q.style.cssText='font-size:.9rem;color:var(--mute)';q.textContent='引導問題：'+GUIDE[dKey].q;dBody.appendChild(q);}
+  const pick=dMode==='board'?pickToBoard:insertInto;
+  if(dMode==='board'){const n=document.createElement('p');n.className='dnote';n.textContent='點一句會貼成灰色虛線的「參考」便利貼；要改寫成自己的話（⋯ → 改寫成我的便利貼）才能選為定稿。';dBody.appendChild(n);}
+  if(dTab==='frame')dBody.appendChild(frameNode(dKey,pick));
+  else if(dTab==='cases')dBody.appendChild(casesNode(dKey,pick));
+  else{const q=document.createElement('p');q.className='dq';q.textContent=GUIDE[dKey].q;dBody.appendChild(q);
+    const t=document.createElement('div');t.className='tip';t.textContent=GUIDE[dKey].tip;dBody.appendChild(t);
+    if(dMode==='board'){const b=document.createElement('button');b.className='btn';b.type='button';b.textContent='把這個問題貼成「提問」便利貼';b.onclick=()=>needMe(()=>{postNote(dKey,GUIDE[dKey].q,'提問');toast('已貼成提問');});dBody.appendChild(b);}}
 }
 function frameNode(k,onPick){
   const col=k.split('-')[1];const wrap=document.createElement('div');wrap.style.cssText='display:grid;gap:14px';
   FRAMES[col].forEach(f=>{const sec=document.createElement('div');sec.className='sec';const h=document.createElement('h4');h.innerHTML=f.h+(f.h.includes('最多')?'<small>點一下加入，再點取消</small>':'<small>點一下加入句子</small>');sec.appendChild(h);
     const ch=document.createElement('div');ch.className='chips';
-    f.items.forEach(it=>{const b=document.createElement('button');b.textContent=it;b.onclick=()=>{onPick(k,it,b);};if((data.cells[k]||'').includes(it))b.classList.add('on');ch.appendChild(b);});
+    f.items.forEach(it=>{const b=document.createElement('button');b.textContent=it;b.onclick=()=>{onPick(k,it,b,{source:'框架',raw:it});};if(onPick===insertInto?(data.cells[k]||'').includes(it):!!findRef(k,'〔框架〕'+it))b.classList.add('on');ch.appendChild(b);});
     sec.appendChild(ch);wrap.appendChild(sec);});
   return wrap;
 }
 function casesNode(k,onPick){
   const col=k.split('-')[1];const wrap=document.createElement('div');wrap.style.cssText='display:grid;gap:10px';
   CASES.forEach(c=>{const d=document.createElement('div');d.className='casecard';d.innerHTML=`<div class="cn"><i style="background:${c.color}"></i>${c.name}</div><div>${c[col]}</div>`;
-    const u=document.createElement('button');u.className='use';u.textContent='借這一句來改';u.onclick=()=>onPick(k,'（參考 '+c.name+'）'+c[col]);d.appendChild(u);wrap.appendChild(d);});
+    const u=document.createElement('button');u.className='use';u.textContent=onPick===insertInto?'借這一句來改':'貼成參考便利貼';u.onclick=()=>onPick(k,'（參考 '+c.name+'）'+c[col],null,{source:c.name,raw:c[col]});d.appendChild(u);wrap.appendChild(d);});
   return wrap;
 }
 function insertInto(k,text,btn){
@@ -681,7 +745,7 @@ function toText(){
   out+=`互評五問：通過 ${(data.peer||[]).filter(Boolean).length}／5\n`;
   return out;
 }
-document.getElementById('exportBtn').onclick=async()=>{
+document.getElementById('exportBtn').onclick=async()=>{document.getElementById('exportDl').hidden=true;
   const t=toText();const box=document.getElementById('exportBox'),ta=document.getElementById('exportText');ta.value=t;box.hidden=false;
   try{await navigator.clipboard.writeText(t);toast('已複製，可以貼到 LINE 或文件');}catch(e){ta.focus();ta.select();toast('請手動複製（已全選）');}
   box.scrollIntoView({behavior:'smooth'});
@@ -759,6 +823,7 @@ document.getElementById('sheetSel').onchange=e=>loadSheet(e.target.value);
 // ---------- 便利貼看板 ----------
 const NOTE_COLORS=[['#FFF1B8','#E2C65A'],['#D7EEDF','#7DB596'],['#E6DDF3','#A58CC7'],['#FBE0D3','#D99A7C'],['#D6E8F5','#7FA9CB'],['#F6D9E4','#C98AA3'],['#E9EDD0','#A9B464'],['#E6E4DF','#A9A49A']];
 const KINDS=['想法','提問','證據','疑慮'];
+let proj=false,projStage='all';
 const NOTE_SOFT=60;
 let me=null;                 // {id,name,color}
 const notes=new Map();       // id -> row
@@ -818,9 +883,9 @@ function openCompose(o){
   needMe(()=>{
     compose=Object.assign({kind:'想法'},o);
     const t=document.getElementById('noteText'),ok=document.getElementById('noteOk');
-    if(compose.editId){const n=notes.get(compose.editId);compose.kind=n.kind;t.value=n.text;document.getElementById('noteTitle').textContent='編輯便利貼';document.getElementById('noteSub').textContent='在「'+cellLabel(n.cell)+'」';ok.textContent='儲存';}
+    if(compose.editId){const n=notes.get(compose.editId);compose.kind=n.kind==='參考'?'想法':n.kind;t.value=n.text;document.getElementById('noteTitle').textContent='編輯便利貼';document.getElementById('noteSub').textContent='在「'+cellLabel(n.cell)+'」';ok.textContent='儲存';}
     else if(compose.parent){const p=notes.get(compose.parent);compose.kind='提問';t.value='';document.getElementById('noteTitle').textContent='對這張提問';document.getElementById('noteSub').textContent='「'+(p?p.text.slice(0,40):'')+'」— '+(p?p.author_name:'');ok.textContent='貼上';}
-    else{t.value='';document.getElementById('noteTitle').textContent='貼一張';document.getElementById('noteSub').textContent='貼到「'+cellLabel(compose.cell)+'」';ok.textContent='貼上';}
+    else{t.value=compose.prefill||'';document.getElementById('noteTitle').textContent=compose.prefill?'改寫成我的便利貼':'貼一張';document.getElementById('noteSub').textContent='貼到「'+cellLabel(compose.cell)+'」';ok.textContent='貼上';}
     renderKinds();updCnt();document.getElementById('noteDlg').hidden=false;setTimeout(()=>t.focus(),30);
   });
 }
@@ -845,6 +910,20 @@ document.getElementById('noteOk').onclick=composeOk;
 document.querySelectorAll('.dlg').forEach(d=>d.addEventListener('click',e=>{if(e.target===d){d.hidden=true;compose=null;meAfter=null;}}));
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){document.querySelectorAll('.dlg').forEach(d=>d.hidden=true);closeMenu();}});
 
+function postNote(cell,text,kind,parent){
+  const now=new Date().toISOString();
+  nInsert({id:uid(),room:ROOM,board:sheetId,cell,text:text.slice(0,200),kind,mark:'',author_id:me.id,author_name:me.name,color:me.color,parent_id:parent||null,pinned:false,sort:Date.now(),deleted:false,created_at:now,updated_at:now});
+}
+function findRef(k,text){return boardNotes().find(n=>!n.deleted&&n.kind==='參考'&&n.cell===k&&n.text===text);}
+function refParts(n){const m=/^〔([^〕]{1,30})〕([\s\S]*)$/.exec(n.text||'');return m?{src:m[1],body:m[2]}:{src:'',body:n.text};}
+function pickToBoard(k,text,btn,meta){
+  needMe(()=>{
+    const t=('〔'+(meta?meta.source:'參考')+'〕'+(meta?meta.raw:text)).slice(0,200);
+    const ex=findRef(k,t);
+    if(ex){delNote(ex.id);if(btn)btn.classList.remove('on');return;}
+    postNote(k,t,'參考');if(btn)btn.classList.add('on');toast('已貼成參考便利貼');
+  });
+}
 // 資料寫入
 async function nInsert(row){
   notes.set(row.id,row);renderBoard();lsNotesSave();
@@ -875,7 +954,7 @@ function moveNote(id,cell){
   toast('已移到「'+cellLabel(cell)+'」');
 }
 function togglePin(id){
-  const n=notes.get(id);if(!n||n.cell==='lot')return;
+  const n=notes.get(id);if(!n||n.cell==='lot'||n.kind==='參考')return;
   if(n.pinned){nUpdate(id,{pinned:false});toast('已取消定稿');return;}
   boardNotes().filter(o=>o.cell===n.cell&&o.pinned&&o.id!==id).forEach(o=>nUpdate(o.id,{pinned:false}));
   nUpdate(id,{pinned:true});writeSheetCell(n.board,n.cell,n.text,n.mark);
@@ -891,9 +970,10 @@ function restoreNote(id){nUpdate(id,{deleted:false});toast('已復原');}
 // 繪製
 function noteHTML(n,reply){
   const c=colorOf(n.color);const mk=n.mark==='ok'?'✓':n.mark==='q'?'？':'標記';
-  return `<div class="note${reply?' reply':''}${n.pinned?' pinned':''}" data-id="${esc(n.id)}" draggable="true" style="--nc:${c[0]};--nb:${c[1]}" title="${esc(n.author_name)}・${esc(n.kind)}">
-  <div class="nt"><em>${esc(n.kind)}</em><span>${esc(n.author_name)}</span></div>
-  <div class="tx">${esc(n.text)}</div>
+  const ref=n.kind==='參考';const rp=ref?refParts(n):null;
+  return `<div class="note${reply?' reply':''}${n.pinned?' pinned':''}${ref?' ref':''}" data-id="${esc(n.id)}" draggable="true" style="--nc:${c[0]};--nb:${c[1]}" title="${esc(n.author_name)}・${esc(n.kind)}">
+  <div class="nt"><em>${ref?'參考':esc(n.kind)}</em><span>${ref?esc(rp.src||'')+'・'+esc(n.author_name):esc(n.author_name)}</span></div>
+  <div class="tx">${esc(ref?rp.body:n.text)}</div>
   <div class="nf"><button class="mkb ${n.mark||''}" type="button" data-act="mark" aria-label="切換記號">${mk}</button><button class="more" type="button" data-act="menu" aria-label="更多動作">⋯</button></div></div>`;
 }
 function cellNotesHTML(list){
@@ -906,9 +986,13 @@ function renderBoard(){
   const live=boardNotes().filter(n=>!n.deleted);
   const by={};live.forEach(n=>{(by[n.cell]=by[n.cell]||[]).push(n);});
   let h='<div class="bch">階段 ＼ 欄位</div>'+COLS.map(c=>`<div class="bch">${c.name}<small>${c.sub}</small></div>`).join('');
-  STAGES.forEach(s=>{h+=`<div class="brh">${s.name}<small>${s.sub}</small></div>`;
-    COLS.forEach(c=>{const k=s.id+'-'+c.id;h+=`<div class="bcell" data-cell="${k}">${cellNotesHTML(by[k]||[])}<button class="badd" type="button" data-add="${k}" aria-label="貼到${cellLabel(k)}">＋</button></div>`;});});
+  const shownStages=proj&&projStage!=='all'?STAGES.filter(s=>s.id===projStage):STAGES;
+  shownStages.forEach(s=>{h+=`<div class="brh">${s.name}<small>${s.sub}</small></div>`;
+    COLS.forEach(c=>{const k=s.id+'-'+c.id;const list=by[k]||[];
+      h+=`<div class="bcell" data-cell="${k}">${list.length?cellNotesHTML(list):`<p class="eq">${esc(GUIDE[k].q)}</p>`}<div class="bctl"><button class="badd" type="button" data-add="${k}" aria-label="貼到${cellLabel(k)}">＋</button><button class="bguide" type="button" data-guide="${k}">引導</button></div></div>`;});});
   g.innerHTML=h;
+  const pb=document.getElementById('projBar');
+  if(pb){pb.hidden=!proj;if(proj)pb.innerHTML=`<span class="pt">投影中</span>${[['all','全部'],['s1','第一階'],['s2','第二階'],['s3','第三階'],['s4','證據']].map(([id,n])=>`<button type="button" data-pstage="${id}" aria-pressed="${projStage===id}">${n}</button>`).join('')}<span class="sp"></span><button type="button" class="pexit" data-pexit="1">結束投影（Esc）</button>`;}
   document.getElementById('lotCell').innerHTML=cellNotesHTML(by.lot||[])||'<p style="margin:0;color:var(--mute);font-size:.84rem">（空）</p>';
   // 手機
   const m=document.getElementById('boardMobile');
@@ -917,7 +1001,7 @@ function renderBoard(){
   const cellsM=mStage==='lot'?[['lot','停車場','還不知道歸哪一格']]:COLS.map(c=>[mStage+'-'+c.id,c.name,c.sub]);
   if(mStage==='lot'&&!mOpen)mOpen='lot';
   cellsM.forEach(([k,n,sub])=>{const list=by[k]||[];const open=mOpen===k;
-    mh+=`<div class="macc"><button type="button" data-mopen="${k}" aria-expanded="${open}">${n}<small>${sub}</small><span>${list.length} 張 ${open?'▴':'▾'}</span></button>${open?`<div class="mbody">${cellNotesHTML(list)}<button class="madd" type="button" data-add="${k}">＋ 貼一張到這格</button></div>`:''}</div>`;});
+    mh+=`<div class="macc"><button type="button" data-mopen="${k}" aria-expanded="${open}">${n}<small>${sub}</small><span>${list.length} 張 ${open?'▴':'▾'}</span></button>${open?`<div class="mbody">${list.length?cellNotesHTML(list):(k!=='lot'?`<p class="eq">${esc(GUIDE[k].q)}</p>`:'')}<button class="madd" type="button" data-add="${k}">＋ 貼一張到這格</button>${k!=='lot'?`<button class="madd mguide" type="button" data-guide="${k}">引導：框架・案例・提示</button>`:''}</div>`:''}</div>`;});
   m.innerHTML=mh;
   // 側欄統計
   const tops=live.filter(n=>n.cell!=='lot');
@@ -939,8 +1023,8 @@ function openMenu(id,anchor,mode){
     h='<div class="lbl">移到…</div>'+[...KEYS,'lot'].filter(k=>k!==n.cell).map(k=>`<button type="button" role="menuitem" data-mv="${k}">${cellLabel(k)}</button>`).join('')+'<hr><button type="button" role="menuitem" data-m="back">← 返回</button>';
   }else{
     h=`<button type="button" role="menuitem" data-m="ok">✓ 標為有來源</button><button type="button" role="menuitem" data-m="q">？ 標為待驗證</button><button type="button" role="menuitem" data-m="clear">清除記號</button><hr>
-    <button type="button" role="menuitem" data-m="ask">＋ 對這張提問</button>${n.cell!=='lot'&&!n.parent_id?`<button type="button" role="menuitem" data-m="pin">${n.pinned?'取消定稿':'📌 選為定稿（寫回設計表）'}</button>`:''}
-    ${canEdit(n)?'<button type="button" role="menuitem" data-m="edit">編輯</button>':''}<hr>
+    <button type="button" role="menuitem" data-m="ask">＋ 對這張提問</button>${n.kind==='參考'?'<button type="button" role="menuitem" data-m="rewrite">改寫成我的便利貼</button>':(n.cell!=='lot'&&!n.parent_id?`<button type="button" role="menuitem" data-m="pin">${n.pinned?'取消定稿':'📌 選為定稿（寫回設計表）'}</button>`:'')}
+    ${canEdit(n)&&n.kind!=='參考'?'<button type="button" role="menuitem" data-m="edit">編輯</button>':''}<hr>
     <button type="button" role="menuitem" data-m="move">移到… ▸</button>${n.cell!=='lot'?'<button type="button" role="menuitem" data-m="lot">移到停車場</button>':''}<hr>
     <button type="button" role="menuitem" class="danger" data-m="del">刪除（可復原）</button>`;
   }
@@ -962,6 +1046,7 @@ menu.addEventListener('click',e=>{
   else if(m==='ask')openCompose({parent:id});
   else if(m==='pin')togglePin(id);
   else if(m==='edit')openCompose({editId:id});
+  else if(m==='rewrite'){const rp=refParts(n);openCompose({cell:n.cell==='lot'?'lot':n.cell,prefill:rp.body});}
   else if(m==='lot')moveNote(id,'lot');
   else if(m==='del')delNote(id);
 });
@@ -971,6 +1056,9 @@ window.addEventListener('scroll',()=>{if(!menu.hidden)closeMenu();},true);
 // 看板上的點擊
 document.getElementById('view-board').addEventListener('click',e=>{
   const add=e.target.closest('[data-add]');if(add){openCompose({cell:add.dataset.add});return;}
+  const gd=e.target.closest('[data-guide]');if(gd){openDrawer(gd.dataset.guide,'tip','board');return;}
+  const ps=e.target.closest('[data-pstage]');if(ps){projStage=ps.dataset.pstage;renderBoard();return;}
+  if(e.target.closest('[data-pexit]')){setProj(false);return;}
   const ms=e.target.closest('[data-mstage]');if(ms){mStage=ms.dataset.mstage;mOpen=null;renderBoard();return;}
   const mo=e.target.closest('[data-mopen]');if(mo){mOpen=mOpen===mo.dataset.mopen?null:mo.dataset.mopen;renderBoard();return;}
   const rs=e.target.closest('[data-restore]');if(rs){restoreNote(rs.dataset.restore);return;}
@@ -979,7 +1067,34 @@ document.getElementById('view-board').addEventListener('click',e=>{
   if(act.dataset.act==='menu'){e.stopPropagation();if(!menu.hidden&&menu.dataset.id===id){closeMenu();return;}openMenu(id,act);}
   else if(act.dataset.act==='mark'){const n=notes.get(id);nUpdate(id,{mark:n.mark===''||!n.mark?'q':n.mark==='q'?'ok':''});}
 });
-document.getElementById('view-board').addEventListener('dblclick',e=>{const n=e.target.closest('.note');if(n&&canEdit(notes.get(n.dataset.id)))openCompose({editId:n.dataset.id});});
+document.getElementById('view-board').addEventListener('dblclick',e=>{const n=e.target.closest('.note');if(!n||proj)return;const o=notes.get(n.dataset.id);if(o&&o.kind!=='參考'&&canEdit(o))openCompose({editId:n.dataset.id});});
+// 投影模式
+function setProj(on){proj=on;document.body.classList.toggle('proj',on);if(!on)projStage='all';closeMenu();renderBoard();if(on)window.scrollTo({top:0});}
+document.getElementById('projBtn').onclick=()=>setProj(!proj);
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&proj&&document.querySelectorAll('.dlg:not([hidden])').length===0)setProj(false);});
+// 匯出看板
+function boardText(){
+  const name=document.querySelector('#sheetSel option:checked').textContent;
+  const live=boardNotes().filter(n=>!n.deleted);const mk=n=>n.mark==='ok'?'✓':n.mark==='q'?'？':'—';
+  const line=(n,ind)=>{const rp=n.kind==='參考'?refParts(n):null;return `${ind}- 〔${n.kind}${rp&&rp.src?'：'+rp.src:''}〕［${mk(n)}］${(rp?rp.body:n.text).replace(/\n/g,' ')} —${n.author_name}${n.pinned?'（定稿）':''}\n`;};
+  const cellOut=k=>{const list=live.filter(n=>n.cell===k);const tops=list.filter(n=>!n.parent_id||!list.find(x=>x.id===n.parent_id)).sort((a,b)=>a.sort-b.sort);
+    if(!tops.length)return '- （空）\n';return tops.map(t=>line(t,'')+list.filter(x=>x.parent_id===t.id).sort((a,b)=>a.sort-b.sort).map(r=>line(r,'  ')).join('')).join('');};
+  let out=`# 便利貼看板｜${name}\n班級：${ROOM}　匯出時間：${new Date().toLocaleString('zh-TW')}\n便利貼 ${live.length} 張；作者：${[...new Set(live.map(n=>n.author_name))].join('、')||'—'}\n\n`;
+  STAGES.forEach(s=>{out+=`## ${s.name}\n`;COLS.forEach(c=>{const k=s.id+'-'+c.id;out+=`### ${c.name}\n`+cellOut(k);});out+='\n';});
+  out+='## 停車場\n'+cellOut('lot');
+  return out;
+}
+document.getElementById('boardExportBtn').onclick=async()=>{
+  const t=boardText();const box=document.getElementById('exportBox'),ta=document.getElementById('exportText');ta.value=t;box.hidden=false;
+  document.getElementById('exportDl').hidden=false;
+  try{await navigator.clipboard.writeText(t);toast('看板已複製成文字');}catch(e){ta.focus();ta.select();toast('請手動複製（已全選）');}
+  box.scrollIntoView({behavior:'smooth'});
+};
+document.getElementById('exportDl').onclick=()=>{
+  const t=document.getElementById('exportText').value;const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([t],{type:'text/markdown;charset=utf-8'}));a.download='board_'+ROOM+'_'+sheetId+'_'+new Date().toISOString().slice(0,10)+'.md';
+  document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},500);
+};
 // 拖曳
 const bv=document.getElementById('view-board');
 bv.addEventListener('dragstart',e=>{const n=e.target.closest('.note');if(!n)return;dragId=n.dataset.id;n.classList.add('dragging');try{e.dataTransfer.setData('text/plain',dragId);e.dataTransfer.effectAllowed='move';}catch(_){}});
