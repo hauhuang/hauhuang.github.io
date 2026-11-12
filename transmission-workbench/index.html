@@ -61,7 +61,7 @@ main{padding-block:16px;display:grid;gap:18px}
 .intro{display:grid;gap:6px;max-width:68ch}
 .intro p{margin:0;color:var(--mute);font-size:.92rem}
 .gridwrap{overflow-x:auto}
-table.sheet{border-collapse:separate;border-spacing:0;width:100%;min-width:860px}
+table.sheet{border-collapse:separate;border-spacing:0;width:100%;min-width:1040px}
 table.sheet th{background:var(--green);color:var(--paper);font-weight:600;text-align:left;padding:10px 12px;font-size:.9rem;vertical-align:top}
 table.sheet th small{display:block;font-weight:400;opacity:.8;font-size:.76rem;margin-top:2px}
 table.sheet th.rowh{background:var(--alt);color:var(--ink);border-bottom:1px solid var(--line);width:150px;font-size:.88rem}
@@ -155,14 +155,14 @@ table.sheet tr:nth-child(even) td{background:var(--alt)}
 .toast.show{opacity:1}
 .export{display:grid;gap:8px}
 .export textarea{width:100%;min-height:180px;border:1px solid var(--line);border-radius:8px;padding:10px;background:var(--card);font-family:ui-monospace,Menlo,monospace;font-size:.8rem}
-@media (max-width:640px){ table.sheet{min-width:760px} .brand h1{font-size:1.2rem} }
+@media (max-width:640px){ table.sheet{min-width:940px} .brand h1{font-size:1.2rem} }
 /* ===== 便利貼看板 ===== */
 .bwrap{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:14px;align-items:start}
 .bbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .bbar .me{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:4px 11px 4px 5px;font-size:.84rem}
 .bbar .me i{width:18px;height:18px;border-radius:50%;display:inline-block;border:1.5px solid rgba(0,0,0,.18)}
 .bbar .hint{color:var(--mute);font-size:.84rem}
-.bgrid{display:grid;grid-template-columns:120px repeat(4,minmax(150px,1fr));border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--card);min-width:760px}
+.bgrid{display:grid;grid-template-columns:120px repeat(5,minmax(150px,1fr));border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--card);min-width:900px}
 .bgridwrap{overflow-x:auto}
 .bch{background:var(--green);color:var(--paper);padding:8px 10px;font-weight:600;font-size:.88rem}
 .bch small{display:block;font-weight:400;opacity:.8;font-size:.74rem}
@@ -224,11 +224,11 @@ body.proj .lotcell .note{width:210px}
 body.proj .note .mkb:not(.ok):not(.q){display:none}
 body.proj .bwrap{grid-template-columns:1fr}
 body.proj main{padding-top:12px;max-width:none}
-body.proj .bgrid{grid-template-columns:150px repeat(4,minmax(200px,1fr))}
+body.proj .bgrid{grid-template-columns:140px repeat(5,minmax(180px,1fr))}
 body.proj .bch{font-size:1.1rem}
 body.proj .brh{font-size:1.05rem}
-body.proj .note{width:210px;font-size:1.02rem;min-height:110px;cursor:default}
-body.proj .note.reply{width:194px}
+body.proj .note{width:100%;max-width:230px;font-size:1.02rem;min-height:110px;cursor:default}
+body.proj .note.reply{width:calc(100% - 16px)}
 body.proj .note .nt{font-size:.8rem}
 body.proj .bctl,body.proj .note .more,body.proj .eq{display:none}
 body.proj .note .mkb{pointer-events:none}
@@ -328,7 +328,7 @@ body.proj .bcell{min-height:140px}
   <!-- 設計表 -->
   <section class="view" id="view-table">
     <div class="intro">
-      <p>每一格寫一句話，標一個記號（✓ 有來源可核對、？ 推論待驗證）。格子旁的「套框架」把前幾週的工具變成可勾選的句子；「看案例」顯示四個案例在這一格的做法；「提示」是這格最常被漏掉的事。</p>
+      <p>每一格寫一句話，標一個記號（✓ 有來源可核對、？ 推論待驗證）。格子旁的「套框架」把前幾週的工具變成可勾選的句子；「看案例」顯示七個案例在這一格的做法；「提示」是這格最常被漏掉的事。</p>
     </div>
     <div class="gridwrap">
       <table class="sheet" id="sheetTable"></table>
@@ -345,8 +345,8 @@ body.proj .bcell{min-height:140px}
       <div class="panel">
         <h3>證據記號檢核</h3>
         <p>每一格都應該有一個記號。「？」不是扣分，是誠實。</p>
-        <div class="stat"><span><b id="nFilled">0</b>已填格數／16</span><span><b id="nOk">0</b>✓ 有來源</span><span><b id="nQ">0</b>？ 待驗證</span><span><b id="nNone">16</b>未標記</span></div>
-        <div class="tip" id="markTip">先把第一列（兩小時體驗）四格填滿，再往下。</div>
+        <div class="stat"><span><b id="nFilled">0</b>已填格數／20</span><span><b id="nOk">0</b>✓ 有來源</span><span><b id="nQ">0</b>？ 待驗證</span><span><b id="nNone">20</b>未標記</span></div>
+        <div class="tip" id="markTip">先把第一列（兩小時體驗）五格填滿，從「學員與價值」開始，再往下。</div>
       </div>
       <div class="panel peer">
         <h3>互評五問</h3>
@@ -383,7 +383,7 @@ body.proj .bcell{min-height:140px}
 
   <!-- 四案參考 -->
   <section class="view" id="view-cases" hidden>
-    <div class="intro"><p>傳習機制週四案與本週三案，各自的四個決策一句話。看板或設計表裡按「引導 → 看案例」會看到對應格子的版本；這裡是全貌。</p></div>
+    <div class="intro"><p>傳習機制週四案與本週三案，各自的「學員為什麼來」與四個決策，各一句。看板或設計表裡按「引導 → 看案例」會看到對應格子的版本；這裡是全貌。</p></div>
     <div class="cases" id="casesGrid"></div>
   </section>
 
@@ -447,6 +447,7 @@ const STAGES=[
   {id:'s4',name:'證據',sub:'每一欄留下什麼數字'},
 ];
 const COLS=[
+  {id:'c0',name:'學員與價值',sub:'決策零：為誰、為什麼來'},
   {id:'c1',name:'材料與故事',sub:'決策一：知識來源與權威'},
   {id:'c2',name:'工藝操作',sub:'決策二：形式與層次'},
   {id:'c3',name:'延伸學習',sub:'決策四：出口'},
@@ -454,6 +455,10 @@ const COLS=[
 ];
 // 每格的引導問題與提示
 const GUIDE={
+ 's1-c0':{q:'誰會花一個晚上、付錢來上？他帶走什麼？為什麼不去一般 DIY 手作課？',tip:'寫一個具體的人：年齡、職業、為什麼這個時段有空。價值用學員的話寫（「我想⋯」）；特色寫別人複製不了的：誰教、材料從哪來、作品帶著誰的名字。'},
+ 's2-c0':{q:'哪些人會想再來 4–6 次？他們要的是技能、完成作品，還是和講師的關係？',tip:'第二階的學員是從第一次留下來的人。寫出他們回來的理由，以及第一次下課前講師說什麼、讓人想回來。'},
+ 's3-c0':{q:'誰會想跟一學期？他得到的是身分與責任嗎？',tip:'這一階通常只有一兩人。價值不是「更多課」，而是成為助教、協作者，被工藝師與部落認得。也要問：部落願不願意讓這個人進來？'},
+ 's4-c0':{q:'怎麼知道學員真的是為這個價值而來？',tip:'報名數、滿班率、升階率，加上學員自己說「為什麼來」的原話（課前問卷一題就夠）。目標值可以寫，但標「？」。'},
  's1-c1':{q:'這場兩小時活動的材料與故事，來自誰？',tip:'寫出族群／部落／家族，和提供者的名字或身分。只寫「原住民文化」不算；沒有署名就標「？」。'},
  's1-c2':{q:'兩小時裡，學員親手做出什麼？教到哪一層？',tip:'兩小時幾乎只教得到物質層（材料、形狀）。誠實寫「物質層」，不要寫「體驗文化精神」。'},
  's1-c3':{q:'活動結束後，有興趣的學員怎麼走到下一階？',tip:'沒有「下一步」的活動就是活動。寫出報名方式、名額、什麼時候開。'},
@@ -473,6 +478,12 @@ const GUIDE={
 };
 // 框架（依欄）
 const FRAMES={
+ c0:[
+  {h:'學員得到的價值（四類）',items:['功能：學會一項技能、帶走作品','情感：專注、紓壓、成就感','社會：送禮、能跟別人說這個故事','意義：認識一個族群、支持部落']},
+  {h:'特色：別人複製不了的',items:['誰教：文化持有者本人','材料從哪來：部落採集與處理','作品帶著誰的名字：族群、部落、講師署名','學費有多少回到部落']},
+  {h:'推廣中心可能的學員',items:['上班族：晚上或週末，想專注做一件事','教師：想帶回自己的課堂','退休族：時間多，重視交流','都市原住民族人：重新接回自己的文化','設計與工藝從業者：想學材料與工法']},
+  {h:'簡章用字的守門',items:['不用「神秘」「原始」「部落風」招生','賣點是部落看了也同意的說法','寫清楚哪些內容不教、不能拍']},
+ ],
  c1:[
   {h:'文化三層：這一格取自哪一層',items:['取自精神層：故事、價值、信仰','取自行為層：技藝、採集規則、儀式','取自物質層：材料、器物、紋樣']},
   {h:'知識來源與權威（決策一）',items:['耆老口傳與生活實作','國家認定的保存者／工藝士','博物館藏品與文獻回溯','機構課綱與師資']},
@@ -502,42 +513,56 @@ const FRAMES={
 // 四案（依欄）
 const CASES=[
  {id:'yeh',name:'野桐工坊',color:'#6B547D',
+  c0:'部落婦女與族人：重新接回泰雅織布與自己的身分；織女參與委託與公共藝術也有收入。對外體驗學員的價值，公開資料較少（？）。',
+  d0:'部落婦女：接回織布與身分、有收入',
   c1:'知識從博物館藏品回溯＋耆老口傳重建；2016 年成為國家保存者，權威來自證據＋部落承認＋國家認定。',
   c2:'三條軌道並行：織女工作坊（物質＋行為）、全族語學園（精神）、國家藝生制（三層都教，4 年、2–6 人）。',
   c3:'織女回部落自立工坊、學員升學、女兒成為藝生；結業藝生優先當教學助理。結業人數未公開。',
   c4:'博物館委託與公共藝術養織女（年 300–500 萬）、文資計畫養藝生、支持者募資養學園。',
   d1:'博物館藏品回溯＋耆老＋國家保存者認定',d2:'織女工作坊／學園／藝生制（4 年、2–6 人）',d3:'專案收入＋文資計畫＋募資',d4:'自立工坊、結業證書、家族接班'},
  {id:'hunter',name:'拉勞蘭獵人學校',color:'#B76E4D',
+  c0:'部落青年：在年齡階級裡被養成，成為「能與土地溝通的人」；企業與一般大眾則是付費參加的另一條課程。',
+  d0:'部落青年的養成；企業付費課另成一線',
   c1:'父親與耆老口傳、年齡階級；「獵人」被重新定義為「能與土地溝通的人」；權威在創辦人與家族。',
   c2:'社群活動型：青年會年度循環＋獵人課程五階段（各 3–5 天，邀請制）；收費課切到公司。教到精神層。',
   c3:'學員成為執行長、創業者、教師（師培）；青年會 50 人制度化交接；完成率約一成。',
   c4:'創辦人獎金與名聲、捐款、三鐵回捐、公益平台連年贊助；幾乎沒有營收。',
   d1:'父親與耆老口傳＋年齡階級',d2:'社群活動型：五階段各 3–5 天、邀請制',d3:'捐款、回捐、單一贊助者',d4:'執行長、創業、師培'},
  {id:'tepuia',name:'Te Puia NZMACI',color:'#45877D',
+  c0:'毛利學員：三年全時學雕刻或編織，畢業後成為師傅、回 iwi 建會堂；遊客付費觀看與購買，是另一群人。',
+  d0:'成為師傅、回 iwi；遊客是另一群人',
   c1:'師承鏈（老師皆畢業生）＋八種部族風格＋iwi 推薦；法定機構。',
   c2:'三年全時學校制，每週 40 小時、師生比 1:3；木雕每年最多 5 人；自頒文憑。',
   c3:'161 名畢業生、83 個 iwi、40 餘座會堂；畢業生成老師；無就業追蹤。',
   c4:'觀光收入養每年 600 萬紐元；疫情後加政府紓困、基金會、學費 6 萬＋獎學金 2.4 萬、iwi 贊助。',
   d1:'師承鏈＋部族風格＋iwi 推薦',d2:'三年全時、1:3、≤5 人／年',d3:'觀光養學校；疫情後多元化',d4:'畢業生成老師、回 iwi 建會堂'},
  {id:'nibutani',name:'二風谷愛努工藝',color:'#245C4A',
+  c0:'支薪學員（18–35 歲、三年）：被付錢來學，身分是傳承者；町工藝館的體驗者帶走手作與紋樣的認識。',
+  d0:'被付錢來學的傳承者＋體驗遊客',
   c1:'四代家族＋博物館藏品＋經產省「傳統工藝品」指定與傳統工藝士認證。',
   c2:'家族學徒制＋財團三年支薪課程（4 人／期、約 4,800 小時）＋町工藝館體驗。',
   c3:'26 位現役工藝家、6 位工藝士；課程明定不斡旋就職；修了生去向未公開。',
   c4:'國庫交付金八成養場館與材料；財團預算養人（4,067 萬円／年）；作品高單價。',
   d1:'家族＋藏品＋國家認證',d2:'家族學徒＋三年支薪課程',d3:'交付金養場館、財團養人',d4:'工藝士認證、不斡旋就職'},
  {id:'dragonfly',name:'蜻蜓雅築',color:'#C99A3B',
+  c0:'遊客與企業團體：帶走自己做的琉璃珠，以及紋樣意義的故事，可當紀念或送禮；工坊婦女得到在地工作。',
+  d0:'帶走琉璃珠與紋樣故事、可送禮',
   c1:'屏東三地門排灣族琉璃珠與紋樣故事；創辦人施秀菊帶領部落婦女投入製作；紋樣意義在導覽與體驗中說明。',
   c2:'工坊整合製作、商品設計、企業禮贈品訂單與導覽體驗；遊客體驗接觸製作過程與紋樣意義。',
   c3:'部落婦女與返鄉青年在工坊長期工作（在地工作）；遊客體驗有沒有進階學習管道，公開資料不足以證明。',
   c4:'支持來自整個組織的商品、訂單與體驗收入，不只是一堂課的鐘點；授課鐘點與體驗費分潤未公開。',
   d1:'排灣琉璃珠與紋樣故事',d2:'工坊製作＋遊客導覽體驗',d3:'商品、企業訂單、導覽體驗',d4:'在地工作（部落婦女、返鄉青年）'},
  {id:'storyboot',name:'Storyboot School',color:'#5E7FA3',
+  c0:'原住民青年：免費學習，和自己的文化與長輩技藝重新連結；學成後有機會回來帶領，或在市集賣作品。',
+  d0:'原住民青年免費、重新連結文化',
   c1:'加拿大原住民鞋履品牌 Manitobah 支持的傳統製鞋與串珠技藝，由原住民藝術家帶領。',
   c2:'每週課程，學員在教學空間跟著藝術家做；對原住民青年免費。',
   c3:'2025 年 177 名學生畢業，並有過往學員回校擔任帶領者（回來帶領）；品牌另有藝術家市場與合作通路（自述）。',
   c4:'合作計畫資料指出為負責的藝術家創造收入；講師費率與營收提撥比例未公開。',
   d1:'原住民藝術家傳授製鞋與串珠',d2:'每週課程、原住民青年免費',d3:'品牌與合作計畫支持',d4:'回校帶領、藝術家市場'},
  {id:'tjanpi',name:'Tjanpi Desert Weavers',color:'#9A5C3E',
+  c0:'社區婦女：在自己的土地上創作，作品被收購而有收入；買家得到有作者、有來源的作品。',
+  d0:'在自己土地上創作並有收入',
   c1:'澳洲中部沙漠原住民婦女以在地草料編織；資深藝術家帶領、共同創作大型作品。',
   c2:'社區技能工作坊；組織提供材料、協助採集編織用草。',
   c3:'學完不一定當老師：作品由組織收購、銷售，婦女在自己的土地上持續創作（作品進入市場）。',
@@ -618,12 +643,12 @@ function fillTable(){
 }
 function updateStats(){
   let filled=0,ok=0,q=0;KEYS.forEach(k=>{if((data.cells[k]||'').trim())filled++;if(data.marks[k]==='ok')ok++;if(data.marks[k]==='q')q++;});
-  document.getElementById('nFilled').textContent=filled;document.getElementById('nOk').textContent=ok;document.getElementById('nQ').textContent=q;document.getElementById('nNone').textContent=16-ok-q;
+  document.getElementById('nFilled').textContent=filled;document.getElementById('nOk').textContent=ok;document.getElementById('nQ').textContent=q;document.getElementById('nNone').textContent=KEYS.length-ok-q;
   const unm=KEYS.filter(k=>(data.cells[k]||'').trim()&&!data.marks[k]);
   const tip=document.getElementById('markTip');
-  if(filled===0)tip.textContent='先把第一列（兩小時體驗）四格填滿，再往下。';
+  if(filled===0)tip.textContent='先把第一列（兩小時體驗）五格填滿，從「學員與價值」開始，再往下。';
   else if(unm.length)tip.textContent=`有 ${unm.length} 格填了字但沒標記號：${unm.map(label).join('、')}。`;
-  else if(filled<16)tip.textContent=`還有 ${16-filled} 格空白；空白也可以寫「未查到」再標「？」。`;
+  else if(filled<KEYS.length)tip.textContent=`還有 ${KEYS.length-filled} 格空白；空白也可以寫「未查到」再標「？」。`;
   else tip.textContent=ok>=8?'全部填完、全部有記號。可以請另外兩位同學互評。':'全部填完。✓ 少於一半：這份方案大多還是推論，報告時要說清楚哪些要去驗證。';
 }
 function label(k){const [s,c]=k.split('-');return STAGES.find(x=>x.id===s).name.split('：')[0]+'／'+COLS.find(x=>x.id===c).name;}
@@ -711,7 +736,7 @@ document.getElementById('wNext').onclick=()=>{if(wi<KEYS.length-1){wi++;renderWi
 
 // ---------- 四案參考 ----------
 function renderCases(){
-  document.getElementById('casesGrid').innerHTML=CASES.map(c=>`<div class="cbox"><h3><i style="background:${c.color}"></i>${c.name}</h3><dl><dt>知識來源</dt><dd>${c.d1}</dd><dt>形式與時長</dt><dd>${c.d2}</dd><dt>資源結構</dt><dd>${c.d3}</dd><dt>出口</dt><dd>${c.d4}</dd></dl><div style="color:var(--mute);font-size:.82rem">材料與故事：${c.c1}</div></div>`).join('');
+  document.getElementById('casesGrid').innerHTML=CASES.map(c=>`<div class="cbox"><h3><i style="background:${c.color}"></i>${c.name}</h3><dl><dt>學員與價值</dt><dd>${c.d0}</dd><dt>知識來源</dt><dd>${c.d1}</dd><dt>形式與時長</dt><dd>${c.d2}</dd><dt>資源結構</dt><dd>${c.d3}</dd><dt>出口</dt><dd>${c.d4}</dd></dl><div style="color:var(--mute);font-size:.82rem">學員為什麼來：${c.c0}</div></div>`).join('');
 }
 
 // ---------- 字典 ----------
@@ -814,7 +839,7 @@ function renderOverview(){
   const g=document.getElementById('overviewGrid');if(!g)return;
   const names={a:'工藝師 A 的表',b:'工藝師 B 的表',c:'原資中心的表',shared:'三人共同一份'};
   g.innerHTML=SHEETS.map(id=>{const r=remote[id];const cells=r?r.cells||{}:{};const marks=r?r.marks||{}:{};const filled=KEYS.filter(k=>(cells[k]||'').trim()).length;const ok=KEYS.filter(k=>marks[k]==='ok').length;const q=KEYS.filter(k=>marks[k]==='q').length;const j=r?r.judge||{}:{};const n=['j1','j2','j3'].filter(x=>j[x]==='1').length;const lamp=(j.j1&&j.j2&&j.j3)?(n===3?'機制':n>=1?'方案':'活動'):'未判斷';const peer=r?(r.peer||[]).filter(Boolean).length:0;const t=r&&r.updated_at?new Date(r.updated_at).toLocaleTimeString('zh-TW',{hour:'2-digit',minute:'2-digit'}):'—';
-    return `<div class="cbox" style="cursor:pointer" data-id="${id}"><h3>${names[id]}</h3><div class="stat"><span><b>${filled}</b>已填／16</span><span><b>${ok}</b>✓</span><span><b>${q}</b>？</span><span><b>${peer}</b>互評／5</span></div><div style="color:var(--mute);font-size:.84rem">判斷器：${lamp}　·　最後更新 ${t}</div></div>`;}).join('');
+    return `<div class="cbox" style="cursor:pointer" data-id="${id}"><h3>${names[id]}</h3><div class="stat"><span><b>${filled}</b>已填／${KEYS.length}</span><span><b>${ok}</b>✓</span><span><b>${q}</b>？</span><span><b>${peer}</b>互評／5</span></div><div style="color:var(--mute);font-size:.84rem">判斷器：${lamp}　·　最後更新 ${t}</div></div>`;}).join('');
   g.querySelectorAll('.cbox').forEach(b=>b.onclick=()=>{document.getElementById('sheetSel').value=b.dataset.id;loadSheet(b.dataset.id);showView('table');});
 }
 function loadSheet(id){sheetId=id;data=lsLoad(id);if(remote[id])applyRow(remote[id]);else fillTable();if(typeof renderBoard==='function')renderBoard();try{localStorage.setItem(LS+'sheet',id);}catch(e){}}
@@ -1006,7 +1031,7 @@ function renderBoard(){
   // 側欄統計
   const tops=live.filter(n=>n.cell!=='lot');
   const pinnedCells=new Set(live.filter(n=>n.pinned).map(n=>n.cell)).size;
-  document.getElementById('boardStat').innerHTML=`<span><b>${live.length}</b>便利貼</span><span><b>${pinnedCells}</b>定稿／16</span><span><b>${tops.filter(n=>n.mark==='ok').length}</b>✓</span><span><b>${tops.filter(n=>n.mark==='q').length}</b>？</span>`;
+  document.getElementById('boardStat').innerHTML=`<span><b>${live.length}</b>便利貼</span><span><b>${pinnedCells}</b>定稿／${KEYS.length}</span><span><b>${tops.filter(n=>n.mark==='ok').length}</b>✓</span><span><b>${tops.filter(n=>n.mark==='q').length}</b>？</span>`;
   const ppl={};live.forEach(n=>{const p=ppl[n.author_id]=ppl[n.author_id]||{name:n.author_name,color:n.color,c:0};p.c++;p.name=n.author_name;p.color=n.color;});
   document.getElementById('boardPeople').innerHTML=Object.values(ppl).sort((a,b)=>b.c-a.c).map(p=>{const c=colorOf(p.color);return `<div><i style="background:${c[0]};border-color:${c[1]}"></i>${esc(p.name)}<span>${p.c} 張</span></div>`;}).join('')||'<p>還沒有人貼。</p>';
   const tr=boardNotes().filter(n=>n.deleted).sort((a,b)=>(b.updated_at||'').localeCompare(a.updated_at||'')).slice(0,8);
