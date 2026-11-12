@@ -156,6 +156,88 @@ table.sheet tr:nth-child(even) td{background:var(--alt)}
 .export{display:grid;gap:8px}
 .export textarea{width:100%;min-height:180px;border:1px solid var(--line);border-radius:8px;padding:10px;background:var(--card);font-family:ui-monospace,Menlo,monospace;font-size:.8rem}
 @media (max-width:640px){ table.sheet{min-width:760px} .brand h1{font-size:1.2rem} }
+/* ===== 便利貼看板 ===== */
+.bwrap{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:14px;align-items:start}
+.bbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.bbar .me{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:4px 11px 4px 5px;font-size:.84rem}
+.bbar .me i{width:18px;height:18px;border-radius:50%;display:inline-block;border:1.5px solid rgba(0,0,0,.18)}
+.bbar .hint{color:var(--mute);font-size:.84rem}
+.bgrid{display:grid;grid-template-columns:120px repeat(4,minmax(150px,1fr));border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--card);min-width:760px}
+.bgridwrap{overflow-x:auto}
+.bch{background:var(--green);color:var(--paper);padding:8px 10px;font-weight:600;font-size:.88rem}
+.bch small{display:block;font-weight:400;opacity:.8;font-size:.74rem}
+.brh{background:var(--alt);border-top:1px solid var(--line);padding:10px;font-weight:600;font-size:.84rem}
+.brh small{display:block;color:var(--mute);font-weight:400;font-size:.74rem;margin-top:2px}
+.bcell{border-top:1px solid var(--line);border-left:1px solid var(--line);padding:8px;min-height:118px;display:flex;flex-wrap:wrap;gap:8px;align-content:flex-start}
+.bcell.over,.lotcell.over{background:var(--teal-bg);outline:2px dashed var(--teal);outline-offset:-4px}
+.badd{width:28px;height:28px;border-radius:6px;border:1.5px dashed var(--line);background:transparent;color:var(--mute);font-size:18px;line-height:1;display:flex;align-items:center;justify-content:center}
+.badd:hover{border-color:var(--teal);color:var(--teal)}
+.stack{display:flex;flex-direction:column;gap:5px}
+.note{--nc:#FFF1B8;--nb:#E2C65A;width:136px;min-height:86px;padding:6px 8px 5px;border-radius:3px;background:var(--nc);color:#20342F;font-size:.8rem;line-height:1.42;position:relative;box-shadow:0 1px 0 rgba(0,0,0,.05),0 3px 7px rgba(0,0,0,.1);display:flex;flex-direction:column;gap:4px;cursor:grab;border:1px solid transparent}
+.note.reply{width:124px;min-height:0;margin-left:12px}
+.note.reply::before{content:"↳";position:absolute;left:-12px;top:4px;color:var(--mute)}
+.note.pinned{outline:2.5px solid #153E34;outline-offset:1px}
+.note.pinned::after{content:"定稿";position:absolute;top:-9px;right:-6px;background:#153E34;color:#fff;font-size:.66rem;padding:1px 5px;border-radius:3px}
+.note.dragging{opacity:.4}
+.note .nt{font-size:.66rem;color:rgba(0,0,0,.6);display:flex;gap:4px;align-items:center;min-width:0}
+.note .nt em{font-style:normal;background:rgba(255,255,255,.7);padding:0 4px;border-radius:3px;flex:none}
+.note .nt span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.note .tx{white-space:pre-wrap;word-break:break-word}
+.note .nf{margin-top:auto;display:flex;align-items:center;gap:4px}
+.note .mkb{border:0;background:rgba(255,255,255,.7);border-radius:3px;font-size:.72rem;font-weight:700;padding:0 5px;color:rgba(0,0,0,.45);cursor:pointer}
+.note .mkb.ok{color:#2e7a52}.note .mkb.q{color:#a87411}
+.note .more{margin-left:auto;border:0;background:transparent;color:rgba(0,0,0,.55);font-size:1rem;line-height:1;padding:0 3px;cursor:pointer;border-radius:3px}
+.note .more:hover,.note .mkb:hover{background:rgba(255,255,255,.95)}
+.bside{display:flex;flex-direction:column;gap:12px}
+.bside .panel{padding:12px}
+.lotcell{display:flex;flex-direction:column;gap:8px;min-height:90px;border-radius:8px;padding:4px}
+.lotcell .note{width:100%}
+.people{display:grid;gap:5px;font-size:.84rem}
+.people div{display:flex;align-items:center;gap:7px}
+.people i{width:14px;height:14px;border-radius:3px;display:inline-block;border:1px solid rgba(0,0,0,.15)}
+.people span{margin-left:auto;color:var(--mute);font-variant-numeric:tabular-nums}
+.trash{display:grid;gap:6px;font-size:.82rem}
+.trash div{display:flex;gap:6px;align-items:flex-start}
+.trash p{margin:0;flex:1;min-width:0;color:var(--mute);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bmobile{display:none}
+.tabs{max-width:100%;overflow-x:auto;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}.tabs button{white-space:nowrap;flex:none}
+.mstages{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px}
+.mstages button{flex:none;border:1px solid var(--line);background:var(--card);color:var(--mute);border-radius:999px;padding:5px 12px;font-size:.86rem}
+.mstages button[aria-pressed="true"]{background:var(--green);color:var(--paper);border-color:var(--green)}
+.macc{background:var(--card);border:1px solid var(--line);border-radius:10px}
+.macc>button{width:100%;display:flex;align-items:center;gap:8px;border:0;background:transparent;padding:11px 12px;text-align:left;color:var(--ink);font-weight:600}
+.macc>button small{color:var(--mute);font-weight:400;font-size:.78rem}
+.macc>button span{margin-left:auto;color:var(--mute);font-weight:400;font-size:.8rem}
+.macc .mbody{padding:0 12px 12px;display:flex;flex-wrap:wrap;gap:8px}
+.macc .mbody .note{width:calc(50% - 4px)}
+.macc .mbody .note.reply{width:calc(50% - 16px)}
+.macc .mbody .stack{width:100%;flex-direction:row;flex-wrap:wrap}
+.madd{width:100%;border:1.5px dashed var(--line);background:transparent;color:var(--teal);border-radius:8px;padding:8px;font-weight:600}
+@media (max-width:760px){.bwrap{grid-template-columns:1fr}.bgridwrap{display:none}.bmobile{display:grid;gap:10px}.bside .lotpanel{display:none}}
+/* menu & dialogs */
+.nmenu{position:fixed;z-index:40;background:var(--card);border:1px solid var(--line);border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.18);min-width:170px;max-height:70vh;overflow:auto;padding:4px;font-size:.86rem}
+.nmenu button{display:block;width:100%;text-align:left;border:0;background:transparent;color:var(--ink);padding:7px 10px;border-radius:6px}
+.nmenu button:hover,.nmenu button:focus-visible{background:var(--alt)}
+.nmenu hr{border:0;border-top:1px solid var(--line);margin:4px 0}
+.nmenu .danger{color:var(--bad)}
+.nmenu .lbl{padding:6px 10px 2px;font-size:.74rem;color:var(--mute)}
+.dlg{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.32);display:flex;align-items:center;justify-content:center;padding:16px}
+.dlg[hidden]{display:none}
+.dlgbox{background:var(--card);color:var(--ink);border-radius:12px;width:min(460px,100%);padding:18px;display:grid;gap:12px;box-shadow:0 20px 50px rgba(0,0,0,.25)}
+.dlgbox h3{margin:0;font-size:1.02rem;color:var(--green)}
+.dlgbox .sub{color:var(--mute);font-size:.84rem;margin:0}
+.dlgbox textarea,.dlgbox input[type=text]{width:100%;border:1px solid var(--line);border-radius:8px;padding:9px 10px;background:var(--paper);font-size:.95rem}
+.dlgbox textarea{min-height:96px;resize:vertical}
+.kinds{display:flex;gap:6px;flex-wrap:wrap}
+.kinds button{border:1px solid var(--line);background:var(--card);color:var(--mute);border-radius:6px;padding:4px 11px;font-size:.86rem}
+.kinds button[aria-pressed="true"]{border-color:var(--teal);color:var(--teal);background:var(--teal-bg);font-weight:600}
+.swatches{display:flex;gap:8px;flex-wrap:wrap}
+.swatches button{width:30px;height:30px;border-radius:50%;border:2px solid rgba(0,0,0,.12);cursor:pointer}
+.swatches button[aria-pressed="true"]{outline:3px solid var(--green);outline-offset:2px}
+.dlgfoot{display:flex;gap:8px;justify-content:flex-end;align-items:center}
+.dlgfoot .cnt{margin-right:auto;font-size:.8rem;color:var(--mute);font-variant-numeric:tabular-nums}
+.dlgfoot .cnt.warn{color:var(--warn)}
+
 </style>
 </head>
 <body>
@@ -166,6 +248,7 @@ table.sheet tr:nth-child(even) td{background:var(--alt)}
   </div>
   <div class="toolbar">
     <div class="tabs" role="tablist">
+      <button role="tab" aria-selected="false" data-view="board">便利貼看板</button>
       <button role="tab" aria-selected="true" data-view="table">設計表</button>
       <button role="tab" aria-selected="false" data-view="wizard">引導模式</button>
       <button role="tab" aria-selected="false" data-view="cases">四案參考</button>
@@ -187,6 +270,25 @@ table.sheet tr:nth-child(even) td{background:var(--alt)}
 </div></header>
 
 <main class="wrap">
+  <!-- 便利貼看板 -->
+  <section class="view" id="view-board" hidden>
+    <div class="bbar">
+      <button class="me" id="meChip" type="button"><i id="meDot"></i><span id="meName">設定我的名字</span></button>
+      <span class="hint" id="boardHint">每格可以貼很多張；點「＋」貼一張，拖曳或用「⋯」移動。每格選一張「定稿」，會自動寫回設計表。</span>
+    </div>
+    <div class="bwrap">
+      <div>
+        <div class="bgridwrap"><div class="bgrid" id="boardGrid"></div></div>
+        <div class="bmobile" id="boardMobile"></div>
+      </div>
+      <aside class="bside">
+        <div class="panel lotpanel"><h3>停車場</h3><p>還不知道歸哪一格的想法先放這裡，之後再拖進格子。</p><div class="lotcell" id="lotCell" data-cell="lot"></div><button class="madd" data-add="lot" type="button">＋ 貼到停車場</button></div>
+        <div class="panel"><h3>這個看板</h3><div class="stat" id="boardStat"></div><div class="people" id="boardPeople"></div></div>
+        <div class="panel"><h3>最近刪除</h3><div class="trash" id="boardTrash"><p>沒有刪除的便利貼。</p></div></div>
+      </aside>
+    </div>
+  </section>
+
   <!-- 設計表 -->
   <section class="view" id="view-table">
     <div class="intro">
@@ -280,6 +382,22 @@ table.sheet tr:nth-child(even) td{background:var(--alt)}
   </div>
 </aside>
 <div class="toast" id="toast"></div>
+<div class="dlg" id="meDlg" hidden><div class="dlgbox" role="dialog" aria-modal="true" aria-labelledby="meTitle">
+  <h3 id="meTitle">你是誰？</h3>
+  <p class="sub">名字會顯示在你貼的每一張便利貼上；顏色用來分辨誰寫的。只存在這台裝置，不需要登入。</p>
+  <input type="text" id="meInput" maxlength="20" placeholder="例如：Ina、阿亮、黃老師" autocomplete="off">
+  <div class="swatches" id="meSwatches"></div>
+  <div class="dlgfoot"><button class="btn" id="meCancel" type="button">取消</button><button class="btn primary" id="meOk" type="button">確定</button></div>
+</div></div>
+<div class="dlg" id="noteDlg" hidden><div class="dlgbox" role="dialog" aria-modal="true" aria-labelledby="noteTitle">
+  <h3 id="noteTitle">貼一張</h3>
+  <p class="sub" id="noteSub"></p>
+  <div class="kinds" id="noteKinds"></div>
+  <textarea id="noteText" maxlength="200" placeholder="一張只寫一件事，一句話就好"></textarea>
+  <div class="dlgfoot"><span class="cnt" id="noteCnt">0／60</span><button class="btn" id="noteCancel" type="button">取消</button><button class="btn primary" id="noteOk" type="button">貼上</button></div>
+</div></div>
+<div class="nmenu" id="noteMenu" hidden role="menu"></div>
+
 
 <script>
 (function(){
@@ -547,9 +665,9 @@ document.getElementById('dictTags').addEventListener('click',e=>{const b=e.targe
 // ---------- 視圖 ----------
 function showView(v){
   document.querySelectorAll('.tabs [role=tab]').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.view===v)));
-  ['table','wizard','cases','dict','overview'].forEach(x=>{document.getElementById('view-'+x).hidden=(x!==v);});
+  ['board','table','wizard','cases','dict','overview'].forEach(x=>{document.getElementById('view-'+x).hidden=(x!==v);});
   document.getElementById('exportBox').hidden=true;
-  if(v==='wizard')renderWizard();if(v==='dict')renderDict();if(v==='overview')renderOverview();
+  if(v==='board')renderBoard();if(v==='wizard')renderWizard();if(v==='dict')renderDict();if(v==='overview')renderOverview();
   try{localStorage.setItem(LS+'view',v);}catch(e){}
 }
 document.querySelectorAll('.tabs [role=tab]').forEach(b=>b.onclick=()=>showView(b.dataset.view));
@@ -570,8 +688,10 @@ document.getElementById('exportBtn').onclick=async()=>{
 };
 document.getElementById('clearBtn').onclick=()=>{
   const b=document.getElementById('clearBtn');
-  if(b.dataset.arm==='1'){data=blank();KEYS.forEach(k=>dirty.set(k,true));metaDirty=true;fillTable();schedule(true);b.textContent='清空這份表';b.dataset.arm='';toast('已清空');return;}
-  b.dataset.arm='1';b.textContent='再按一次確認清空';setTimeout(()=>{b.textContent='清空這份表';b.dataset.arm='';},4000);
+  if(b.dataset.arm==='undo'){const snap=b._snap;if(snap){data=snap;KEYS.forEach(k=>dirty.set(k,true));metaDirty=true;fillTable();schedule(true);toast('已復原');}clearTimeout(b._t);b.textContent='清空這份表';b.dataset.arm='';return;}
+  if(b.dataset.arm==='1'){b._snap=JSON.parse(JSON.stringify(data));data=blank();KEYS.forEach(k=>dirty.set(k,true));metaDirty=true;fillTable();schedule(true);toast('已清空設計表（便利貼不受影響）');
+    b.dataset.arm='undo';b.textContent='復原剛才的清空';clearTimeout(b._t);b._t=setTimeout(()=>{b.textContent='清空這份表';b.dataset.arm='';b._snap=null;},60000);return;}
+  b.dataset.arm='1';b.textContent='再按一次確認清空';clearTimeout(b._t);b._t=setTimeout(()=>{b.textContent='清空這份表';b.dataset.arm='';},4000);
 };
 
 // ---------- 儲存（Supabase → 本機） ----------
@@ -618,12 +738,13 @@ async function pullAll(){
 function connect(){
   if(!configured()){setStatus(false,'未設定資料庫：內容只存在這台裝置');return;}
   try{sb=window.supabase.createClient(CFG.SUPABASE_URL,CFG.SUPABASE_ANON_KEY);}catch(e){setStatus(false,'資料庫設定有誤');return;}
-  pullAll();
+  pullAll();loadNotes();
   channel=sb.channel('room-'+ROOM,{config:{presence:{key:Math.random().toString(36).slice(2)}}});
   channel.on('postgres_changes',{event:'*',schema:'public',table:'sheets',filter:'room=eq.'+ROOM},payload=>{if(payload.new&&payload.new.sheet_id)applyRow(payload.new);});
-  channel.on('presence',{event:'sync'},()=>{const n=Object.keys(channel.presenceState()).length;const o=document.getElementById('online');o.hidden=n<2;document.getElementById('onlineText').textContent=n+' 人在線';});
-  channel.subscribe(status=>{if(status==='SUBSCRIBED'){channel.track({at:Date.now()});}else if(status==='CHANNEL_ERROR'||status==='TIMED_OUT'){setStatus(false,'即時連線中斷，每 20 秒改用輪詢');}});
-  setInterval(()=>{if(document.visibilityState==='visible')pullAll();},20000);
+  channel.on('postgres_changes',{event:'*',schema:'public',table:'notes',filter:'room=eq.'+ROOM},onNoteChange);
+  channel.on('presence',{event:'sync'},presenceText);
+  channel.subscribe(status=>{if(status==='SUBSCRIBED'){trackPresence();}else if(status==='CHANNEL_ERROR'||status==='TIMED_OUT'){setStatus(false,'即時連線中斷，每 20 秒改用輪詢');}});
+  setInterval(()=>{if(document.visibilityState==='visible'){pullAll();if(notesMode==='db')loadNotes();}},20000);
 }
 function renderOverview(){
   const g=document.getElementById('overviewGrid');if(!g)return;
@@ -632,16 +753,269 @@ function renderOverview(){
     return `<div class="cbox" style="cursor:pointer" data-id="${id}"><h3>${names[id]}</h3><div class="stat"><span><b>${filled}</b>已填／16</span><span><b>${ok}</b>✓</span><span><b>${q}</b>？</span><span><b>${peer}</b>互評／5</span></div><div style="color:var(--mute);font-size:.84rem">判斷器：${lamp}　·　最後更新 ${t}</div></div>`;}).join('');
   g.querySelectorAll('.cbox').forEach(b=>b.onclick=()=>{document.getElementById('sheetSel').value=b.dataset.id;loadSheet(b.dataset.id);showView('table');});
 }
-function loadSheet(id){sheetId=id;data=lsLoad(id);if(remote[id])applyRow(remote[id]);else fillTable();try{localStorage.setItem(LS+'sheet',id);}catch(e){}}
+function loadSheet(id){sheetId=id;data=lsLoad(id);if(remote[id])applyRow(remote[id]);else fillTable();if(typeof renderBoard==='function')renderBoard();try{localStorage.setItem(LS+'sheet',id);}catch(e){}}
 document.getElementById('sheetSel').onchange=e=>loadSheet(e.target.value);
+
+// ---------- 便利貼看板 ----------
+const NOTE_COLORS=[['#FFF1B8','#E2C65A'],['#D7EEDF','#7DB596'],['#E6DDF3','#A58CC7'],['#FBE0D3','#D99A7C'],['#D6E8F5','#7FA9CB'],['#F6D9E4','#C98AA3'],['#E9EDD0','#A9B464'],['#E6E4DF','#A9A49A']];
+const KINDS=['想法','提問','證據','疑慮'];
+const NOTE_SOFT=60;
+let me=null;                 // {id,name,color}
+const notes=new Map();       // id -> row
+let notesMode='local';       // 'db' | 'local'
+let mStage='s1',mOpen=null;  // 手機：目前階段與展開的格子
+let compose=null;            // {cell,parent,editId,kind}
+let dragId=null;
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]);}
+function uid(){try{return crypto.randomUUID();}catch(e){return 'n'+Date.now().toString(36)+Math.random().toString(36).slice(2,10);}}
+function cellLabel(k){return k==='lot'?'停車場':label(k);}
+function colorOf(i){return NOTE_COLORS[(+i||0)%NOTE_COLORS.length];}
+function loadMe(){try{const r=localStorage.getItem(LS+'me');if(r){const o=JSON.parse(r);if(o&&o.id&&o.name)me=o;}}catch(e){}}
+function saveMe(){try{localStorage.setItem(LS+'me',JSON.stringify(me));}catch(e){}}
+function lsNotesKey(){return LS+'notes:'+ROOM;}
+function lsNotesSave(){if(notesMode!=='local')return;try{localStorage.setItem(lsNotesKey(),JSON.stringify([...notes.values()]));}catch(e){}}
+function lsNotesLoad(){try{const r=localStorage.getItem(lsNotesKey());if(r)JSON.parse(r).forEach(n=>notes.set(n.id,n));}catch(e){}}
+function boardNotes(){return [...notes.values()].filter(n=>n.board===sheetId);}
+function canEdit(n){return me&&n.author_id===me.id;}
+
+// 身分
+function renderMe(){
+  const dot=document.getElementById('meDot'),nm=document.getElementById('meName');
+  if(me){const c=colorOf(me.color);dot.style.background=c[0];dot.style.borderColor=c[1];nm.textContent='我是：'+me.name;}
+  else{dot.style.background='transparent';dot.style.borderColor='var(--line)';nm.textContent='設定我的名字';}
+}
+let meAfter=null,mePick=0;
+function openMe(after){
+  meAfter=after||null;const inp=document.getElementById('meInput');inp.value=me?me.name:'';
+  mePick=me?me.color:Math.floor(Math.random()*NOTE_COLORS.length);renderSwatches();
+  document.getElementById('meDlg').hidden=false;setTimeout(()=>inp.focus(),30);
+}
+function renderSwatches(){
+  document.getElementById('meSwatches').innerHTML=NOTE_COLORS.map((c,i)=>`<button type="button" data-i="${i}" aria-label="顏色 ${i+1}" aria-pressed="${i===mePick}" style="background:${c[0]};border-color:${c[1]}"></button>`).join('');
+}
+document.getElementById('meSwatches').addEventListener('click',e=>{const b=e.target.closest('button');if(b){mePick=+b.dataset.i;renderSwatches();}});
+document.getElementById('meCancel').onclick=()=>{document.getElementById('meDlg').hidden=true;meAfter=null;};
+function meConfirm(){
+  const name=document.getElementById('meInput').value.trim().slice(0,20);
+  if(!name){toast('請先輸入名字');return;}
+  const renamed=me&&me.name!==name;
+  me={id:me?me.id:uid(),name,color:mePick};saveMe();renderMe();
+  document.getElementById('meDlg').hidden=true;
+  // 自己貼過的便利貼一起更新名字與顏色
+  boardNotesAll().filter(n=>n.author_id===me.id&&(n.author_name!==me.name||n.color!==me.color)).forEach(n=>nUpdate(n.id,{author_name:me.name,color:me.color}));
+  trackPresence();renderBoard();
+  if(renamed)toast('已更新名字');
+  const f=meAfter;meAfter=null;if(f)f();
+}
+function boardNotesAll(){return [...notes.values()];}
+document.getElementById('meOk').onclick=meConfirm;
+document.getElementById('meInput').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();meConfirm();}});
+document.getElementById('meChip').onclick=()=>openMe();
+function needMe(f){if(me){f();return;}openMe(f);}
+
+// 新增／編輯對話框
+function openCompose(o){
+  needMe(()=>{
+    compose=Object.assign({kind:'想法'},o);
+    const t=document.getElementById('noteText'),ok=document.getElementById('noteOk');
+    if(compose.editId){const n=notes.get(compose.editId);compose.kind=n.kind;t.value=n.text;document.getElementById('noteTitle').textContent='編輯便利貼';document.getElementById('noteSub').textContent='在「'+cellLabel(n.cell)+'」';ok.textContent='儲存';}
+    else if(compose.parent){const p=notes.get(compose.parent);compose.kind='提問';t.value='';document.getElementById('noteTitle').textContent='對這張提問';document.getElementById('noteSub').textContent='「'+(p?p.text.slice(0,40):'')+'」— '+(p?p.author_name:'');ok.textContent='貼上';}
+    else{t.value='';document.getElementById('noteTitle').textContent='貼一張';document.getElementById('noteSub').textContent='貼到「'+cellLabel(compose.cell)+'」';ok.textContent='貼上';}
+    renderKinds();updCnt();document.getElementById('noteDlg').hidden=false;setTimeout(()=>t.focus(),30);
+  });
+}
+function renderKinds(){document.getElementById('noteKinds').innerHTML=KINDS.map(k=>`<button type="button" data-k="${k}" aria-pressed="${compose.kind===k}">${k}</button>`).join('');}
+document.getElementById('noteKinds').addEventListener('click',e=>{const b=e.target.closest('button');if(b){compose.kind=b.dataset.k;renderKinds();}});
+function updCnt(){const n=document.getElementById('noteText').value.trim().length;const c=document.getElementById('noteCnt');c.textContent=n>NOTE_SOFT?`${n} 字：太長了，試著拆成兩張`:`${n}／${NOTE_SOFT}`;c.classList.toggle('warn',n>NOTE_SOFT);}
+document.getElementById('noteText').addEventListener('input',updCnt);
+document.getElementById('noteText').addEventListener('keydown',e=>{if(e.key==='Enter'&&(e.metaKey||e.ctrlKey)){e.preventDefault();composeOk();}});
+document.getElementById('noteCancel').onclick=()=>{document.getElementById('noteDlg').hidden=true;compose=null;};
+function composeOk(){
+  const text=document.getElementById('noteText').value.trim();
+  if(!text){toast('寫一句話再貼');return;}
+  if(compose.editId){nUpdate(compose.editId,{text,kind:compose.kind});}
+  else{
+    const p=compose.parent?notes.get(compose.parent):null;
+    const now=new Date().toISOString();
+    nInsert({id:uid(),room:ROOM,board:sheetId,cell:p?p.cell:compose.cell,text,kind:compose.kind,mark:'',author_id:me.id,author_name:me.name,color:me.color,parent_id:p?p.id:null,pinned:false,sort:Date.now(),deleted:false,created_at:now,updated_at:now});
+  }
+  document.getElementById('noteDlg').hidden=true;compose=null;
+}
+document.getElementById('noteOk').onclick=composeOk;
+document.querySelectorAll('.dlg').forEach(d=>d.addEventListener('click',e=>{if(e.target===d){d.hidden=true;compose=null;meAfter=null;}}));
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){document.querySelectorAll('.dlg').forEach(d=>d.hidden=true);closeMenu();}});
+
+// 資料寫入
+async function nInsert(row){
+  notes.set(row.id,row);renderBoard();lsNotesSave();
+  if(notesMode!=='db')return;
+  const {error}=await sb.from('notes').insert(row);
+  if(error){toast('貼上失敗，已先存在這台裝置');console.warn(error);}
+}
+async function nUpdate(id,patch){
+  const n=notes.get(id);if(!n)return;
+  const touchSheet=n.pinned&&n.cell!=='lot'&&('text' in patch||'mark' in patch);
+  Object.assign(n,patch,{updated_at:new Date().toISOString()});renderBoard();lsNotesSave();
+  if(touchSheet)writeSheetCell(n.board,n.cell,n.text,n.mark);
+  if(notesMode!=='db')return;
+  const {error}=await sb.from('notes').update(Object.assign({},patch,{updated_at:n.updated_at})).eq('id',id);
+  if(error){toast('更新失敗：'+(error.message||''));console.warn(error);}
+}
+async function writeSheetCell(board,k,text,mark){
+  if(board===sheetId){data.cells[k]=text;data.marks[k]=mark||'';markDirty(k);fillTable();schedule();}
+  else if(sb){try{await sb.rpc('set_cell',{p_room:ROOM,p_sheet:board,p_key:k,p_value:text,p_mark:mark||''});}catch(e){}}
+}
+function kids(id){return [...notes.values()].filter(x=>x.parent_id===id&&!x.deleted);}
+function moveNote(id,cell){
+  const n=notes.get(id);if(!n||n.cell===cell)return;
+  const root=n.parent_id&&notes.get(n.parent_id)&&!notes.get(n.parent_id).deleted?null:n; // 回覆不能單獨移動 → 移動整串
+  const top=root||notes.get(n.parent_id);
+  nUpdate(top.id,{cell,pinned:false,parent_id:null,sort:Date.now()});
+  kids(top.id).forEach(k=>nUpdate(k.id,{cell}));
+  toast('已移到「'+cellLabel(cell)+'」');
+}
+function togglePin(id){
+  const n=notes.get(id);if(!n||n.cell==='lot')return;
+  if(n.pinned){nUpdate(id,{pinned:false});toast('已取消定稿');return;}
+  boardNotes().filter(o=>o.cell===n.cell&&o.pinned&&o.id!==id).forEach(o=>nUpdate(o.id,{pinned:false}));
+  nUpdate(id,{pinned:true});writeSheetCell(n.board,n.cell,n.text,n.mark);
+  toast('已選為定稿，寫回設計表「'+cellLabel(n.cell)+'」');
+}
+function delNote(id){
+  const n=notes.get(id);if(!n)return;
+  nUpdate(id,{deleted:true,pinned:false});kids(id).forEach(k=>nUpdate(k.id,{deleted:true}));
+  toast('已刪除，可在「最近刪除」復原');
+}
+function restoreNote(id){nUpdate(id,{deleted:false});toast('已復原');}
+
+// 繪製
+function noteHTML(n,reply){
+  const c=colorOf(n.color);const mk=n.mark==='ok'?'✓':n.mark==='q'?'？':'標記';
+  return `<div class="note${reply?' reply':''}${n.pinned?' pinned':''}" data-id="${esc(n.id)}" draggable="true" style="--nc:${c[0]};--nb:${c[1]}" title="${esc(n.author_name)}・${esc(n.kind)}">
+  <div class="nt"><em>${esc(n.kind)}</em><span>${esc(n.author_name)}</span></div>
+  <div class="tx">${esc(n.text)}</div>
+  <div class="nf"><button class="mkb ${n.mark||''}" type="button" data-act="mark" aria-label="切換記號">${mk}</button><button class="more" type="button" data-act="menu" aria-label="更多動作">⋯</button></div></div>`;
+}
+function cellNotesHTML(list){
+  const tops=list.filter(n=>!n.parent_id||!notes.get(n.parent_id)||notes.get(n.parent_id).deleted).sort((a,b)=>a.sort-b.sort);
+  return tops.map(t=>{const ks=list.filter(x=>x.parent_id===t.id).sort((a,b)=>a.sort-b.sort);
+    return ks.length?`<div class="stack">${noteHTML(t)}${ks.map(k=>noteHTML(k,true)).join('')}</div>`:noteHTML(t);}).join('');
+}
+function renderBoard(){
+  const g=document.getElementById('boardGrid');if(!g)return;
+  const live=boardNotes().filter(n=>!n.deleted);
+  const by={};live.forEach(n=>{(by[n.cell]=by[n.cell]||[]).push(n);});
+  let h='<div class="bch">階段 ＼ 欄位</div>'+COLS.map(c=>`<div class="bch">${c.name}<small>${c.sub}</small></div>`).join('');
+  STAGES.forEach(s=>{h+=`<div class="brh">${s.name}<small>${s.sub}</small></div>`;
+    COLS.forEach(c=>{const k=s.id+'-'+c.id;h+=`<div class="bcell" data-cell="${k}">${cellNotesHTML(by[k]||[])}<button class="badd" type="button" data-add="${k}" aria-label="貼到${cellLabel(k)}">＋</button></div>`;});});
+  g.innerHTML=h;
+  document.getElementById('lotCell').innerHTML=cellNotesHTML(by.lot||[])||'<p style="margin:0;color:var(--mute);font-size:.84rem">（空）</p>';
+  // 手機
+  const m=document.getElementById('boardMobile');
+  const stTabs=[['s1','第一階'],['s2','第二階'],['s3','第三階'],['s4','證據'],['lot','停車場']];
+  let mh=`<div class="mstages">${stTabs.map(([id,n])=>`<button type="button" data-mstage="${id}" aria-pressed="${mStage===id}">${n}</button>`).join('')}</div>`;
+  const cellsM=mStage==='lot'?[['lot','停車場','還不知道歸哪一格']]:COLS.map(c=>[mStage+'-'+c.id,c.name,c.sub]);
+  if(mStage==='lot'&&!mOpen)mOpen='lot';
+  cellsM.forEach(([k,n,sub])=>{const list=by[k]||[];const open=mOpen===k;
+    mh+=`<div class="macc"><button type="button" data-mopen="${k}" aria-expanded="${open}">${n}<small>${sub}</small><span>${list.length} 張 ${open?'▴':'▾'}</span></button>${open?`<div class="mbody">${cellNotesHTML(list)}<button class="madd" type="button" data-add="${k}">＋ 貼一張到這格</button></div>`:''}</div>`;});
+  m.innerHTML=mh;
+  // 側欄統計
+  const tops=live.filter(n=>n.cell!=='lot');
+  const pinnedCells=new Set(live.filter(n=>n.pinned).map(n=>n.cell)).size;
+  document.getElementById('boardStat').innerHTML=`<span><b>${live.length}</b>便利貼</span><span><b>${pinnedCells}</b>定稿／16</span><span><b>${tops.filter(n=>n.mark==='ok').length}</b>✓</span><span><b>${tops.filter(n=>n.mark==='q').length}</b>？</span>`;
+  const ppl={};live.forEach(n=>{const p=ppl[n.author_id]=ppl[n.author_id]||{name:n.author_name,color:n.color,c:0};p.c++;p.name=n.author_name;p.color=n.color;});
+  document.getElementById('boardPeople').innerHTML=Object.values(ppl).sort((a,b)=>b.c-a.c).map(p=>{const c=colorOf(p.color);return `<div><i style="background:${c[0]};border-color:${c[1]}"></i>${esc(p.name)}<span>${p.c} 張</span></div>`;}).join('')||'<p>還沒有人貼。</p>';
+  const tr=boardNotes().filter(n=>n.deleted).sort((a,b)=>(b.updated_at||'').localeCompare(a.updated_at||'')).slice(0,8);
+  document.getElementById('boardTrash').innerHTML=tr.length?tr.map(n=>`<div><p title="${esc(n.text)}">${esc(n.author_name)}：${esc(n.text)}</p><button class="mini" type="button" data-restore="${esc(n.id)}">復原</button></div>`).join(''):'<p>沒有刪除的便利貼。</p>';
+}
+
+// 選單
+const menu=document.getElementById('noteMenu');
+function closeMenu(){menu.hidden=true;menu.innerHTML='';}
+function openMenu(id,anchor,mode){
+  const n=notes.get(id);if(!n)return;
+  let h='';
+  if(mode==='move'){
+    h='<div class="lbl">移到…</div>'+[...KEYS,'lot'].filter(k=>k!==n.cell).map(k=>`<button type="button" role="menuitem" data-mv="${k}">${cellLabel(k)}</button>`).join('')+'<hr><button type="button" role="menuitem" data-m="back">← 返回</button>';
+  }else{
+    h=`<button type="button" role="menuitem" data-m="ok">✓ 標為有來源</button><button type="button" role="menuitem" data-m="q">？ 標為待驗證</button><button type="button" role="menuitem" data-m="clear">清除記號</button><hr>
+    <button type="button" role="menuitem" data-m="ask">＋ 對這張提問</button>${n.cell!=='lot'&&!n.parent_id?`<button type="button" role="menuitem" data-m="pin">${n.pinned?'取消定稿':'📌 選為定稿（寫回設計表）'}</button>`:''}
+    ${canEdit(n)?'<button type="button" role="menuitem" data-m="edit">編輯</button>':''}<hr>
+    <button type="button" role="menuitem" data-m="move">移到… ▸</button>${n.cell!=='lot'?'<button type="button" role="menuitem" data-m="lot">移到停車場</button>':''}<hr>
+    <button type="button" role="menuitem" class="danger" data-m="del">刪除（可復原）</button>`;
+  }
+  menu.innerHTML=h;menu.dataset.id=id;menu.hidden=false;
+  const r=anchor.getBoundingClientRect();const mw=menu.offsetWidth,mhh=menu.offsetHeight;
+  let x=Math.min(r.left,window.innerWidth-mw-8),y=r.bottom+4;if(y+mhh>window.innerHeight-8)y=Math.max(8,r.top-mhh-4);
+  menu.style.left=Math.max(8,x)+'px';menu.style.top=y+'px';menu._anchor=anchor;
+  const f=menu.querySelector('button');if(f)f.focus();
+}
+menu.addEventListener('click',e=>{
+  e.stopPropagation();const b=e.target.closest('button');if(!b)return;const id=menu.dataset.id;const n=notes.get(id);if(!n){closeMenu();return;}
+  if(b.dataset.mv){closeMenu();moveNote(id,b.dataset.mv);return;}
+  const m=b.dataset.m;
+  if(m==='move'){openMenu(id,menu._anchor,'move');return;}
+  if(m==='back'){openMenu(id,menu._anchor);return;}
+  closeMenu();
+  if(m==='ok'||m==='q')nUpdate(id,{mark:m});
+  else if(m==='clear')nUpdate(id,{mark:''});
+  else if(m==='ask')openCompose({parent:id});
+  else if(m==='pin')togglePin(id);
+  else if(m==='edit')openCompose({editId:id});
+  else if(m==='lot')moveNote(id,'lot');
+  else if(m==='del')delNote(id);
+});
+document.addEventListener('click',e=>{if(!menu.hidden&&!menu.contains(e.target)&&!e.target.closest('[data-act="menu"]'))closeMenu();});
+window.addEventListener('scroll',()=>{if(!menu.hidden)closeMenu();},true);
+
+// 看板上的點擊
+document.getElementById('view-board').addEventListener('click',e=>{
+  const add=e.target.closest('[data-add]');if(add){openCompose({cell:add.dataset.add});return;}
+  const ms=e.target.closest('[data-mstage]');if(ms){mStage=ms.dataset.mstage;mOpen=null;renderBoard();return;}
+  const mo=e.target.closest('[data-mopen]');if(mo){mOpen=mOpen===mo.dataset.mopen?null:mo.dataset.mopen;renderBoard();return;}
+  const rs=e.target.closest('[data-restore]');if(rs){restoreNote(rs.dataset.restore);return;}
+  const act=e.target.closest('[data-act]');if(!act)return;
+  const id=act.closest('.note').dataset.id;
+  if(act.dataset.act==='menu'){e.stopPropagation();if(!menu.hidden&&menu.dataset.id===id){closeMenu();return;}openMenu(id,act);}
+  else if(act.dataset.act==='mark'){const n=notes.get(id);nUpdate(id,{mark:n.mark===''||!n.mark?'q':n.mark==='q'?'ok':''});}
+});
+document.getElementById('view-board').addEventListener('dblclick',e=>{const n=e.target.closest('.note');if(n&&canEdit(notes.get(n.dataset.id)))openCompose({editId:n.dataset.id});});
+// 拖曳
+const bv=document.getElementById('view-board');
+bv.addEventListener('dragstart',e=>{const n=e.target.closest('.note');if(!n)return;dragId=n.dataset.id;n.classList.add('dragging');try{e.dataTransfer.setData('text/plain',dragId);e.dataTransfer.effectAllowed='move';}catch(_){}});
+bv.addEventListener('dragend',e=>{const n=e.target.closest('.note');if(n)n.classList.remove('dragging');dragId=null;bv.querySelectorAll('.over').forEach(x=>x.classList.remove('over'));});
+bv.addEventListener('dragover',e=>{const c=e.target.closest('[data-cell]');if(!c||!dragId)return;e.preventDefault();bv.querySelectorAll('.over').forEach(x=>{if(x!==c)x.classList.remove('over');});c.classList.add('over');});
+bv.addEventListener('dragleave',e=>{const c=e.target.closest('[data-cell]');if(c&&!c.contains(e.relatedTarget))c.classList.remove('over');});
+bv.addEventListener('drop',e=>{const c=e.target.closest('[data-cell]');if(!c||!dragId)return;e.preventDefault();c.classList.remove('over');moveNote(dragId,c.dataset.cell);dragId=null;});
+
+// 讀取與即時
+async function loadNotes(){
+  if(!sb){notesMode='local';lsNotesLoad();renderBoard();return;}
+  const {data:rows,error}=await sb.from('notes').select('*').eq('room',ROOM);
+  if(error){notesMode='local';lsNotesLoad();renderBoard();
+    document.getElementById('boardHint').textContent='便利貼還沒連上資料庫（請老師先執行 notes.sql），目前只存在這台裝置。';console.warn(error);return;}
+  notesMode='db';notes.clear();(rows||[]).forEach(r=>notes.set(r.id,r));renderBoard();
+}
+function onNoteChange(p){
+  if(p.eventType==='DELETE'){if(p.old&&p.old.id)notes.delete(p.old.id);}
+  else if(p.new&&p.new.id){const cur=notes.get(p.new.id);if(!cur||(p.new.updated_at||'')>=(cur.updated_at||''))notes.set(p.new.id,p.new);}
+  renderBoard();
+}
+function trackPresence(){if(channel)try{channel.track({name:me?me.name:'訪客',color:me?me.color:7,at:Date.now()});}catch(e){}}
+function presenceText(){
+  if(!channel)return;const st=channel.presenceState();const names=[];Object.values(st).forEach(arr=>(arr||[]).forEach(p=>{if(p&&p.name)names.push(p.name);}));
+  const o=document.getElementById('online');o.hidden=names.length<1;document.getElementById('onlineText').textContent=names.length+' 人在線'+(names.length?'：'+names.slice(0,6).join('、')+(names.length>6?'…':''):'');
+}
+loadMe();renderMe();
 
 // ---------- 啟動 ----------
 renderTable();renderCases();
-let startSheet='a',startView='table';
-try{startSheet=localStorage.getItem(LS+'sheet')||'a';startView=localStorage.getItem(LS+'view')||'table';}catch(e){}
+let startSheet='shared',startView='board';
+try{startSheet=localStorage.getItem(LS+'sheet')||'shared';startView=localStorage.getItem(LS+'view')||'board';}catch(e){}
 document.getElementById('sheetSel').value=startSheet;
 loadSheet(startSheet);showView(startView);
 connect();
+if(!sb)loadNotes();
 })();
 </script>
 </body>
